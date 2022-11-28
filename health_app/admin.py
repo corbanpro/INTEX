@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import patient, ingredient, meal, dailyValue, units
+from .models import user, comorbidity, meal, dailyValue, unit, recipe
 
 # Register your models here.
-admin.site.register(patient)
-admin.site.register(ingredient)
+admin.site.register(user)
+admin.site.register(comorbidity)
 admin.site.register(meal)
 admin.site.register(dailyValue)
-admin.site.register(units)
+admin.site.register(unit)
+admin.site.register(recipe)

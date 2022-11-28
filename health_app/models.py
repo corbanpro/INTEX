@@ -1,7 +1,22 @@
 from django.db import models
 from datetime import datetime
 
-class patient(models.Model) :
+class comorbidity(models.Model) :
+    KidneyDiseaseStage = models.IntegerField()
+    highBloodPressure = models.BooleanField()
+    stroke = models.BooleanField()
+    obesity = models.BooleanField()
+    diabetes = models.BooleanField()
+    heartDisease = models.BooleanField()
+    smoker = models.BooleanField()
+
+    def __str__(self):
+        return (comorbidity)
+
+    class Meta:
+        db_table = 'Comorbidities'
+
+class user(models.Model) :
     email = models.EmailField( max_length=254)
     password = models.CharField(max_length=50)
     firstName = models.CharField(max_length=50)
@@ -10,80 +25,67 @@ class patient(models.Model) :
     height = models.IntegerField()
     weight = models.IntegerField()
     birthDate = models.DateTimeField(default= datetime.now, blank= True, max_length=5)
-    highBloodPressure = models.BooleanField()
-    stroke = models.BooleanField()
-    heartDisease = models.BooleanField()
-    obesity = models.BooleanField()
-    smoker = models.BooleanField()
-    diabetes = models.BooleanField()
-    KidneyDiseaseStage = models.IntegerField()
+    comorbidity = models.ForeignKey(comorbidity, default= 1, blank= False, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         fullName = self.lastName + ", " + self.firstName
         return (fullName)
 
     class Meta:
-        db_table = 'patients'
+        db_table = 'users'
 
 
-class meal(models.Model) :
+class recipe(models.Model) :
     name = models.CharField(max_length=50)
-    datetime = models.DateTimeField(default= datetime.now, blank= True, max_length=5)
-    calories = models.IntegerField()
-    fat = models.IntegerField()
-    protein = models.IntegerField()
-    carbs = models.IntegerField()
-    potassium = models.IntegerField()
-    phosphorous = models.IntegerField()
-    sodium = models.IntegerField()
-    water = models.IntegerField()
-    patient = models.ForeignKey(patient, default= 1, blank= False, on_delete=models.DO_NOTHING)
+    calories = models.FloatField()
+    fat = models.FloatField()
+    protein = models.FloatField()
+    carbs = models.FloatField()
+    water = models.FloatField()
+    potassium = models.FloatField()
+    phosphorous = models.FloatField()
+    sodium = models.FloatField()
     
     def __str__(self):
         return (self.name)
     
     class Meta:
-        db_table = 'meals'
+        db_table = 'Recipes'
 
+class meal(models.Model) :
+    datetime = models.DateTimeField(default= datetime.now, blank= True, max_length=5)
+    recipe = models.ForeignKey(recipe, default= 1, blank= False, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(user, default= 1, blank= False, on_delete=models.DO_NOTHING)
 
-class ingredient(models.Model) :
-    name = models.CharField(max_length=25)
-    calories = models.IntegerField()
-    fat = models.IntegerField()
-    protein = models.IntegerField()
-    carbs = models.IntegerField()
-    potassium = models.IntegerField()
-    phosphorous = models.IntegerField()
-    sodium = models.IntegerField()
-    meal = models.ManyToManyField(meal, blank= True)
 
     def __str__(self):
-        return (self.name)   
-
+        
+        return (recipe.name + ', ' + self.datetime)
+    
     class Meta:
-        db_table = 'ingredients'
+        db_table = 'Meals'
 
 
 class dailyValue(models.Model) :
-    Comorbidity = models.CharField(max_length=25)
-    calories = models.IntegerField()
-    fat = models.IntegerField()
-    protein = models.IntegerField()
-    carbs = models.IntegerField()
-    potassium = models.IntegerField()
-    phosphorous = models.IntegerField()
-    sodium = models.IntegerField()
-    water = models.IntegerField()
+    calories = models.FloatField()
+    fat = models.FloatField()
+    protein = models.FloatField()
+    carbs = models.FloatField()
+    water = models.FloatField()
+    potassium = models.FloatField()
+    phosphorous = models.FloatField()
+    sodium = models.FloatField()
+    comorbidity = models.OneToOneField(comorbidity, default= 1, on_delete=models.CASCADE)
 
 
     def __str__(self):
-        return (self.Comorbidity)   
+        return (self.comorbidity)   
 
     class Meta:
-        db_table = 'dailyValues'
+        db_table = 'Daily Values'
         
 
-class units(models.Model) :
+class unit(models.Model) :
     nutrient = models.CharField(max_length=50)
     unit = models.CharField(max_length=50)
 
@@ -93,4 +95,4 @@ class units(models.Model) :
         return (name)   
 
     class Meta:
-        db_table = 'units'
+        db_table = 'Units'
