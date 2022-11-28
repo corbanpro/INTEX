@@ -3,6 +3,6 @@ from .views import indexPageView, dashboardPageView, historyPageView
 
 urlpatterns = [
     path("", indexPageView, name="index"), 
-    path('dashboard/', dashboardPageView, name= 'dashboard'),
+    path('dash/', dashboardPageView, name= 'dash'),
     path('history/', historyPageView, name= 'history')
 ]                  
