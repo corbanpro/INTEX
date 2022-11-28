@@ -9,9 +9,12 @@ class patient(models.Model) :
     sex = models.CharField(max_length=1)
     height = models.IntegerField()
     weight = models.IntegerField()
+    birthDate = models.DateTimeField(default= datetime.now, blank= True, max_length=5)
     highBloodPressure = models.BooleanField()
     stroke = models.BooleanField()
     heartDisease = models.BooleanField()
+    obesity = models.BooleanField()
+    smoker = models.BooleanField()
     diabetes = models.BooleanField()
     KidneyDiseaseStage = models.IntegerField()
 
