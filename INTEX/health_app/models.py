@@ -34,7 +34,8 @@ class meal(models.Model) :
     phosphorous = models.IntegerField()
     sodium = models.IntegerField()
     water = models.IntegerField()
-
+    patient = models.ForeignKey(patient, default= 1, blank= False, on_delete=models.DO_NOTHING)
+    
     def __str__(self):
         return (self.name)
     
@@ -51,6 +52,7 @@ class ingredient(models.Model) :
     potassium = models.IntegerField()
     phosphorous = models.IntegerField()
     sodium = models.IntegerField()
+    meal = models.ManyToManyField(meal, blank= True)
 
     def __str__(self):
         return (self.name)   
