@@ -30,13 +30,13 @@ class user(models.Model) :
 
 class recipe(models.Model) :
     name = models.CharField(max_length=50)
-    calories = models.FloatField()
-    fat = models.FloatField()
-    protein = models.FloatField()
-    carbs = models.FloatField()
-    potassium = models.FloatField()
-    phosphorous = models.FloatField()
-    sodium = models.FloatField()
+    calories = models.FloatField(default= 0)
+    fat = models.FloatField(default= 0)
+    protein = models.FloatField(default= 0)
+    carbs = models.FloatField(default= 0)
+    potassium = models.FloatField(default= 0)
+    phosphorous = models.FloatField(default= 0)
+    sodium = models.FloatField(default= 0)
     water = models.FloatField(default= 0)
     
     def __str__(self):

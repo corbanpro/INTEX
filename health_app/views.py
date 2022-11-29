@@ -129,6 +129,17 @@ def addIngredientPageView(request, ingredient_id) :
 
     return render(request, 'health_app/dash.html', context)
 
+def addWaterPageView(request) :
+    amount = request.GET['water_added']
+
+    water = recipe()
+    water.name = 'water'
+    water.water = amount
+    water.save()
+
+    return render(request, 'health_app/dash.html')
+
+
 def historyPageView(request) :
     return render(request, 'health_app/history.html')
 
@@ -137,5 +148,6 @@ def registerPageView(request) :
 
 def loginPageView(request) :
     return render(request, 'health_app/login.html')
+
 
 
