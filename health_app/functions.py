@@ -1,5 +1,6 @@
 sawyer_api_key = '04fb037d86mshbc10cd2bcf9efc3p1b1aa2jsnb5518a2797b1' #Sawyer's API key
-api_key = sawyer_api_key
+toph_api_key = 'ffcbb1d69amsh90230347f7931d3p1536aejsn25568159361e'
+api_key = toph_api_key
 
 def searchRecipes(recipe):
     import requests
