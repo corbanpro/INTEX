@@ -11,13 +11,26 @@ def indexPageView(request) :
     }
     return render(request, 'health_app/index.html', context)
 
-def dashboardPageView(request) :
+def dashboardPageView(request, user) :
     context = {
-        'recipe_dict' : {},
+        'user' : user,
         'userID' : 1
     }
 
     return render(request, 'health_app/dash.html', context)
+
+## Create a new User
+def newUser(user_credentials):
+    new_user = user()
+    new_user.firstName = user_credentials['first_name']
+    new_user.lastName = user_credentials['last_name']
+    new_user.email = user_credentials['email']
+    new_user.password = user_credentials['password']
+    new_user.sex = user_credentials['sex']
+    new_user.height = user_credentials['height']
+    new_user.weight = user_credentials['weight']
+    new_user.birthDate = user_credentials['birth_date']
+    new_user.comorbidity = user_credentials['comorbidity']
 
 def dashboardRecipePageView(request) :
     recipe_name = request.GET['recipe_name']

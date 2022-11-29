@@ -38,7 +38,7 @@
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading text-light">Input a Recipe</div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><img src="{% static '/icons/log.svg'%} " class="svg-filter-light"></div>
+                        <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/log.svg'%} " class="svg-filter-light"></div>
                         <span class="text-light">Input a Recipe</span>
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
                     </a>
@@ -109,7 +109,7 @@
                     <div class="sb-sidenav-menu-heading text-light">Record Activity</div>
 
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><img src="/assets/icons/sun.svg" class="svg-filter-light"></div>
+                        <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/sun.svg'%}" class="svg-filter-light"></div>
                         <span class="text-light">Input Activity</span>
                         
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
@@ -150,15 +150,16 @@
 
                     <div class="sb-sidenav-menu-heading text-light">View Profile History</div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><img src="/assets/icons/feed-person.svg" class="svg-filter-light"></div>
+                        <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/feed-person.svg'%}" class="svg-filter-light"></div>
                         <span class="text-light">History</span>
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
                     </a>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                <div class="small">Logged in as:</div>
-                {{name}}
+                <div class="small">Logged in as: <span class="text-light">{name}</span></div>
+                
+                
             </div>
         </nav>
     </div>
@@ -166,7 +167,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4 bg-light">
-                <h1 class="mt-4">Welcome, {{name}}!</h1>
+                <h1 class="mt-4">Welcome, {name}!</h1>
                 <ol class="breadcrumb mb-4">
                     <!--<li class="breadcrumb-item active">Dashboard</li>-->
                 </ol>

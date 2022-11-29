@@ -13,11 +13,8 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="login.html">Login</a></li>
-                    <li><a class="dropdown-item" href="register.html">Register</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <!--<li><a class="dropdown-item" href="#!">Logout</a></li>--> 
-                    <li><a class="dropdown-item" href="password.html">Forgot Password</a></li>
+                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                    <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
                 </ul>
             </li>
         </ul>
@@ -32,9 +29,9 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">We prioritize preventative medicine</li>
                     </ol>
-                    <button>go to dash</button>
-                    <button>signup</button>
-                    <button>login</button>
+                    <a class= 'btn btn-light' href= "{% url 'dash' %}">go to dash</a>
+                    <a class= "btn btn-primary" href = "{% url 'login' %}">login</a>
+                    <a class = 'btn btn-light' href = "{% url 'register' %}">signup</a>
                 </div>
             </main>
             <footer class="py-4 bg-light mt-auto">

@@ -14,7 +14,7 @@ class comorbidity(models.Model) :
         db_table = 'Comorbidities'
 
 class user(models.Model) :
-    email = models.EmailField( max_length=254)
+    email = models.EmailField(max_length=254)
     password = models.CharField(max_length=50)
     firstName = models.CharField(max_length=50)
     lastName = models.CharField(max_length=50)
