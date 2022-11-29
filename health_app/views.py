@@ -11,7 +11,7 @@ def indexPageView(request) :
     }
     return render(request, 'health_app/index.html', context)
 
-def dashboardPageView(request, user) :
+def dashboardPageView(request) :
     context = {
         'user' : user,
         'userID' : 1
