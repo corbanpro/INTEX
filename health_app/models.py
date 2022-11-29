@@ -4,11 +4,7 @@ from datetime import datetime
 class comorbidity(models.Model) :
     KidneyDiseaseStage = models.IntegerField()
     highBloodPressure = models.BooleanField()
-    stroke = models.BooleanField()
-    obesity = models.BooleanField()
     diabetes = models.BooleanField()
-    heartDisease = models.BooleanField()
-    smoker = models.BooleanField()
 
     class Meta:
         db_table = 'Comorbidities'
