@@ -38,7 +38,6 @@ class recipe(models.Model) :
     fat = models.FloatField()
     protein = models.FloatField()
     carbs = models.FloatField()
-    water = models.FloatField()
     potassium = models.FloatField()
     phosphorous = models.FloatField()
     sodium = models.FloatField()
@@ -68,9 +67,8 @@ class dailyValue(models.Model) :
     fat = models.FloatField()
     protein = models.FloatField()
     carbs = models.FloatField()
-    water = models.FloatField()
     potassium = models.FloatField()
-    phosphorous = models.FloatField()
+    phosphorus = models.FloatField()
     sodium = models.FloatField()
     comorbidity = models.OneToOneField(comorbidity, default= 1, on_delete=models.CASCADE)
   
