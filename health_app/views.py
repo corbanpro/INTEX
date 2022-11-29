@@ -35,9 +35,11 @@ def dashboardUserPageView(request):
         new_user.weight = request.GET['txtWeight']
         new_user.birthDate = request.GET['birth_date']
         comob = []
-        if request.GET['cbHBP'] == checked:
+        if request.GET['cbHBP'] is True:
+            
+            ## append comorbidity object
             comob.append('High Blood Pressure')
-        if request.GET['cbDiabetes'] == checked:
+        if request.GET['cbDiabetes'] is True:
             comob.append('Diabetes')
         new_user.comorbidity = comob
 
