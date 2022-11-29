@@ -48,7 +48,6 @@
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Recipe Name</span>
                                 <form name="form" method="get" action="{% url 'dashRecipe' %}">
                                     <input type="text" class="form-control" name='recipe_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                    <input type='submit' value='Enter'>
                                 </form>
                             </div>
                             <div class="input-group input-group-sm mb-3">
@@ -60,7 +59,7 @@
                     <div class="sb-sidenav-menu-heading text-light">Record Activity</div>
                     {% for key, value in recipe_dict.items %}
                         <li>
-                            {{key}}
+                            <a href="{% url 'addRecipe' %}">{{key}}</a>
                         </li>
                     {% endfor %}
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

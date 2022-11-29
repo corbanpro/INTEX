@@ -25,6 +25,15 @@ def dashboardRecipePageView(request) :
 
     return render(request, 'health_app/dash.html', context)
 
+def addRecipePageView(request) :
+    # add recipe
+    context = {
+
+    }
+
+    return render(request, 'health_app/dash.html', context)
+
+
 
 def historyPageView(request) :
     return render(request, 'health_app/history.html')
