@@ -20,17 +20,27 @@ def dashboardPageView(request) :
     return render(request, 'health_app/dash.html', context)
 
 ## Create a new User
-def newUser(user_credentials):
-    new_user = user()
-    new_user.firstName = user_credentials['first_name']
-    new_user.lastName = user_credentials['last_name']
-    new_user.email = user_credentials['email']
-    new_user.password = user_credentials['password']
-    new_user.sex = user_credentials['sex']
-    new_user.height = user_credentials['height']
-    new_user.weight = user_credentials['weight']
-    new_user.birthDate = user_credentials['birth_date']
-    new_user.comorbidity = user_credentials['comorbidity']
+def dashboardUserPageView(request):
+    if request.method == 'Post':
+        new_user = user()
+        new_user.firstName = request.GET['first_name']
+        new_user.lastName = request.GET['last_name']
+        new_user.email = request.GET['email']
+        new_user.password = request.GET['password']
+        new_user.sex = request.GET['listSex']
+        
+        feet_ht = request.GET['txtFtHeight']
+        in_ht = request.GET['txtInHeight']
+        tot_ht = feet_ht + in_ht
+        new_user.height = request.GET['tot_ht']
+        new_user.weight = request.GET['txtWeight']
+        new_user.birthDate = request.GET['birth_date']
+        new_user.comorbidity = request.GET['comorbidity']
+
+        new_user.save()
+
+        dashboardPageView(request, new_user)
+
 
 def dashboardRecipePageView(request) :
     recipe_name = request.GET['recipe_name']
