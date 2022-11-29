@@ -10,5 +10,13 @@
     <h1>
         Index
     </h1>
+    <form name="form" method="post" action="{% url 'index' %}">
+        <input type="text" name='recipe_name' id='Recipe_name'>
+        <button type="submit" >Submit</button>
+    </form>
+
+    <p>{{recipes}}</p>
+
+
 </body>
 </html>
