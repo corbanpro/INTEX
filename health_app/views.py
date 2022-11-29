@@ -8,8 +8,6 @@ def indexPageView(request) :
     }
     return render(request, 'health_app/index.html', context)
 
-
-
 def dashboardPageView(request) :
     context = {
         'recipe_dict' : {}
@@ -25,10 +23,13 @@ def dashboardRecipePageView(request) :
 
     return render(request, 'health_app/dash.html', context)
 
-
 def historyPageView(request) :
     return render(request, 'health_app/history.html')
 
+def registerPageView(request) :
+    return render(request, 'health_app/register.html')
 
+def loginPageView(request) :
+    return render(request, 'health_app/login.html')
 
 
