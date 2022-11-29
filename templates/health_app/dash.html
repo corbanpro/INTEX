@@ -36,10 +36,10 @@
         <nav class="sb-sidenav accordion bg-secondary" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading text-light">Input a Recipe</div>
+                    <div class="sb-sidenav-menu-heading text-light">Add a Meal</div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/log.svg'%} " class="svg-filter-light"></div>
-                        <span class="text-light">Input a Recipe</span>
+                        <span class="text-light">Add a Meal</span>
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
@@ -47,13 +47,19 @@
                             <div class="input-group input-group-sm mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Recipe Name</span>
                                 <form name="form" method="get" action="{% url 'dashRecipe' %}">
-                                    <input type="text" class="form-control" name='recipe_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" class="form-control" name='recipe_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Enter a Recipe Name'>
                                 </form>
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Ingredients</span>
                                 <form name="form" method="get" action="{% url 'dashIngredient' %}">
-                                    <input type="text" class="form-control" name='ingredient_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="text" class="form-control" name='ingredient_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Enter an Ingredient Name'>
+                                </form>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-sm">Water</span>
+                                <form name="form" method="get" action="{% url 'dashIngredient' %}">
+                                    <input type="text" class="form-control" name='ingredient_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Water in Cups'>
                                 </form>
                             </div>
                         </nav>
