@@ -52,10 +52,13 @@
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Ingredients</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                <form name="form" method="get" action="{% url 'dashIngredient' %}">
+                                    <input type="text" class="form-control" name='ingredient_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </form>
                             </div>
                         </nav>
                     </div>
+
                     {% if recipe_dict %}
                     <form name='form' action="{% url 'addRecipe' %}" method='Post'>
                         {% csrf_token %}
@@ -69,9 +72,41 @@
                         <button type="submit">Select</button>
                     </form>
                     {% endif %}
+
+                    {% if ingredient_dict %}
+                    <form name='form' action="{% url 'ingredientUnit' %}" method='Get'>
+                        {% csrf_token %}
+                        <select name="selected_ingredient" id="">
+                            {% for key, value in ingredient_dict.items %}
+                                <option value="{{value}}" selected='selected'>
+                                    {{key}}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Select</button>
+                    </form>
+                    {% endif %}
+
+
+                    {% if measure_list %}
+                    <form name='form' action="{% url 'addIngredient' ingredient_id=ingredient_id %}" method='Post'>
+
+                        {% csrf_token %}
+                        <select name="selected_measure" id="">
+                            {% for measure in measure_list %}
+                                <option value="{{measure}}" selected='selected'>
+                                    {{measure}}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <input type="text" class="form-control" name='selected_amount' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+
+                        <button type="submit">Select</button>
+                    </form>
+                    {% endif %}
+
+
                     <div class="sb-sidenav-menu-heading text-light">Record Activity</div>
-
-
 
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><img src="/assets/icons/sun.svg" class="svg-filter-light"></div>

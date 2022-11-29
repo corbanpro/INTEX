@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from .functions import searchRecipes, getRecipeInformation
+from .functions import searchRecipes, getRecipeInformation, searchIngredients, getIngredientInformation1, getIngredientInformation2
 from .models import user, recipe, meal
 from datetime import datetime
+from django.http import HttpResponse
 
 
 def indexPageView(request) :
@@ -56,7 +57,48 @@ def addRecipePageView(request) :
 
     return render(request, 'health_app/dash.html', context)
 
+def dashboardIngredientPageView(request) :
+    ingredient_name = request.GET['ingredient_name']
 
+    context = {
+        'ingredient_dict' : searchIngredients(ingredient_name),
+    }
+
+    return render(request, 'health_app/dash.html', context)
+
+def dashboardIngredientUnitPageView(request) :
+    ingredient_id = request.GET['selected_ingredient']
+
+    context = {
+        'measure_list' : getIngredientInformation1(ingredient_id),
+        'ingredient_id' : ingredient_id
+    }
+
+    return render(request, 'health_app/dash.html', context)
+
+def addIngredientPageView(request, ingredient_id) :
+    amount = request.POST.get('selected_amount')
+    unit = request.POST.get('selected_unit')
+    ingredient_dict = getIngredientInformation2(ingredient_id, amount, unit)
+
+    new_ingredient = recipe()
+
+    new_ingredient.name = ingredient_dict['name']
+    new_ingredient.fat = ingredient_dict['fat']
+    new_ingredient.protein = ingredient_dict['protein']
+    new_ingredient.carbs = ingredient_dict['carbs']
+    new_ingredient.potassium = ingredient_dict['potassium']
+    new_ingredient.phosphorous = ingredient_dict['phosphorus']
+    new_ingredient.sodium = ingredient_dict['sodium']
+    new_ingredient.calories = ingredient_dict['calories'] 
+    new_ingredient.save()
+
+
+    context = {
+
+    }
+
+    return render(request, 'health_app/dash.html', context)
 
 def historyPageView(request) :
     return render(request, 'health_app/history.html')
