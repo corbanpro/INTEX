@@ -45,7 +45,10 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <div class="input-group input-group-sm mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Recipe Name</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                <form name="form" method="get" action="{% url 'dashRecipe' %}">
+                                    <input type="text" class="form-control" name='recipe_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    <input type='submit' value='Enter'>
+                                </form>
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Ingredients</span>
@@ -54,7 +57,11 @@
                         </nav>
                     </div>
                     <div class="sb-sidenav-menu-heading text-light">Record Activity</div>
-                    
+                    {% for recipe in recipe_dict %}
+                        <li>
+                            {{recipe_dict[recipe]}}
+                        </li>
+                    {% endfor %}
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><img src="/assets/icons/sun.svg" class="svg-filter-light"></div>
                         <span class="text-light">Input Activity</span>

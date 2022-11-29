@@ -3,21 +3,28 @@ from .functions import searchRecipes
 
 
 def indexPageView(request) :
-    # recipe_name = request.GET['recipe_name']
-    # returned_recipes = searchRecipes(recipe_name)    
-    # context = {
-    #         'recipes' : returned_recipes['Chicken Quesadilla']
-    #     }
-
-    return render(request, 'health_app/index.html')
-
-    # else: 
-    #     return render(request, 'health_app/index.html')
+    context = {
+        'recipedict' : searchRecipes('chicken quesadilla')
+    }
+    return render(request, 'health_app/index.html', context)
 
 
 
 def dashboardPageView(request) :
-    return render(request, 'health_app/dash.html')
+    context = {
+        'recipe_dict' : {}
+    }
+
+    return render(request, 'health_app/dash.html', context)
+
+def dashboardRecipePageView(request) :
+    recipe_name = request.GET['recipe_name']
+    context = {
+        'recipe_dict' : searchRecipes(recipe_name)
+    }
+
+    return render(request, 'health_app/dash.html', context)
+
 
 def historyPageView(request) :
     return render(request, 'health_app/history.html')
