@@ -6,6 +6,6 @@ urlpatterns = [
     path('dashRecipe', dashboardRecipePageView, name= 'dashRecipe'),
     path('dash/', dashboardPageView, name= 'dash'),
     path('history/', historyPageView, name= 'history'),
-    path('register/', reigsterPageView, name= 'register'),
+    path('register/', registerPageView, name= 'register'),
     path('login/', loginPageView, name = 'login')
 ]                  
