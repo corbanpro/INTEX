@@ -28,14 +28,18 @@ def dashboardUserPageView(request):
         new_user.email = request.GET['email']
         new_user.password = request.GET['password']
         new_user.sex = request.GET['listSex']
-        
-        feet_ht = request.GET['txtFtHeight']
-        in_ht = request.GET['txtInHeight']
-        tot_ht = feet_ht + in_ht
-        new_user.height = request.GET['tot_ht']
+        feet_ht = int(request.GET['txtFtHeight'])
+        in_ht = int(request.GET['txtInHeight'])
+        tot_ht = (feet_ht * 12) + in_ht
+        new_user.height = tot_ht
         new_user.weight = request.GET['txtWeight']
         new_user.birthDate = request.GET['birth_date']
-        new_user.comorbidity = request.GET['comorbidity']
+        comob = []
+        if request.GET['cbHBP'] == checked:
+            comob.append('High Blood Pressure')
+        if request.GET['cbDiabetes'] == checked:
+            comob.append('Diabetes')
+        new_user.comorbidity = comob
 
         new_user.save()
 
