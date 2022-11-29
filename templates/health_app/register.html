@@ -28,6 +28,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row mb-3">
                                         <div class="col-md-6">
                                             <div class="form-floating">
                                                 <input class="form-control" id="inputDOB" type="date" placeholder="Enter your date of birth" />
@@ -36,25 +37,39 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <label for="sex">Gender</label>
-                                                <select name="sex" id="listGender">
-                                                    <option value="M">Male</option>
-                                                    <option value="F">Female</option>
+                                                <label for="sex" class="form-control" >Sex</label>
+                                                <select name="sex" id="listSex">
+                                                    <option value="M" onclick="replaceDropdown('listSex', 'Male')">Male</option>
+                                                    <option value="F" onclick="replaceDropdown('listSex', 'Female')">Female</option>
                                                 </select>
 \                                                </div>
                                         </div>
+                                    </div>
+                                    <div class="row mb-3">
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input type="number" id="txtFtHeight" name="txtFtHeight" value="0">
-                                                <label for="inputHeightFt">Height (ft)</label>
-                                                <br>
-                                                <input type="number" id="txtInHeight" name="txtInHeight" value="0">
-                                                <label for="inputHeightIn">Height (inch)</label>
-                                                <br>
-                                                <input type="number" id="txtWeight" name="txtWeight" value="0">
-                                                <label for="inputWeight">Weight (lbs)</label>                                                    
+                                                <input class="form-control" type="number" id="txtFtHeight" name="txtFtHeight" value="0">
+                                                <label for="txtFtHeight">Height (ft)</label>                                        
                                             </div>
                                         </div>  
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input class="form-control" type="number" id="txtInHeight" name="txtInHeight" value="0">
+                                                <label for="txtInHeight">Height (inch)</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input class="form-control" type="number" id="txtWeight" name="txtWeight" value="0">
+                                                <label for="txtWeight">Weight (lbs)</label>   
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
                                         <div class="col-md-6">     
                                             <div>
                                                 <input type="checkbox" id="cbHBP" name="comorbitities" value="HBP">
@@ -66,15 +81,16 @@
                                         <div class="col-md-6">
                                             <div class="form-floating">
                                                 <label for="kidneyDS">Kidney Disease Stage</label>
-                                                <select name="kidneyDS" id="kidneyDS">
+                                                <select class="form-control" name="kidneyDS" id="kidneyDS">
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
                                                     <option value="4">4</option>
                                                     <option value="5">5</option>
                                                 </select>
-\                                                </div>
+                                                </div>
                                         </div>
+                                    </div>
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
                                             <label for="inputEmail">Email address</label>
@@ -122,4 +138,9 @@
             </footer>
         </div>
     </div>
+    <script>
+        function replaceDropdown(id, value) {
+            document.getElementById(id).innerHTML = value
+        }
+    </script>
 {% endblock %}
