@@ -34,14 +34,14 @@ def dashboardUserPageView(request):
         new_user.height = tot_ht
         new_user.weight = request.GET['txtWeight']
         new_user.birthDate = request.GET['birth_date']
-        comob = []
+        comorb = []
         if request.GET['cbHBP'] is True:
             
             ## append comorbidity object
-            comob.append('High Blood Pressure')
+            comorb.append('High Blood Pressure')
         if request.GET['cbDiabetes'] is True:
-            comob.append('Diabetes')
-        new_user.comorbidity = comob
+            comorb.append('Diabetes')
+        new_user.comorbidity = comorb
 
         new_user.save()
 
