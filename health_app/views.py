@@ -21,6 +21,17 @@ def dashboardPageView(request) :
 
 ## Create a new User
 def dashboardUserPageView(request):
+
+    context = {
+        'pCarb': 100,
+        'pPro' : 50,
+        'pFat' : 20,
+        'pWat' : 100,
+        'pSod' : 60,
+        'pPho' : 77,
+        'pPot' : 8
+    }
+
     if request.method == 'Post':
         new_user = user()
         new_user.firstName = request.GET['first_name']
@@ -45,7 +56,7 @@ def dashboardUserPageView(request):
 
         new_user.save()
 
-        dashboardPageView(request, new_user)
+        dashboardPageView(request, 'health_app/dash.html', context)
 
 
 def dashboardRecipePageView(request) :
