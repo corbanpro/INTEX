@@ -27,7 +27,7 @@ def dashboardRecipePageView(request) :
 
     return render(request, 'health_app/dash.html', context)
 
-def addRecipePageView(request, userID) :
+def addRecipePageView(request) :
     recipe_id = request.POST['selected_recipe']
     recipe_dict = getRecipeInformation(recipe_id)
 

@@ -56,21 +56,22 @@
                             </div>
                         </nav>
                     </div>
+                    {% if recipe_dict %}
+                    <form name='form' action="{% url 'addRecipe' %}" method='Post'>
+                        {% csrf_token %}
+                        <select name="selected_recipe" id="">
+                            {% for key, value in recipe_dict.items %}
+                                <option value="{{value}}" selected='selected'>
+                                    {{key}}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Select</button>
+                    </form>
+                    {% endif %}
                     <div class="sb-sidenav-menu-heading text-light">Record Activity</div>
 
-                    {% if recipe_dict %}
-                        <form name='form' action="{% url 'addRecipe' userID=userID %}" method='Post'>
-                            {% csrf_token %}
-                            <select name="selected_recipe" id="">
-                                {% for key, value in recipe_dict.items %}
-                                    <option value="{{value}}" selected='selected'>
-                                        {{key}}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                            <button type="submit">Select</button>
-                        </form>
-                    {% endif %}
+
 
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><img src="/assets/icons/sun.svg" class="svg-filter-light"></div>
