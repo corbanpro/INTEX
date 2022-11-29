@@ -1,22 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>
-        Index
-    </h1>
-    <form name="form" method="post" action="{% url 'index' %}">
-        <input type="text" name='recipe_name' id='Recipe_name'>
-        <button type="submit" >Submit</button>
-    </form>
+{% extends 'base.html'%}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+<body class="sb-nav-fixed sb-sidenav-toggled index-background">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+        <!-- Navbar Search-->
+        
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" >
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="login.html">Login</a></li>
+                    <li><a class="dropdown-item" href="register.html">Register</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <!--<li><a class="dropdown-item" href="#!">Logout</a></li>--> 
+                    <li><a class="dropdown-item" href="password.html">Forgot Password</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
-    <p>{{recipes}}</p>
 
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Dashboard</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
 
-</body>
-</html>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Down with Dialysis 2022</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+{% endblock %}
