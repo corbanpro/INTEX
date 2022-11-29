@@ -10,9 +10,6 @@ class comorbidity(models.Model) :
     heartDisease = models.BooleanField()
     smoker = models.BooleanField()
 
-    def __str__(self):
-        return (comorbidity)
-
     class Meta:
         db_table = 'Comorbidities'
 
@@ -24,7 +21,7 @@ class user(models.Model) :
     sex = models.CharField(max_length=1)
     height = models.IntegerField()
     weight = models.IntegerField()
-    birthDate = models.DateTimeField(default= datetime.now, blank= True, max_length=5)
+    birthDate = models.DateField(default= datetime.now, blank= True, max_length=5)
     comorbidity = models.ForeignKey(comorbidity, default= 1, blank= False, on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -76,10 +73,7 @@ class dailyValue(models.Model) :
     phosphorous = models.FloatField()
     sodium = models.FloatField()
     comorbidity = models.OneToOneField(comorbidity, default= 1, on_delete=models.CASCADE)
-
-
-    def __str__(self):
-        return (self.comorbidity)   
+  
 
     class Meta:
         db_table = 'Daily Values'
