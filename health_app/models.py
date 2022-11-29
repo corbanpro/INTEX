@@ -37,6 +37,7 @@ class recipe(models.Model) :
     potassium = models.FloatField()
     phosphorous = models.FloatField()
     sodium = models.FloatField()
+    water = models.FloatField(default= 0)
     
     def __str__(self):
         return (self.name)
