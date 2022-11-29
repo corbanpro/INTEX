@@ -59,7 +59,7 @@
                     <div class="sb-sidenav-menu-heading text-light">Record Activity</div>
 
                     {% if recipe_dict %}
-                        <form name='form' action="{% url 'addRecipe' %}" method='Post'>
+                        <form name='form' action="{% url 'addRecipe' userID=userID %}" method='Post'>
                             {% csrf_token %}
                             <select name="selected_recipe" id="">
                                 {% for key, value in recipe_dict.items %}

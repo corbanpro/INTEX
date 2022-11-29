@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .functions import searchRecipes, getRecipeInformation
-from .models import user, recipe
+from .models import user, recipe, meal
+from datetime import datetime
 
 
 def indexPageView(request) :
@@ -11,7 +12,8 @@ def indexPageView(request) :
 
 def dashboardPageView(request) :
     context = {
-        'recipe_dict' : {}
+        'recipe_dict' : {},
+        'userID' : 1
     }
 
     return render(request, 'health_app/dash.html', context)
@@ -19,12 +21,13 @@ def dashboardPageView(request) :
 def dashboardRecipePageView(request) :
     recipe_name = request.GET['recipe_name']
     context = {
-        'recipe_dict' : searchRecipes(recipe_name)
+        'recipe_dict' : searchRecipes(recipe_name),
+        'userID' : 1
     }
 
     return render(request, 'health_app/dash.html', context)
 
-def addRecipePageView(request) :
+def addRecipePageView(request, userID) :
     recipe_id = request.POST['selected_recipe']
     recipe_dict = getRecipeInformation(recipe_id)
 
@@ -39,6 +42,13 @@ def addRecipePageView(request) :
     new_recipe.sodium = recipe_dict['sodium']
     new_recipe.calories = recipe_dict['calories'] 
     new_recipe.save()
+
+    new_meal = meal()
+    new_meal.datetime = datetime.now()
+    new_meal.recipe = new_recipe
+    # new_meal.user = user
+    # new_meal.save()
+
 
     context = {
 
