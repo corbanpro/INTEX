@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import indexPageView, dashboardPageView, historyPageView, dashboardRecipePageView, registerPageView, loginPageView, addRecipePageView, addIngredientPageView, dashboardIngredientPageView, dashboardIngredientUnitPageView, dashboardUserPageView, addWaterPageView, dashboardLoginPageView
+from .views import indexPageView, dashboardPageView, historyPageView, dashboardRecipePageView, registerPageView, loginPageView, addRecipePageView, addIngredientPageView, dashboardIngredientPageView, dashboardIngredientUnitPageView, dashboardUserPageView, addWaterPageView, dashboardLoginPageView, updateRecipe
 
 urlpatterns = [
     path("", indexPageView, name="index"), 
@@ -17,6 +17,7 @@ urlpatterns = [
     path('addWater/<int:user_id>', addWaterPageView, name= 'addWater'),
     path('dashLogin/', dashboardLoginPageView, name= 'dashLogin'),
     path('dashLogin/', dashboardPageView, name= 'pickNut'),
+    path('update/', updateRecipe, name='update_recipe'),
     # path('dashPie/', pieChart, name='pieChart' )
 
 
