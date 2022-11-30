@@ -11709,7 +11709,7 @@ body {
 }
 .index-background {
   margin-top:100px;
-  background-image: url('../assets/img/index_bg.png');
+  background-image: url('../admin/img/index_bg.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
