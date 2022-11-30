@@ -3,6 +3,7 @@ from .views import indexPageView, dashboardPageView, historyPageView, dashboardR
 
 urlpatterns = [
     path("", indexPageView, name="index"), 
+    path('dashIngredient/', dashboardIngredientPageView, name= 'dashIngredient'),
     path('dashRecipe', dashboardRecipePageView, name= 'dashRecipe'),
     path('dashUser', dashboardUserPageView, name='dashUser'),
     path('dash/', dashboardPageView, name= 'dash'),
@@ -10,7 +11,6 @@ urlpatterns = [
     path('addRecipe/', addRecipePageView, name= 'addRecipe'),
     path('register/', registerPageView, name= 'register'),
     path('login/', loginPageView, name = 'login'),
-    path('dashIngredient/', dashboardIngredientPageView, name= 'dashIngredient'),
     path('ingredientUnit/', dashboardIngredientUnitPageView, name= 'ingredientUnit'),  
     path('addIngredient/<int:ingredient_id>', addIngredientPageView, name= 'addIngredient'),
     path('addwater/', addWaterPageView, name= 'addWater')
