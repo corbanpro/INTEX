@@ -2,7 +2,7 @@ from django.db import models
 from datetime import datetime
 
 class comorbidity(models.Model) :
-    KidneyDiseaseStage = models.IntegerField()
+    kidneyDiseaseStage = models.IntegerField()
     highBloodPressure = models.BooleanField()
     diabetes = models.BooleanField()
 
