@@ -194,7 +194,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         tPot += recipe.potassium
 
     dvCarbs = daily_val.carbs
-    dvPro = daily_val.protein
+    dvPro = user.weight * .08 / 2.2
     dvFat = daily_val.fat
     dvWat = daily_val.water
     dvSod = daily_val.sodium
