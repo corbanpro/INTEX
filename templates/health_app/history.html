@@ -31,132 +31,6 @@
 
 <div id="layoutSidenav">
     
-    <div id="layoutSidenav_nav">
-        <nav class="sb-sidenav accordion bg-secondary" id="sidenavAccordion">
-            <div class="sb-sidenav-menu">
-                <div class="nav">
-                    <div class="sb-sidenav-menu-heading text-light">Input a Recipe</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/log.svg'%} " class="svg-filter-light"></div>
-                        <span class="text-light">Input a Recipe</span>
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Recipe Name</span>
-                                <form name="form" method="get" action="{% url 'dashRecipe' user_id=user.id %}">
-                                    <input type="text" class="form-control" name='recipe_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Enter a Recipe Name'>
-                                </form>
-                            </div>
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Ingredients</span>
-                                <form name="form" method="get" action="{% url 'dashIngredient' user_id=user.id %}">
-                                    <input type="text" class="form-control" name='ingredient_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Enter an Ingredient Name'>
-                                </form>
-                            </div>
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Water</span>
-                                <form name="form" method="get" action="{% url 'addWater' user_id=user.id %}">
-                                    <input type="text" class="form-control" name='water_added' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Water in Cups'>
-                                </form>
-                            </div>
-                        </nav>
-                    </div>
-
-                    {% if recipe_dict %}
-                    <form name='form' action="{% url 'addRecipe' user_id=user.id %}" method='Post'>
-                        {% csrf_token %}
-                        <select name="selected_recipe" id="">
-                            {% for key, value in recipe_dict.items %}
-                                <option value="{{value}}" selected='selected'>
-                                    {{key}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit">Select</button>
-                    </form>
-                    {% endif %}
-
-                    {% if ingredient_dict %}
-                    <form name='form' action="{% url 'ingredientUnit' user_id=user.id %}" method='Get'>
-                        {% csrf_token %}
-                        <select name="selected_ingredient" id="">
-                            {% for key, value in ingredient_dict.items %}
-                                <option value="{{value}}" selected='selected'>
-                                    {{key}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit">Select</button>
-                    </form>
-                    {% endif %}
-
-
-                    {% if measure_list %}
-                    <form name='form' action="{% url 'addIngredient' ingredient_id=ingredient_id user_id=user.id %}" method='Post'>
-
-                        {% csrf_token %}
-                        <select name="selected_measure" id="">
-                            {% for measure in measure_list %}
-                                <option value="{{measure}}" selected='selected'>
-                                    {{measure}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <input type="text" class="form-control" name='selected_amount' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-
-                        <button type="submit">Select</button>
-                    </form>
-                    {% endif %}
-
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/sun.svg'%}" class="svg-filter-light"></div>
-                        <span class="text-light">Input Activity</span>
-                        
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
-                    </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                <span class="text-light">Exercise</span>
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Description</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="number" class="form-control" aria-label="Text input with dropdown button">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="exercise-dropdown" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="#" onclick="replaceDropdown('exercise-dropdown', 'Minutes')">Minutes</a></li>
-                                        <li><a class="dropdown-item" href="#" onclick="replaceDropdown('exercise-dropdown', 'Hours')">Hours</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                <span class="text-light">Other</span>
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
-                            </a>
-                        </nav>
-                    </div>
-
-                    <div class="sb-sidenav-menu-heading text-light">View My Dashboard</div>
-                    <a class="nav-link collapsed" href="{% url 'dash' user_id=user.id%}" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/feed-person.svg'%}" class="svg-filter-light"></div>
-                        <span class="text-light">View My Dashboard</span></a>
-                </div>
-            </div>
-            <div class="sb-sidenav-footer">
-                <div class="small">Logged in as: <span class="text-light">{{name}}</span></div>
-                
-                
-            </div>
-        </nav>
-    </div>
-    
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4 bg-light">
@@ -179,17 +53,17 @@
                                     const myChart = new Chart(ctx, {
                                         type: 'bar',
                                         data: {
-                                            labels: ['Carbs', 'Protien', 'Fat', 'Water', 'Sodium', 'phosphorus', 'Potassium'],
+                                            labels: [{{fCarb}}, {{fPro}}, {{fFat}}, {{fWat}}, {{fSod}}, {{fPho}}, {{fPot}}],
                                             datasets: [{
                                                 label: '# of Votes',
                                                 data: [12, 19, 3, 5, 2, 3, 100],
                                                 backgroundColor: [
-                                                    'rgba(239, 90, 36, 0.8)',
-                                                    'rgba(70, 70, 70, 0.8)',
-                                                    'rgba(25, 135, 84, 0.8)',
-                                                    'rgba(185, 125, 192, 0.8)',
-                                                    'rgba(255, 217, 112, 0.8)',
-                                                    'rgba(224, 52, 0, 0.8)'
+                                                'rgba(239, 90, 36, 0.8)',
+                                                'rgba(70, 70, 70, 0.8)',
+                                                'rgba(25, 135, 84, 0.8)',
+                                                'rgba(185, 125, 192, 0.8)',
+                                                'rgba(255, 217, 112, 0.8)',
+                                                'rgba(224, 52, 0, 0.8)'
                                                 ],
                                                 borderColor: [
                                                     'rgba(239, 90, 36, 1)',
