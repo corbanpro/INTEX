@@ -149,5 +149,25 @@ def registerPageView(request) :
 def loginPageView(request) :
     return render(request, 'health_app/login.html')
 
+def dashboardLoginPageView(request) :
+    useremail = request.GET.get('email')
+    userpassword = request.GET.get('password')
+
+    try :
+        USER = user.objects.get(email = useremail, password = userpassword)
+    except :
+        
+        return render(request, 'health_app/login.html')
+
+    context = {
+        'user' : USER
+    }
+
+    return render(request, 'health_app/dash.html', context)
+
+
+    
+
+
 
 
