@@ -296,8 +296,6 @@
                     </div>
                 </div>
 
-
-
                 </div>
                 <div class="card mb-4">
                     <div class="card-header">
@@ -334,13 +332,13 @@
                                 {% for suggested_recipe in suggested_recipe_list %}
                                 <tr>
                                     <td>{{suggested_recipe.title}}</td>
-                                    <td>{{suggested_recipe.calories}}</td>
-                                    <td>{{suggested_recipe.carbs}}</td>
-                                    <td>{{suggested_recipe.protein}}</td>
-                                    <td>{{suggested_recipe.fat}}</td>
-                                    <td>{{suggested_recipe.sodium}}</td>
-                                    <td>{{suggested_recipe.phosphorus}}</td>
-                                    <td>{{suggested_recipe.potassium}}</td>
+                                    <td>{{suggested_recipe.calories}}{{calUnit}}</td>
+                                    <td>{{suggested_recipe.carbs}}{{carUnit}}</td>
+                                    <td>{{suggested_recipe.protein}}{{proUnit}}</td>
+                                    <td>{{suggested_recipe.fat}}{{fatUnit}}</td>
+                                    <td>{{suggested_recipe.sodium}}{{sodUnit}}</td>
+                                    <td>{{suggested_recipe.phosphorus}}{{phoUnit}}</td>
+                                    <td>{{suggested_recipe.potassium}}{{potUnit}}</td>
                                 </tr>
                                 {% endfor %}
 
