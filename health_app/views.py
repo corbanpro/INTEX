@@ -7,7 +7,6 @@ from django.http import HttpResponse
 
 def indexPageView(request) :
     context = {
-        'recipedict' : searchRecipes('chicken quesadilla')
     }
     return render(request, 'health_app/index.html', context)
 
@@ -40,28 +39,39 @@ def dashboardPageView(request) :
 ## Create a new User
 def dashboardUserPageView(request):
 
-    if request.method == 'Post':
-        new_user = user()
-        new_user.firstName = request.GET['first_name']
-        new_user.lastName = request.GET['last_name']
-        new_user.email = request.GET['inputEmail']
-        new_user.password = request.GET['inputPassword']
-        new_user.sex = request.GET['listSex']
-        feet_ht = int(request.GET['txtFtHeight'])
-        in_ht = int(request.GET['txtInHeight'])
-        tot_ht = (feet_ht * 12) + in_ht
-        new_user.height = tot_ht
-        new_user.weight = request.GET['txtWeight']
-        new_user.birthDate = request.GET['birth_date']
-        if request.GET['cbHBP'] == 'HBP' : HBP = True 
-        else : HBP = False
-        if request.GET['cbDiabetes'] == 'Diabetes' : DB = True 
-        else : DB = False
-        KDS = request.GET['comorb_kds']
-        new_user.comorbidity = comorbidity.objects.get(highBloodPressure = HBP, diabetes = DB, kidneyDiseaseStage = KDS)
-        new_user.save()
+    new_user = user()
+    new_user.firstName = request.POST.get('first_name')
+    new_user.lastName = request.POST.get('last_name')
+    new_user.email = request.POST.get('inputEmail')
+    new_user.password = request.POST.get('inputPassword')
+    new_user.sex = request.POST.get('listSex')
+    feet_ht = int(request.POST.get('txtFtHeight'))
+    in_ht = int(request.POST.get('txtInHeight'))
+    tot_ht = (feet_ht * 12) + in_ht
+    new_user.height = tot_ht
+    new_user.weight = request.POST.get('txtWeight')
+    new_user.birthDate = request.POST.get('birth_date')
+    if request.POST.get('cbHBP') == 'HBP' : 
+        HBP = True 
+    else : 
+        HBP = False
+    if request.POST.get('cbDiabetes') == 'Diabetes' : 
+        DB = True 
+    else :
+        DB = False
+    KDS = request.POST.get('comorb_kds')
+    new_user.comorbidity = comorbidity.objects.get(highBloodPressure = HBP, diabetes = DB, kidneyDiseaseStage = KDS)
+    new_user.save()
 
-        dashboardPageView(request, 'health_app/dash.html')
+
+    context = {
+        'user' : new_user
+    }
+
+    return render(request, 'health_app/dash.html', context)
+
+    return HttpResponse('failure')
+
 
 
 def dashboardRecipePageView(request) :
