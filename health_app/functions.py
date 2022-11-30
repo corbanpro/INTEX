@@ -1,6 +1,7 @@
-sawyer_api_key = '04fb037d86mshbc10cd2bcf9efc3p1b1aa2jsnb5518a2797b1' #Sawyer's API key
+import math
 toph_api_key = 'ffcbb1d69amsh90230347f7931d3p1536aejsn25568159361e'
-api_key = toph_api_key
+mckenna_api_key = '33ea8e8ec5msh5b89e2129e49ef7p1ad746jsnc923290b266f'
+api_key = mckenna_api_key
 
 def searchRecipes(recipe):
     import requests
@@ -44,14 +45,14 @@ def getRecipeInformation(id):
     #make a dictionary with the required nutrients
     r = responseGetRecipeInformation.json()
     nutrientDict = {}
-    nutrientDict['title'] = r['title']
-    nutrientDict['fat'] = r['nutrition']['nutrients'][1]['amount']
-    nutrientDict['protein'] = r['nutrition']['nutrients'][8]['amount']
-    nutrientDict['carbs'] = r['nutrition']['nutrients'][3]['amount']
-    nutrientDict['potassium'] = r['nutrition']['nutrients'][17]['amount']
-    nutrientDict['phosphorus'] = r['nutrition']['nutrients'][14]['amount']
-    nutrientDict['sodium'] = r['nutrition']['nutrients'][7]['amount']
-    nutrientDict['calories'] = r['nutrition']['nutrients'][0]['amount']
+    nutrientDict['title']  = r['title']
+    nutrientDict['fat']  = math.ceil(r['nutrition']['nutrients'][1]['amount'])
+    nutrientDict['protein'] = math.ceil(r['nutrition']['nutrients'][8]['amount'])
+    nutrientDict['carbs'] = math.ceil(r['nutrition']['nutrients'][3]['amount'])
+    nutrientDict['potassium'] = math.ceil(r['nutrition']['nutrients'][17]['amount'])
+    nutrientDict['phosphorus'] = math.ceil(r['nutrition']['nutrients'][14]['amount'])
+    nutrientDict['sodium'] = math.ceil(r['nutrition']['nutrients'][7]['amount'])
+    nutrientDict['calories'] = math.ceil(r['nutrition']['nutrients'][0]['amount'])
     
     return nutrientDict
 
@@ -132,3 +133,18 @@ def getIngredientInformation2(id, amount, unit):
     nutrientDict['calories'] = r['nutrition']['nutrients'][30]['amount']
     return nutrientDict
 
+
+def searchRecipeByNutrient(maxProtein, maxPotassium, maxPhosphorus, maxSodium):
+    import requests
+    url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByNutrients"
+    querystring = {"maxProtein":maxProtein,"maxPotassium":maxPotassium,"maxPhosphorus":maxPhosphorus,"maxSodium":maxSodium,"maxSugar":2,'maxAlcohol':0,"number":"5"}
+    headers = {
+        "X-RapidAPI-Key": api_key,
+        "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+    }
+    responseSearchRecipeByNutrient = requests.request("GET", url, headers=headers, params=querystring)
+    r = responseSearchRecipeByNutrient.json()
+    recipeDict = {}
+    for i in r:
+        recipeDict[i['title']] = i['id']
+    return(recipeDict)

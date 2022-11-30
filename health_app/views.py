@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .functions import searchRecipes, getRecipeInformation, searchIngredients, getIngredientInformation1, getIngredientInformation2
+from .functions import searchRecipes, getRecipeInformation, searchIngredients, getIngredientInformation1, getIngredientInformation2, searchRecipeByNutrient
 from .models import User, Recipe, Meal, DvDeterminate, DailyValue
 from datetime import datetime
 from django.http import HttpResponse
@@ -194,7 +194,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     dvPho = daily_val.phosphorus
     dvPot = daily_val.potassium
 
-    pdvCarbs = tCarbs / dvCarbs
+    pdvCarbs = (tCarbs / dvCarbs) * 100
     pdvPro = (tPro / dvPro) * 100
     pdvFat = (tFat / dvFat) * 100
     pdvWat = (tWat / dvWat) * 100
@@ -202,6 +202,39 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     pdvPho = (tPho / dvPho) * 100
     pdvPot = (tPot / dvPot) * 100
 
+    maxProtein = (dvPro - tPro) * 100
+    maxSodium = (dvSod - tSod) * 100
+    maxPhosphorus = (dvPho - tPho) * 100
+    maxPotassium = (dvPot - tPot) * 100
+
+    if maxProtein < 0 :
+        maxProtein = 0
+    if maxSodium < 0 :
+        maxSodium = 0
+    if maxPhosphorus < 0 :
+        maxPhosphorus = 0
+    if maxPotassium < 0 :
+        maxPotassium = 0
+
+    try :
+        suggested_recipeid_dict = searchRecipeByNutrient(maxProtein, maxPotassium, maxPhosphorus, maxSodium)
+
+        suggested_recipeid_list = list()
+
+        for recipe in suggested_recipeid_dict :
+            suggested_recipeid_list.append(suggested_recipeid_dict[recipe])
+
+        suggested_recipe_list = list()
+
+        text = ''
+        for id in suggested_recipeid_list :
+            text += str(id)
+
+        for id in suggested_recipeid_list :
+            suggested_recipe_list.append(getRecipeInformation(id))
+    except :
+        suggested_recipe_list = list()
+        
 
     context = {
         'user' : user,
@@ -212,6 +245,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'fSod' : pdvSod,
         'fPho' : pdvPho,
         'fPot' : pdvPot,
+        'suggested_recipe_list' : suggested_recipe_list,
         'ingredient_name' : ingredient_name,
         'recipe_dict' : recipe_dict,
         'ingredient_dict' : ingredient_dict,
