@@ -61,6 +61,7 @@ def dashboardLoginPageView(request) :
 
     try :
         user = User.objects.get(email = useremail, password = userpassword)
+
     except :
 
         return render(request, 'health_app/login.html')

@@ -25,7 +25,7 @@ class User(models.Model) :
         return (fullName)
 
     class Meta:
-        db_table = 'users'
+        db_table = 'Users'
 
 
 class Recipe(models.Model) :
