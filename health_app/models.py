@@ -10,7 +10,7 @@ class Comorbidity(models.Model) :
         db_table = 'Comorbidities'
 
 class User(models.Model) :
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(max_length=254, unique=True)
     password = models.CharField(max_length=50)
     firstName = models.CharField(max_length=50)
     lastName = models.CharField(max_length=50)
@@ -20,9 +20,6 @@ class User(models.Model) :
     birthDate = models.DateField(default= datetime.now, blank= True, max_length=5)
     comorbidity = models.ForeignKey(Comorbidity, default= 1, blank= False, on_delete=models.DO_NOTHING)
 
-    def __str__(self):
-        fullName = self.lastName + ", " + self.firstName
-        return (fullName)
 
     class Meta:
         db_table = 'Users'

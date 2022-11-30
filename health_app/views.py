@@ -100,7 +100,8 @@ def dashboardPageView(request) :
     return render(request, 'health_app/dash.html', context)
 
 
-def dashboardRecipePageView(request, user) :
+def dashboardRecipePageView(request, user_id) :
+    user = User.objects.get(id = user_id)
     recipe_name = request.GET['recipe_name']
     context = {
         'recipe_dict' : searchRecipes(recipe_name),
@@ -110,7 +111,9 @@ def dashboardRecipePageView(request, user) :
     return render(request, 'health_app/dash.html', context)
 
 
-def addRecipePageView(request, user) :
+def addRecipePageView(request, user_id) :
+    user = User.objects.get(id = user_id)
+
     recipe_id = request.POST['selected_recipe']
     recipe_dict = getRecipeInformation(recipe_id)
 
@@ -141,7 +144,9 @@ def addRecipePageView(request, user) :
     return render(request, 'health_app/dash.html', context)
 
 
-def dashboardIngredientPageView(request, user) :
+def dashboardIngredientPageView(request, user_id) :
+    user = User.objects.get(id = user_id)
+
     ingredient_name = request.GET['ingredient_name']
 
     context = {
@@ -153,7 +158,9 @@ def dashboardIngredientPageView(request, user) :
     return render(request, 'health_app/dash.html', context)
 
 
-def dashboardIngredientUnitPageView(request, user) :
+def dashboardIngredientUnitPageView(request, user_id) :
+    user = User.objects.get(id = user_id)
+
     ingredient_id = request.GET['selected_ingredient']
 
     context = {
@@ -166,7 +173,9 @@ def dashboardIngredientUnitPageView(request, user) :
     return render(request, 'health_app/dash.html', context)
 
 
-def addIngredientPageView(request, ingredient_id, user) :
+def addIngredientPageView(request, ingredient_id, user_id) :
+    user = User.objects.get(id = user_id)
+
     amount = request.POST.get('selected_amount')
     unit = request.POST.get('selected_unit')
     ingredient_dict = getIngredientInformation2(ingredient_id, amount, unit)
@@ -191,7 +200,9 @@ def addIngredientPageView(request, ingredient_id, user) :
     return render(request, 'health_app/dash.html', context)
 
 
-def addWaterPageView(request, user) :
+def addWaterPageView(request, user_id) :
+    user = User.objects.get(id = user_id)
+
     amount = request.GET['water_added']
 
     water = Recipe()
@@ -205,7 +216,9 @@ def addWaterPageView(request, user) :
     return render(request, 'health_app/dash.html', context)
 
 
-def historyPageView(request, user) :
+def historyPageView(request, user_id) :
+    user = User.objects.get(id = user_id)
+
     context = {
         'user' : user
     }

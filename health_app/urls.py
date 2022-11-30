@@ -3,17 +3,17 @@ from .views import indexPageView, dashboardPageView, historyPageView, dashboardR
 
 urlpatterns = [
     path("", indexPageView, name="index"), 
-    path('dashIngredient/<str:user>', dashboardIngredientPageView, name= 'dashIngredient'),
-    path('dashRecipe/<str:user>', dashboardRecipePageView, name= 'dashRecipe'),
+    path('dashIngredient/<int:user_id>', dashboardIngredientPageView, name= 'dashIngredient'),
+    path('dashRecipe/<int:user_id>', dashboardRecipePageView, name= 'dashRecipe'),
     path('dashUser/', dashboardUserPageView, name='dashUser'),
     path('dash/', dashboardPageView, name= 'dash'),
-    path('history/', historyPageView, name= 'history'),
-    path('addRecipe/<str:user>', addRecipePageView, name= 'addRecipe'),
+    path('history/<int:user_id>', historyPageView, name= 'history'),
+    path('addRecipe/<int:user_id>', addRecipePageView, name= 'addRecipe'),
     path('register/', registerPageView, name= 'register'),
     path('login/', loginPageView, name = 'login'),
-    path('ingredientUnit/<str:user>', dashboardIngredientUnitPageView, name= 'ingredientUnit'),  
-    path('addIngredient/<int:ingredient_id><str:user>', addIngredientPageView, name= 'addIngredient'),
-    path('addWater/<str:user>', addWaterPageView, name= 'addWater'),
+    path('ingredientUnit/<int:user_id>', dashboardIngredientUnitPageView, name= 'ingredientUnit'),  
+    path('addIngredient/<int:ingredient_id><int:user_id>', addIngredientPageView, name= 'addIngredient'),
+    path('addWater/<int:user_id>', addWaterPageView, name= 'addWater'),
     path('dashLogin/', dashboardLoginPageView, name= 'dashLogin'),
 
 
