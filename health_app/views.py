@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .functions import searchRecipes, getRecipeInformation, searchIngredients, getIngredientInformation1, getIngredientInformation2
-from .models import user, recipe, meal
+from .models import user, recipe, meal, comorbidity
 from datetime import datetime
 from django.http import HttpResponse
 
@@ -42,24 +42,30 @@ def dashboardUserPageView(request):
         new_user.height = tot_ht
         new_user.weight = request.GET['txtWeight']
         new_user.birthDate = request.GET['birth_date']
-        comorb_list = []
-        if request.GET['cbHBP'] == 'HBP' and request.GET['cbDiabetes'] == 'Diabetes':
-            comorb = comorbidity()
-            comorb.KidneyDiseaseStage = request.GET['comorb_kds']
-            comorb.highBloodPressure = True
-            comorb.diabetes = True
-            ## append comorbidity object
-            comorb.append('High Blood Pressure')
-        elif request.GET['cbDiabetes'] == 'Diabetes':
-            comorb = comorbidity()
-            comorb.KidneyDiseaseStage = request.GET['comorb_kds']
-            comorb.highBloodPressure = False
-            comorb.diabetes = True
-        elif request.GET['cbHBP'] == 'HBP':
-            comorb = comorbidity()
-            comorb.KidneyDiseaseStage = request.GET['comorb_kds']
-            comorb.highBloodPressure = True
-            comorb.diabetes = False
+        if request.GET['cbHBP'] == 'HBP' : HBP = True 
+        else : HBP = False
+        if request.GET['cbDiabetes'] == 'Diabetes' : DB = True 
+        else : DB = False
+        KDS = request.GET['comorb_kds']
+        new_user.comorbidity = comorbidity.objects.get(highBloodPressure = HBP, diabetes = DB, kidneyDiseaseStage = KDS)
+
+        # if request.GET['cbHBP'] == 'HBP' and request.GET['cbDiabetes'] == 'Diabetes':
+        #     comorb = comorbidity()
+        #     comorb.KidneyDiseaseStage = request.GET['comorb_kds']
+        #     comorb.highBloodPressure = True
+        #     comorb.diabetes = True
+        #     ## append comorbidity object
+        #     comorb.append('High Blood Pressure')
+        # elif request.GET['cbDiabetes'] == 'Diabetes':
+        #     comorb = comorbidity()
+        #     comorb.KidneyDiseaseStage = request.GET['comorb_kds']
+        #     comorb.highBloodPressure = False
+        #     comorb.diabetes = True
+        # elif request.GET['cbHBP'] == 'HBP':
+        #     comorb = comorbidity()
+        #     comorb.KidneyDiseaseStage = request.GET['comorb_kds']
+        #     comorb.highBloodPressure = True
+        #     comorb.diabetes = False
         
         new_user.comorbidity = comorb
 
@@ -176,7 +182,7 @@ def dashboardLoginPageView(request) :
     try :
         USER = user.objects.get(email = useremail, password = userpassword)
     except :
-        
+
         return render(request, 'health_app/login.html')
 
     context = {
