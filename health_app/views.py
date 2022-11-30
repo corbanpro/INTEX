@@ -212,6 +212,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'fSod' : pdvSod,
         'fPho' : pdvPho,
         'fPot' : pdvPot,
+        'ingredient_name' : ingredient_name,
         'recipe_dict' : recipe_dict,
         'ingredient_dict' : ingredient_dict,
         'ingredient_id' : ingredient_id,
@@ -282,7 +283,7 @@ def dashboardIngredientPageView(request, user_id) :
     return dashboardPageView(request, user_id, ingredient_name=ingredient_name)
 
 
-def dashboardIngredientUnitPageView(request, user_id) :
+def dashboardIngredientUnitPageView(request, user_id, ingredient_name) :
     user = User.objects.get(id = user_id)
 
     ingredient_id = request.GET['selected_ingredient']
@@ -294,10 +295,10 @@ def dashboardIngredientUnitPageView(request, user_id) :
 
     # }
 
-    return dashboardPageView(request, user_id, ingredient_id=ingredient_id)
+    return dashboardPageView(request, user_id, ingredient_id=ingredient_id, ingredient_name=ingredient_name)
 
 
-def addIngredientPageView(request, ingredient_id, user_id) :
+def addIngredientPageView(request, ingredient_id, user_id, ingredient_name) :
     user = User.objects.get(id = user_id)
 
     amount = request.POST.get('selected_amount')
@@ -306,7 +307,7 @@ def addIngredientPageView(request, ingredient_id, user_id) :
 
     new_ingredient = Recipe()
 
-    new_ingredient.name = ingredient_dict['name']
+    new_ingredient.name = ingredient_name
     new_ingredient.fat = ingredient_dict['fat']
     new_ingredient.protein = ingredient_dict['protein']
     new_ingredient.carbs = ingredient_dict['carbs']

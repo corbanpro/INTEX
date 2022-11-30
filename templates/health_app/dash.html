@@ -79,8 +79,8 @@
                     </form>
                     {% endif %}
 
-                    {% if ingredient_dict %}
-                    <form name='form' action="{% url 'ingredientUnit' user_id=user.id %}" method='Get'>
+                    {% if ingredient_dict and not measure_list%}
+                    <form name='form' action="{% url 'ingredientUnit' user_id=user.id ingredient_name=ingredient_name %}" method='Get'>
                         {% csrf_token %}
                         <select name="selected_ingredient" id="">
                             {% for key, value in ingredient_dict.items %}
@@ -95,7 +95,7 @@
 
 
                     {% if measure_list %}
-                    <form name='form' action="{% url 'addIngredient' ingredient_id=ingredient_id user_id=user.id %}" method='Post'>
+                    <form name='form' action="{% url 'addIngredient' ingredient_id=ingredient_id user_id=user.id ingredient_name=ingredient_name %}" method='Post'>
 
                         {% csrf_token %}
                         <input type="text" class="form-control" name='selected_amount' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
