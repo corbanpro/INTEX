@@ -14,23 +14,20 @@ def indexPageView(request) :
 def dashboardPageView(request) :
     context = {
         'user' : user,
-        'userID' : 1
+        'userID' : 1,
+        'fCarb': 100,
+        'fPro' : 50,
+        'fFat' : 20,
+        'fWat' : 100,
+        'fSod' : 60,
+        'fPho' : 77,
+        'fPot' : 8
     }
 
     return render(request, 'health_app/dash.html', context)
 
 ## Create a new User
 def dashboardUserPageView(request):
-
-    context = {
-        'pCarb': 100,
-        'pPro' : 50,
-        'pFat' : 20,
-        'pWat' : 100,
-        'pSod' : 60,
-        'pPho' : 77,
-        'pPot' : 8
-    }
 
     if request.method == 'Post':
         new_user = user()
@@ -56,7 +53,7 @@ def dashboardUserPageView(request):
 
         new_user.save()
 
-        dashboardPageView(request, 'health_app/dash.html', context)
+        dashboardPageView(request, 'health_app/dash.html')
 
 
 def dashboardRecipePageView(request) :
