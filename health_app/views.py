@@ -103,7 +103,7 @@ def dashboardLoginPageView(request) :
     return dashboardPageView(request, user.id)
 
 
-def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None, ingredient_id=None) :
+def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None, ingredient_id=None, selection = 'protein') :
 
     if recipe_name != None :
         recipe_dict = searchRecipes(recipe_name)
@@ -130,6 +130,8 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
 
 
+    selection = request.POST.get('nutList')
+
     foodList = []
     proteinList = []
     carbList = []
@@ -148,6 +150,22 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         sodList.append(recipe.sodium)
         phoList.append(recipe.phosphorus)
         potList.append(recipe.potassium)
+
+    if selection == 'Potassium':
+        nutrientList = potList
+    elif selection == 'Calories':
+        nutrientList = calList
+    elif selection == 'Carbs':
+        nutrientList = carbList
+    elif selection == 'Fat':
+        nutrientList = fatList
+    elif selection == 'Sodium':
+        nutrientList = sodList
+    elif selection == 'Phosphorus':
+        nutrientList = phoList
+    else :
+        nutrientList = proteinList
+    
 
     daily_val = DailyValue.objects.get(id = user.dv_determinate.daily_value.id)
 
@@ -185,9 +203,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     pdvPot = (tPot / dvPot) * 100
 
 
-
-
-
     context = {
         'user' : user,
         'fCarb': pdvCarbs,
@@ -202,7 +217,8 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'ingredient_dict' : ingredient_dict,
         'ingredient_id' : ingredient_id,
         'measure_list' : measure_list,
-
+        'foodList' : foodList,
+        'nutrientList' : nutrientList,
 
     }
 
