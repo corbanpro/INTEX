@@ -153,6 +153,19 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
 
     if selection == 'Protein':
         nutrientList = proteinList
+    if selection == 'Calories':
+        nutrientList = calList
+    if selection == 'Carbs':
+        nutrientList = carbList
+    if selection == 'Fat':
+        nutrientList = fatList
+    if selection == 'Sodium':
+        nutrientList = sodList
+    if selection == 'Phosphorus':
+        nutrientList = phoList
+    if selection == 'Potassium':
+        nutrientList = potList
+    
 
     daily_val = DailyValue.objects.get(id = user.dv_determinate.daily_value.id)
 
