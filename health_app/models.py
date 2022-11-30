@@ -15,7 +15,7 @@ class DailyValue(models.Model) :
     water = models.FloatField(default= 20)
 
     class Meta:
-        db_table = 'Daily Values'
+        db_table = 'DailyValues'
 
     def __str__(self):
         return (self.description)
@@ -33,7 +33,7 @@ class DvDeterminate(models.Model) :
     def __str__(self):
         return (f'sex: {self.sex}, KDS: {self.kidneyDiseaseStage}, HBP: {self.highBloodPressure}, DB: {self.diabetes}')
     class Meta:
-        db_table = 'Daily Value Determinates'
+        db_table = 'DailyValueDeterminates'
 
 class User(models.Model) :
     email = models.EmailField(max_length=254, unique=True)
