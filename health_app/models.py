@@ -20,6 +20,9 @@ class User(models.Model) :
     birthDate = models.DateField(default= datetime.now, blank= True, max_length=5)
     comorbidity = models.ForeignKey(Comorbidity, default= 1, blank= False, on_delete=models.DO_NOTHING)
 
+    def __str__(self):
+        fullName = self.lastName + ", " + self.firstName
+        return (fullName)
 
     class Meta:
         db_table = 'Users'
@@ -32,7 +35,7 @@ class Recipe(models.Model) :
     protein = models.FloatField(default= 0)
     carbs = models.FloatField(default= 0)
     potassium = models.FloatField(default= 0)
-    phosphorous = models.FloatField(default= 0)
+    phosphorus = models.FloatField(default= 0)
     sodium = models.FloatField(default= 0)
     water = models.FloatField(default= 0)
     
@@ -43,14 +46,13 @@ class Recipe(models.Model) :
         db_table = 'Recipes'
 
 class Meal(models.Model) :
-    datetime = models.DateTimeField(default= datetime.now, blank= True, max_length=5)
+    date = models.DateField(default= datetime.now().date(), blank= True, max_length=5)
     recipe = models.ForeignKey(Recipe, default= 1, blank= False, on_delete=models.DO_NOTHING)
     user = models.ForeignKey(User, default= 1, blank= False, on_delete=models.DO_NOTHING)
 
 
     def __str__(self):
-        
-        return (Recipe.name + ', ' + self.datetime)
+        return (str(self.id))
     
     class Meta:
         db_table = 'Meals'

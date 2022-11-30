@@ -21,7 +21,7 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url 'register'%}">Update Profile</a></li>
-                <li><a class="dropdown-item" href="{% url 'dash'%}">Dashboard</a></li>
+                <li><a class="dropdown-item" href="{% url 'dash' user_id=user.id %}">Dashboard</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li><a class="dropdown-item" href="{% url 'index'%}">Logout</a></li>
             </ul>
@@ -45,18 +45,27 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <div class="input-group input-group-sm mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Recipe Name</span>
-                                <form name="form" method="get" action="{% url 'dashRecipe' %}">
-                                    <input type="text" class="form-control" name='recipe_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                <form name="form" method="get" action="{% url 'dashRecipe' user_id=user.id %}">
+                                    <input type="text" class="form-control" name='recipe_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Enter a Recipe Name'>
                                 </form>
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Ingredients</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                <form name="form" method="get" action="{% url 'dashIngredient' user_id=user.id %}">
+                                    <input type="text" class="form-control" name='ingredient_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Enter an Ingredient Name'>
+                                </form>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-sm">Water</span>
+                                <form name="form" method="get" action="{% url 'addWater' user_id=user.id %}">
+                                    <input type="text" class="form-control" name='water_added' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Water in Cups'>
+                                </form>
                             </div>
                         </nav>
                     </div>
+
                     {% if recipe_dict %}
-                    <form name='form' action="{% url 'addRecipe' %}" method='Post'>
+                    <form name='form' action="{% url 'addRecipe' user_id=user.id %}" method='Post'>
                         {% csrf_token %}
                         <select name="selected_recipe" id="">
                             {% for key, value in recipe_dict.items %}
@@ -68,9 +77,38 @@
                         <button type="submit">Select</button>
                     </form>
                     {% endif %}
-                    <div class="sb-sidenav-menu-heading text-light">Record Activity</div>
+
+                    {% if ingredient_dict %}
+                    <form name='form' action="{% url 'ingredientUnit' user_id=user.id %}" method='Get'>
+                        {% csrf_token %}
+                        <select name="selected_ingredient" id="">
+                            {% for key, value in ingredient_dict.items %}
+                                <option value="{{value}}" selected='selected'>
+                                    {{key}}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Select</button>
+                    </form>
+                    {% endif %}
 
 
+                    {% if measure_list %}
+                    <form name='form' action="{% url 'addIngredient' ingredient_id=ingredient_id user_id=user.id %}" method='Post'>
+
+                        {% csrf_token %}
+                        <select name="selected_measure" id="">
+                            {% for measure in measure_list %}
+                                <option value="{{measure}}" selected='selected'>
+                                    {{measure}}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <input type="text" class="form-control" name='selected_amount' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+
+                        <button type="submit">Select</button>
+                    </form>
+                    {% endif %}
 
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/sun.svg'%}" class="svg-filter-light"></div>
@@ -106,7 +144,7 @@
                     </div>
 
                     <div class="sb-sidenav-menu-heading text-light">View My Dashboard</div>
-                    <a class="nav-link collapsed" href="{% url 'dash' %}" aria-expanded="false" aria-controls="collapseLayouts">
+                    <a class="nav-link collapsed" href="{% url 'dash' user_id=user.id%}" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/feed-person.svg'%}" class="svg-filter-light"></div>
                         <span class="text-light">View My Dashboard</span></a>
                 </div>
@@ -122,7 +160,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4 bg-light">
-                <h1 class="mt-4">Welcome, {{name}}!</h1><br>
+                <h1 class="mt-4">Welcome, {{user.firstName}}!</h1><br>
                 <ol class="breadcrumb mb-4">
                     <!--<li class="breadcrumb-item active">Dashboard</li>-->
                 </ol>
@@ -141,7 +179,7 @@
                                     const myChart = new Chart(ctx, {
                                         type: 'bar',
                                         data: {
-                                            labels: ['Carbs', 'Protien', 'Fat', 'Water', 'Sodium', 'Phosphorous', 'Potassium'],
+                                            labels: ['Carbs', 'Protien', 'Fat', 'Water', 'Sodium', 'phosphorus', 'Potassium'],
                                             datasets: [{
                                                 label: '# of Votes',
                                                 data: [12, 19, 3, 5, 2, 3, 100],
@@ -194,7 +232,7 @@
                                     <th>Fat</th>
                                     <th>Water</th>
                                     <th>Sodium</th>
-                                    <th>Phosphorous</th>
+                                    <th>phosphorus</th>
                                     <th>Potassium</th>
                                 </tr>
                             </thead>
@@ -208,7 +246,7 @@
                                     <th>Fat</th>
                                     <th>Water</th>
                                     <th>Sodium</th>
-                                    <th>Phosphorous</th>
+                                    <th>phosphorus</th>
                                     <th>Potassium</th>
                                 </tr>
                             </tfoot>

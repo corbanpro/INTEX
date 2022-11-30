@@ -50,9 +50,7 @@ def dashboardUserPageView(request):
         'user' : new_user
     }
 
-    return render(request, 'health_app/dash.html', context)
-
-    return HttpResponse('failure')
+    return dashboardPageView(request, new_user.id)
 
 
 def dashboardLoginPageView(request) :
@@ -66,35 +64,81 @@ def dashboardLoginPageView(request) :
 
         return render(request, 'health_app/login.html')
 
-    context = {
-        'user' : user
-    }
+    # context = {
+    #     'user' : user
+    # }
 
-    return render(request, 'health_app/dash.html', context)
+    return dashboardPageView(request, user.id)
 
 
-def dashboardPageView(request) :
-    recipeToFind = 'Peeta Bread'
+def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None, ingredient_id=None) :
+
+    if recipe_name != None :
+        recipe_dict = searchRecipes(recipe_name)
+    else :
+        recipe_dict = dict()
+
+    if ingredient_name != None :
+        ingredient_dict = searchIngredients(ingredient_name)
+    else :
+        ingredient_dict = dict()
+
+    if ingredient_id != None :
+        measure_list = getIngredientInformation1(ingredient_id)
+    else :
+        measure_list = list()
+    
+    user = User.objects.get(id = user_id)
+
+    recipeToFind = 'Chicken Quesadilla'
     fCarb = Recipe.objects.filter(name = recipeToFind).values('carbs')[0]['carbs']
     fPro = Recipe.objects.filter(name = recipeToFind).values('protein')[0]['protein']
     fFat = Recipe.objects.filter(name = recipeToFind).values('fat')[0]['fat']
     fWat = Recipe.objects.filter(name = recipeToFind).values('water')[0]['water']
     fSod = Recipe.objects.filter(name = recipeToFind).values('sodium')[0]['sodium']
-    fPho = Recipe.objects.filter(name = recipeToFind).values('phosphorous')[0]['phosphorous']
+    fPho = Recipe.objects.filter(name = recipeToFind).values('phosphorus')[0]['phosphorus']
     fPot = Recipe.objects.filter(name = recipeToFind).values('potassium')[0]['potassium']
+
+    today = datetime.now().date()
+    meal_dict = Meal.objects.filter(date = today)
+
+    recipe_list = list()
+    for meal in meal_dict :
+        recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
+
+    totalCarb = 0
+    totalPro = 0
+    totalFat = 0
+    totalWat = 0
+    totalSod = 0
+    totalPho = 0
+    totalPot = 0
+
+    for recipe in recipe_list :
+        totalCarb += recipe.carbs
+        totalPro += recipe.protein
+        totalFat += recipe.fat
+        totalWat += recipe.water
+        totalSod += recipe.sodium
+        totalPho += recipe.phosphorus
+        totalPot += recipe.potassium
 
 
     context = {
-        'user' : User,
-        'userID' : 1,
-        'fCarb': fCarb,
-        'fPro' : fPro,
-        'fFat' : fFat,
-        'fWat' : fWat,
-        'fSod' : fSod,
-        'fPho' : fPho,
-        'fPot' : fPot,
-        'query' : str(fCarb)
+        'user' : user,
+        'fCarb': totalCarb,
+        'fPro' : totalPro,
+        'fFat' : totalFat,
+        'fWat' : totalWat,
+        'fSod' : totalSod,
+        'fPho' : totalPho,
+        'fPot' : totalPot,
+        'recipe_dict' : recipe_dict,
+        'ingredient_dict' : ingredient_dict,
+        'ingredient_id' : ingredient_id,
+        'measure_list' : measure_list,
+
+
     }
 
     return render(request, 'health_app/dash.html', context)
@@ -103,12 +147,12 @@ def dashboardPageView(request) :
 def dashboardRecipePageView(request, user_id) :
     user = User.objects.get(id = user_id)
     recipe_name = request.GET['recipe_name']
-    context = {
-        'recipe_dict' : searchRecipes(recipe_name),
-        'user' : user
-    }
+    # context = {
+    #     'recipe_dict' : searchRecipes(recipe_name),
+    #     'user' : user
+    # }
 
-    return render(request, 'health_app/dash.html', context)
+    return dashboardPageView(request, user_id, recipe_name=recipe_name)
 
 
 def addRecipePageView(request, user_id) :
@@ -124,24 +168,24 @@ def addRecipePageView(request, user_id) :
     new_recipe.protein = recipe_dict['protein']
     new_recipe.carbs = recipe_dict['carbs']
     new_recipe.potassium = recipe_dict['potassium']
-    new_recipe.phosphorous = recipe_dict['phosphorus']
+    new_recipe.phosphorus = recipe_dict['phosphorus']
     new_recipe.sodium = recipe_dict['sodium']
     new_recipe.calories = recipe_dict['calories'] 
     new_recipe.save()
 
     new_meal = Meal()
-    new_meal.datetime = datetime.now()
+    new_meal.date = datetime.now().date()
     new_meal.recipe = new_recipe
-    # new_meal.user = user
-    # new_meal.save()
+    new_meal.user = user
+    new_meal.save()
 
 
-    context = {
-        'user' : user
+    # context = {
+    #     'user' : user
 
-    }
+    # }
 
-    return render(request, 'health_app/dash.html', context)
+    return dashboardPageView(request, user_id)
 
 
 def dashboardIngredientPageView(request, user_id) :
@@ -149,13 +193,13 @@ def dashboardIngredientPageView(request, user_id) :
 
     ingredient_name = request.GET['ingredient_name']
 
-    context = {
-        'ingredient_dict' : searchIngredients(ingredient_name),
-        'user' : user
+    # context = {
+    #     'ingredient_dict' : searchIngredients(ingredient_name),
+    #     'user' : user
 
-    }
+    # }
 
-    return render(request, 'health_app/dash.html', context)
+    return dashboardPageView(request, user_id, ingredient_name=ingredient_name)
 
 
 def dashboardIngredientUnitPageView(request, user_id) :
@@ -163,14 +207,14 @@ def dashboardIngredientUnitPageView(request, user_id) :
 
     ingredient_id = request.GET['selected_ingredient']
 
-    context = {
-        'measure_list' : getIngredientInformation1(ingredient_id),
-        'ingredient_id' : ingredient_id,
-        'user' : user,
+    # context = {
+    #     'measure_list' : getIngredientInformation1(ingredient_id),
+    #     'ingredient_id' : ingredient_id,        
+    #     'user' : user,
 
-    }
+    # }
 
-    return render(request, 'health_app/dash.html', context)
+    return dashboardPageView(request, user_id, ingredient_id=ingredient_id)
 
 
 def addIngredientPageView(request, ingredient_id, user_id) :
@@ -187,17 +231,23 @@ def addIngredientPageView(request, ingredient_id, user_id) :
     new_ingredient.protein = ingredient_dict['protein']
     new_ingredient.carbs = ingredient_dict['carbs']
     new_ingredient.potassium = ingredient_dict['potassium']
-    new_ingredient.phosphorous = ingredient_dict['phosphorus']
+    new_ingredient.phosphorus = ingredient_dict['phosphorus']
     new_ingredient.sodium = ingredient_dict['sodium']
     new_ingredient.calories = ingredient_dict['calories'] 
     new_ingredient.save()
 
+    new_meal = Meal()
+    new_meal.date = datetime.now().date()
+    new_meal.recipe = new_ingredient
+    new_meal.user = user
+    new_meal.save()
 
-    context = {
-        'user' : user
-    }
 
-    return render(request, 'health_app/dash.html', context)
+    # context = {
+    #     'user' : user
+    # }
+
+    return dashboardPageView(request, user_id)
 
 
 def addWaterPageView(request, user_id) :
@@ -209,20 +259,27 @@ def addWaterPageView(request, user_id) :
     water.name = 'water'
     water.water = amount
     water.save()
-    context = {
-        'user' : user
-    }
 
-    return render(request, 'health_app/dash.html', context)
+    new_meal = Meal()
+    new_meal.date = datetime.now().date()
+    new_meal.recipe = water
+    new_meal.user = user
+    new_meal.save()
+
+    # context = {
+    #     'user' : user
+    # }
+
+    return dashboardPageView(request, user_id)
 
 
 def historyPageView(request, user_id) :
     user = User.objects.get(id = user_id)
 
-    context = {
-        'user' : user
-    }
-    return render(request, 'health_app/history.html', context)
+    # context = {
+    #     'user' : user
+    # }
+    return dashboardPageView(request, user_id)
 
     
 

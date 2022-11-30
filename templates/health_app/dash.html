@@ -98,6 +98,8 @@
                     <form name='form' action="{% url 'addIngredient' ingredient_id=ingredient_id user_id=user.id %}" method='Post'>
 
                         {% csrf_token %}
+                        <input type="text" class="form-control" name='selected_amount' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+
                         <select name="selected_measure" id="">
                             {% for measure in measure_list %}
                                 <option value="{{measure}}" selected='selected'>
@@ -105,7 +107,6 @@
                                 </option>
                             {% endfor %}
                         </select>
-                        <input type="text" class="form-control" name='selected_amount' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
 
                         <button type="submit">Select</button>
                     </form>
@@ -185,7 +186,7 @@
                                     const myChart = new Chart(ctx, {
                                         type: 'bar',
                                         data: {
-                                            labels: ['Carbs', 'Protien', 'Fat', 'Water', 'Sodium', 'Phosphorous', 'Potassium'],
+                                            labels: ['Carbs', 'Protien', 'Fat', 'Water', 'Sodium', 'phosphorus', 'Potassium'],
                                             datasets: [{
                                                 label: '% Achieved of Recommended Daily Value',
                                                 data: [{{fCarb}}, {{fPro}}, {{fFat}}, {{fWat}}, {{fSod}}, {{fPho}}, {{fPot}}],
@@ -239,7 +240,7 @@
                                     <th>Fat</th>
                                     <th>Water</th>
                                     <th>Sodium</th>
-                                    <th>Phosphorous</th>
+                                    <th>phosphorus</th>
                                     <th>Potassium</th>
                                 </tr>
                             </thead>
@@ -253,7 +254,7 @@
                                     <th>Fat</th>
                                     <th>Water</th>
                                     <th>Sodium</th>
-                                    <th>Phosphorous</th>
+                                    <th>phosphorus</th>
                                     <th>Potassium</th>
                                 </tr>
                             </tfoot>
