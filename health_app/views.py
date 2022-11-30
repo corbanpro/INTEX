@@ -437,6 +437,12 @@ def pieChart(request) :
 
     return render(request, 'health_app/piechart.html', context)
 
+def updateRecipe(request, data=None):
+    context = {
+        'data' : data
+    }
+    return render(request, 'health_app/update_recipe.html', context)
+
     
 
 
