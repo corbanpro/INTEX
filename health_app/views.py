@@ -182,12 +182,12 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     dvPot = daily_val.potassium
 
     pdvCarbs = tCarbs / dvCarbs
-    pdvPro = tPro / dvPro
-    pdvFat = tFat / dvFat
-    pdvWat = tWat / dvWat
-    pdvSod = tSod / dvSod
-    pdvPho = tPho / dvPho
-    pdvPot = tPot / dvPot
+    pdvPro = (tPro / dvPro) * 100
+    pdvFat = (tFat / dvFat) * 100
+    pdvWat = (tWat / dvWat) * 100
+    pdvSod = (tSod / dvSod) * 100
+    pdvPho = (tPho / dvPho) * 100
+    pdvPot = (tPot / dvPot) * 100
 
 
 
