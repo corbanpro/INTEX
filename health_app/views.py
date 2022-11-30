@@ -223,24 +223,22 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     if maxPotassium < 0 :
         maxPotassium = 0
 
-    try :
-        suggested_recipeid_dict = searchRecipeByNutrient(maxProtein, maxPotassium, maxPhosphorus, maxSodium)
 
-        suggested_recipeid_list = list()
+    suggested_recipeid_dict = searchRecipeByNutrient(maxProtein, maxPotassium, maxPhosphorus, maxSodium)
 
-        for recipe in suggested_recipeid_dict :
-            suggested_recipeid_list.append(suggested_recipeid_dict[recipe])
+    suggested_recipeid_list = list()
 
-        suggested_recipe_list = list()
+    for recipe in suggested_recipeid_dict :
+        suggested_recipeid_list.append(suggested_recipeid_dict[recipe])
 
-        text = ''
-        for id in suggested_recipeid_list :
-            text += str(id)
+    suggested_recipe_list = list()
 
-        for id in suggested_recipeid_list :
-            suggested_recipe_list.append(getRecipeInformation(id))
-    except :
-        suggested_recipe_list = list()
+    text = ''
+    for id in suggested_recipeid_list :
+        text += str(id)
+
+    for id in suggested_recipeid_list :
+        suggested_recipe_list.append(getRecipeInformation(id))
         
 
     context = {
