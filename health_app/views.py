@@ -12,16 +12,27 @@ def indexPageView(request) :
     return render(request, 'health_app/index.html', context)
 
 def dashboardPageView(request) :
+    recipeToFind = 'Peeta Bread'
+    fCarb = recipe.objects.filter(name = recipeToFind).values('carbs')[0]['carbs']
+    fPro = recipe.objects.filter(name = recipeToFind).values('protein')[0]['protein']
+    fFat = recipe.objects.filter(name = recipeToFind).values('fat')[0]['fat']
+    fWat = recipe.objects.filter(name = recipeToFind).values('water')[0]['water']
+    fSod = recipe.objects.filter(name = recipeToFind).values('sodium')[0]['sodium']
+    fPho = recipe.objects.filter(name = recipeToFind).values('phosphorous')[0]['phosphorous']
+    fPot = recipe.objects.filter(name = recipeToFind).values('potassium')[0]['potassium']
+
+
     context = {
         'user' : user,
         'userID' : 1,
-        'fCarb': 100,
-        'fPro' : 50,
-        'fFat' : 20,
-        'fWat' : 100,
-        'fSod' : 60,
-        'fPho' : 77,
-        'fPot' : 8
+        'fCarb': fCarb,
+        'fPro' : fPro,
+        'fFat' : fFat,
+        'fWat' : fWat,
+        'fSod' : fSod,
+        'fPho' : fPho,
+        'fPot' : fPot,
+        'query' : str(fCarb)
     }
 
     return render(request, 'health_app/dash.html', context)
