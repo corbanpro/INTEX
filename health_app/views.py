@@ -209,6 +209,25 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     pdvPho = (tPho / dvPho) * 100
     pdvPot = (tPot / dvPot) * 100
 
+    pdvList = [pdvCarbs, pdvPro, pdvFat, pdvWat, pdvSod, pdvPho, pdvPot]
+    colorVar = []
+
+    for pdv in pdvList :
+
+        if pdv>= 100 :
+            colorVar.append('rgba(239, 90, 36, 0.8)')
+        elif pdv >= 90 :
+            colorVar.append('rgba(70, 70, 70, 0.8)')
+        else :
+            colorVar.append('rgba(25, 135, 84, 0.8)')
+            
+
+
+    maxProtein = (dvPro - tPro) * 100
+    maxSodium = (dvSod - tSod) * 100
+    maxPhosphorus = (dvPho - tPho) * 100
+    maxPotassium = (dvPot - tPot) * 100
+
     try :
 
         maxProtein = (dvPro - tPro) * 100
@@ -279,6 +298,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'watUnit' : watUnit,
         'proUnit' : proUnit,
 
+        'colLst' : colorVar,
 
     }
 
