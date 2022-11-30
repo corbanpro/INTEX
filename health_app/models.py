@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+import django
 
 class Comorbidity(models.Model) :
     kidneyDiseaseStage = models.IntegerField()
@@ -46,7 +47,7 @@ class Recipe(models.Model) :
         db_table = 'Recipes'
 
 class Meal(models.Model) :
-    date = models.DateField(default= datetime.now().date(), blank= True, max_length=5)
+    date = models.DateField(default= django.utils.timezone.now, blank= True, max_length=5)
     recipe = models.ForeignKey(Recipe, default= 1, blank= False, on_delete=models.DO_NOTHING)
     user = models.ForeignKey(User, default= 1, blank= False, on_delete=models.DO_NOTHING)
 

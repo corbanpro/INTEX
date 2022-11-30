@@ -18,13 +18,13 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="first_name" id="first_name" type="text" placeholder="Enter your first name" />
+                                                    <input class="form-control" required='True' name="first_name" id="first_name" type="text" placeholder="Enter your first name" />
                                                     <label for="first_name">First name</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" name="last_name" id="last_name" type="text" placeholder="Enter your last name" />
+                                                    <input class="form-control" required='True' name="last_name" id="last_name" type="text" placeholder="Enter your last name" />
                                                     <label for="last_name">Last name</label>
                                                 </div>
                                             </div>
@@ -32,7 +32,7 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                <input class="form-control" name="birth_date" id="birth_date" type="date" placeholder="Enter your date of birth" />
+                                                <input class="form-control" required='True' name="birth_date" id="birth_date" type="date" placeholder="Enter your date of birth" />
                                                 <label for="birth_date">DOB</label>
                                                 </div>
                                             </div>
@@ -48,14 +48,14 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" type="number" name="txtFtHeight" id="txtFtHeight" name="txtFtHeight" value="0">
+                                                    <input class="form-control" type="number" required='True' name="txtFtHeight" id="txtFtHeight" name="txtFtHeight" value="0">
                                                     <label for="txtFtHeight">Height (ft)</label>                                        
                                                 </div>
                                             </div>  
 
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" type="number" name="txtInHeight" id="txtInHeight" name="txtInHeight" value="0">
+                                                    <input class="form-control" type="number" required='True' name="txtInHeight" id="txtInHeight" name="txtInHeight" value="0">
                                                     <label for="txtInHeight">Height (inch)</label>
                                                 </div>
                                             </div>
@@ -63,7 +63,7 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" type="number" name="txtWeight" id="txtWeight" name="txtWeight" value="0">
+                                                    <input class="form-control" type="number" required='True' name="txtWeight" id="txtWeight" name="txtWeight" value="0">
                                                     <label for="txtWeight">Weight (lbs)</label>   
                                                 </div>
                                             </div>
@@ -89,19 +89,19 @@
                                             </div>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" name="inputEmail" id="inputEmail" type="email" placeholder="name@example.com" />
+                                            <input class="form-control" required='True' name="inputEmail" id="inputEmail" type="email" placeholder="name@example.com" />
                                             <label for="inputEmail">Email address</label>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" name="inputPassword" id="inputPassword" type="password" placeholder="Create a password" />
+                                                    <input class="form-control" required='True' name="inputPassword" id="inputPassword" type="password" placeholder="Create a password" />
                                                     <label for="inputPassword">Password</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
+                                                    <input class="form-control" required='True' id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
                                                     <label for="inputPasswordConfirm" onkeydown="passMatch(inputPassword, inputPasswordConfirm, passwordNote)">Confirm Password</label><br>
                                                     <p id="passwordNote"></p>
                                                 </div>
