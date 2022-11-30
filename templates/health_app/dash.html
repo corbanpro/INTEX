@@ -178,18 +178,6 @@
                             <div class="card-header">
                                 <i class="fas fa-chart-area me-1"></i>
                                 Today's Nutrient Intake
-                                <form name="register-form" action="{% url 'pickNut'%}" method="Post">
-                                    <label for="nutList">Select Nutrient:</label>
-                                    <select id="nutList" name="nutList" >
-                                        <option class="dropdown-item" value = 'Calories' >Calories</option>
-                                        <option class="dropdown-item" value = 'Carbs' >Carbs</option>
-                                        <option class="dropdown-item" value = 'Protein' >Protein</option>
-                                        <option class="dropdown-item" value = 'Fat' >Fat</option>
-                                        <option class="dropdown-item" value = 'Sodium' >Sodium</option>
-                                        <option class="dropdown-item" value = 'Phosphorus' >Phosphorus</option>
-                                        <option class="dropdown-item" value = 'Potassium' >Potassium</option>
-                                    </select>
-                                </form>
                             </div>
                             <div class = "col-md-12">
                                 <canvas id="myChart" width="100%" height="40"></canvas>
@@ -242,7 +230,7 @@
                                 <i class="fas fa-chart-area me-1"></i>
                                 Nutrient Details
                                 <br>
-                                <form name="register-form" action="{% url 'pickNut'%}" method="Post">
+                                <form name="pickNut" action="{% url 'pickNut'%}" method="Post">
                                 <label for="nutList">View Nutrient:</label>
                                 <select id="nutList" name="nutList" >
                                     <option class="dropdown-item" value = 'Calories' >Calories</option>
