@@ -80,7 +80,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'intex_health_app',
         'USER' : 'postgres',
-        'PASSWORD' : 'Nbamwia2cf',
+        'PASSWORD' : 'dkssud',
+        # Corban's PGadmin pass : Nbamwia2cf
         'HOST' : 'localhost',
         'PORT' : '5432'
     }
