@@ -11724,3 +11724,7 @@ button .register-acc-btn {
 	cursor: pointer;
 	outline: inherit;
 }
+
+td .history-table-row {
+  text-align: center !important;
+}

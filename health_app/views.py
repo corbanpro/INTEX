@@ -332,7 +332,6 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         measure_list = getIngredientInformation1(ingredient_id)
     else :
         measure_list = list()
-
     user = User.objects.get(id = user_id)
 
     ### does this return an object or a return string
@@ -378,7 +377,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         'ingredient_id' : ingredient_id,
         'measure_list' : measure_list,
     }
-    return dashboardPageView(request, user_id)
+    return render(request, 'health_app/history.html', context)
 
 def pieChart(request) : 
     # user = User.objects.get(id = user_id)
