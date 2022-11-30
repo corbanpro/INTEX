@@ -46,7 +46,7 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <div class="input-group input-group-sm mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Recipe Name</span>
-                                <form name="form" method="get" action="{% url 'dashRecipe' %}">
+                                <form name="form" method="get" action="{% url 'dashRecipe' user=user %}">
                                     <input type="text" class="form-control" name='recipe_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Enter a Recipe Name'>
                                 </form>
                             </div>

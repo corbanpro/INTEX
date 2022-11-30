@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .functions import searchRecipes, getRecipeInformation, searchIngredients, getIngredientInformation1, getIngredientInformation2
-from .models import user, recipe, meal, comorbidity
+from .models import User, Recipe, Meal, Comorbidity
 from datetime import datetime
 from django.http import HttpResponse
 
@@ -10,36 +10,18 @@ def indexPageView(request) :
     }
     return render(request, 'health_app/index.html', context)
 
-def dashboardPageView(request) :
-    recipeToFind = 'Peeta Bread'
-    fCarb = recipe.objects.filter(name = recipeToFind).values('carbs')[0]['carbs']
-    fPro = recipe.objects.filter(name = recipeToFind).values('protein')[0]['protein']
-    fFat = recipe.objects.filter(name = recipeToFind).values('fat')[0]['fat']
-    fWat = recipe.objects.filter(name = recipeToFind).values('water')[0]['water']
-    fSod = recipe.objects.filter(name = recipeToFind).values('sodium')[0]['sodium']
-    fPho = recipe.objects.filter(name = recipeToFind).values('phosphorous')[0]['phosphorous']
-    fPot = recipe.objects.filter(name = recipeToFind).values('potassium')[0]['potassium']
+
+def loginPageView(request) :
+    return render(request, 'health_app/login.html')
 
 
-    context = {
-        'user' : user,
-        'userID' : 1,
-        'fCarb': fCarb,
-        'fPro' : fPro,
-        'fFat' : fFat,
-        'fWat' : fWat,
-        'fSod' : fSod,
-        'fPho' : fPho,
-        'fPot' : fPot,
-        'query' : str(fCarb)
-    }
-
-    return render(request, 'health_app/dash.html', context)
+def registerPageView(request) :
+    return render(request, 'health_app/register.html')
 
 ## Create a new User
 def dashboardUserPageView(request):
 
-    new_user = user()
+    new_user = User()
     new_user.firstName = request.POST.get('first_name')
     new_user.lastName = request.POST.get('last_name')
     new_user.email = request.POST.get('inputEmail')
@@ -60,7 +42,7 @@ def dashboardUserPageView(request):
     else :
         DB = False
     KDS = request.POST.get('comorb_kds')
-    new_user.comorbidity = comorbidity.objects.get(highBloodPressure = HBP, diabetes = DB, kidneyDiseaseStage = KDS)
+    new_user.comorbidity = Comorbidity.objects.get(highBloodPressure = HBP, diabetes = DB, kidneyDiseaseStage = KDS)
     new_user.save()
 
 
@@ -73,21 +55,65 @@ def dashboardUserPageView(request):
     return HttpResponse('failure')
 
 
+def dashboardLoginPageView(request) :
+    useremail = request.GET.get('email')
+    userpassword = request.GET.get('password')
 
-def dashboardRecipePageView(request) :
-    recipe_name = request.GET['recipe_name']
+    try :
+        user = User.objects.get(email = useremail, password = userpassword)
+    except :
+
+        return render(request, 'health_app/login.html')
+
     context = {
-        'recipe_dict' : searchRecipes(recipe_name),
-        'userID' : 1
+        'user' : user
     }
 
     return render(request, 'health_app/dash.html', context)
 
-def addRecipePageView(request) :
+
+def dashboardPageView(request) :
+    recipeToFind = 'Peeta Bread'
+    fCarb = Recipe.objects.filter(name = recipeToFind).values('carbs')[0]['carbs']
+    fPro = Recipe.objects.filter(name = recipeToFind).values('protein')[0]['protein']
+    fFat = Recipe.objects.filter(name = recipeToFind).values('fat')[0]['fat']
+    fWat = Recipe.objects.filter(name = recipeToFind).values('water')[0]['water']
+    fSod = Recipe.objects.filter(name = recipeToFind).values('sodium')[0]['sodium']
+    fPho = Recipe.objects.filter(name = recipeToFind).values('phosphorous')[0]['phosphorous']
+    fPot = Recipe.objects.filter(name = recipeToFind).values('potassium')[0]['potassium']
+
+
+    context = {
+        'user' : User,
+        'userID' : 1,
+        'fCarb': fCarb,
+        'fPro' : fPro,
+        'fFat' : fFat,
+        'fWat' : fWat,
+        'fSod' : fSod,
+        'fPho' : fPho,
+        'fPot' : fPot,
+        'query' : str(fCarb)
+    }
+
+    return render(request, 'health_app/dash.html', context)
+
+
+def dashboardRecipePageView(request, user) :
+    recipe_name = request.GET['recipe_name']
+    context = {
+        'recipe_dict' : searchRecipes(recipe_name),
+        'user' : user
+    }
+
+    return render(request, 'health_app/dash.html', context)
+
+
+def addRecipePageView(request, user) :
     recipe_id = request.POST['selected_recipe']
     recipe_dict = getRecipeInformation(recipe_id)
 
-    new_recipe = recipe()
+    new_recipe = Recipe()
 
     new_recipe.name = recipe_dict['title']
     new_recipe.fat = recipe_dict['fat']
@@ -99,7 +125,7 @@ def addRecipePageView(request) :
     new_recipe.calories = recipe_dict['calories'] 
     new_recipe.save()
 
-    new_meal = meal()
+    new_meal = Meal()
     new_meal.datetime = datetime.now()
     new_meal.recipe = new_recipe
     # new_meal.user = user
@@ -107,36 +133,44 @@ def addRecipePageView(request) :
 
 
     context = {
+        'user' : user
 
     }
 
     return render(request, 'health_app/dash.html', context)
 
-def dashboardIngredientPageView(request) :
+
+def dashboardIngredientPageView(request, user) :
     ingredient_name = request.GET['ingredient_name']
 
     context = {
         'ingredient_dict' : searchIngredients(ingredient_name),
+        'user' : user
+
     }
 
     return render(request, 'health_app/dash.html', context)
 
-def dashboardIngredientUnitPageView(request) :
+
+def dashboardIngredientUnitPageView(request, user) :
     ingredient_id = request.GET['selected_ingredient']
 
     context = {
         'measure_list' : getIngredientInformation1(ingredient_id),
-        'ingredient_id' : ingredient_id
+        'ingredient_id' : ingredient_id,
+        'user' : user,
+
     }
 
     return render(request, 'health_app/dash.html', context)
 
-def addIngredientPageView(request, ingredient_id) :
+
+def addIngredientPageView(request, ingredient_id, user) :
     amount = request.POST.get('selected_amount')
     unit = request.POST.get('selected_unit')
     ingredient_dict = getIngredientInformation2(ingredient_id, amount, unit)
 
-    new_ingredient = recipe()
+    new_ingredient = Recipe()
 
     new_ingredient.name = ingredient_dict['name']
     new_ingredient.fat = ingredient_dict['fat']
@@ -150,47 +184,31 @@ def addIngredientPageView(request, ingredient_id) :
 
 
     context = {
-
+        'user' : user
     }
 
     return render(request, 'health_app/dash.html', context)
 
-def addWaterPageView(request) :
+
+def addWaterPageView(request, user) :
     amount = request.GET['water_added']
 
-    water = recipe()
+    water = Recipe()
     water.name = 'water'
     water.water = amount
     water.save()
-
-    return render(request, 'health_app/dash.html')
-
-
-def historyPageView(request) :
-    return render(request, 'health_app/history.html')
-
-def registerPageView(request) :
-    return render(request, 'health_app/register.html')
-
-def loginPageView(request) :
-    return render(request, 'health_app/login.html')
-
-def dashboardLoginPageView(request) :
-    useremail = request.GET.get('email')
-    userpassword = request.GET.get('password')
-
-    try :
-        USER = user.objects.get(email = useremail, password = userpassword)
-    except :
-
-        return render(request, 'health_app/login.html')
-
     context = {
-        'user' : USER
+        'user' : user
     }
 
     return render(request, 'health_app/dash.html', context)
 
+
+def historyPageView(request, user) :
+    context = {
+        'user' : user
+    }
+    return render(request, 'health_app/history.html', context)
 
     
 
