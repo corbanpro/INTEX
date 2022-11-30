@@ -305,6 +305,11 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         totalPho += recipe.phosphorus
         totalPot += recipe.potassium
 
+    #here we need to put if statements for the alerts
+    #so for example if totalCarb > dailyValueDeterminante.protein for the user
+    #then "color" : rgb122 (whatever red is) and "message" = "You have exceeded the daily value for protein."
+    #We will NOT do this for carbs, calories, or fats as they do not have UL
+    #We will consider the values in the table provided by client as Upper Limits
 
     context = {
         'user' : user,
