@@ -175,81 +175,77 @@
                                 <form name="update-recipe-form" action="{% url 'update_recipe'%}" method="Post">
                                     {% csrf_token %}
                                     <div class="row mb-3">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-floating">
                                                 <input class="form-control" required='True' name="last_name" id="last_name" type="text" placeholder="{Recipe.Name}" />
                                                 <label for="last_name">{Recipe}Name</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-floating mb-3 mb-md-0">
                                                 <input class="form-control" required='True' name="first_name" id="first_name" type="date" placeholder="{Meal.date}" />
                                                 <label for="first_name">{Meal}Date</label>
                                             </div>
                                         </div>
-
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-floating">
                                             <input class="form-control" required='True' name="birth_date" id="birth_date" type="number" placeholder="Enter your date of birth" value="0"/>
                                             <label for="birth_date">{Recipe}Calories</label>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
                                             <div class="form-floating">
                                                 <input class="form-control" type="number" required='True' id="txtFtHeight" name="txtFtHeight" value="0">
                                                 <label for="txtFtHeight">{Recipe} Carbs</label>                                        
                                             </div>
                                         </div>  
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-floating">
                                                 <input class="form-control" type="number" required='True' name="txtInHeight" id="txtInHeight" name="txtInHeight" value="0">
                                                 <label for="txtInHeight">{Recipe} Protein</label>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
                                         <div class="col-md-4">
                                             <div class="form-floating">
                                                 <input class="form-control" type="number" required='True' name="txtWeight" id="txtWeight" name="txtWeight" value="0">
                                                 <label for="txtWeight">{Recipe} Fat</label>   
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="col-md-4">
+                                    <div class="row mb-3">
+
+                                        <div class="col-md-3">
                                             <div class="form-floating">
                                                 <input class="form-control" type="number" required='True' name="txtWeight" id="txtWeight" name="txtWeight" value="0">
                                                 <label for="txtWeight">{Recipe} Sodium</label>   
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-floating">
                                                 <input class="form-control" type="number" required='True' name="txtWeight" id="txtWeight" name="txtWeight" value="0">
                                                 <label for="txtWeight">{Recipe} Phosphorus</label>   
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
+
+                                        <div class="col-md-3">
                                             <div class="form-floating">
                                                 <input class="form-control" type="number" required='True' name="txtWeight" id="txtWeight" name="txtWeight" value="0">
                                                 <label for="txtWeight">{Recipe} Potassium</label>   
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-floating">
                                                 <input class="form-control" type="number" required='True' name="txtWeight" id="txtWeight" name="txtWeight" value="0">
                                                 <label for="txtWeight">{Recipe} Water</label>   
                                             </div>
                                         </div>
-                                    </div>
                                     <div class="mt-4 mb-0">
                                         <div class="d-grid"><input type="submit"><a class="btn btn-primary btn-block">Create Account</a></input></div>
                                     </div>
