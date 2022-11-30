@@ -90,17 +90,8 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     
     user = User.objects.get(id = user_id)
 
-    recipeToFind = 'Chicken Quesadilla'
-    fCarb = Recipe.objects.filter(name = recipeToFind).values('carbs')[0]['carbs']
-    fPro = Recipe.objects.filter(name = recipeToFind).values('protein')[0]['protein']
-    fFat = Recipe.objects.filter(name = recipeToFind).values('fat')[0]['fat']
-    fWat = Recipe.objects.filter(name = recipeToFind).values('water')[0]['water']
-    fSod = Recipe.objects.filter(name = recipeToFind).values('sodium')[0]['sodium']
-    fPho = Recipe.objects.filter(name = recipeToFind).values('phosphorus')[0]['phosphorus']
-    fPot = Recipe.objects.filter(name = recipeToFind).values('potassium')[0]['potassium']
-
     today = datetime.now().date()
-    meal_dict = Meal.objects.filter(date = today)
+    meal_dict = Meal.objects.filter(date = today, user = user_id)
 
     recipe_list = list()
     for meal in meal_dict :
