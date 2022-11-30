@@ -270,8 +270,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     proUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
 
 
-        
-
     context = {
         'user' : user,
         'fCarb': pdvCarbs,
