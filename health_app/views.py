@@ -317,13 +317,89 @@ def addWaterPageView(request, user_id) :
     return dashboardPageView(request, user_id)
 
 
-def historyPageView(request, user_id) :
+def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, ingredient_id=None) :
+    if recipe_name != None :
+        recipe_dict = searchRecipes(recipe_name)
+    else :
+        recipe_dict = dict()
+
+    if ingredient_name != None :
+        ingredient_dict = searchIngredients(ingredient_name)
+    else :
+        ingredient_dict = dict()
+
+    if ingredient_id != None :
+        measure_list = getIngredientInformation1(ingredient_id)
+    else :
+        measure_list = list()
+
     user = User.objects.get(id = user_id)
 
-    # context = {
-    #     'user' : user
-    # }
+    ### does this return an object or a return string
+    meal_dict = Meal.objects.filter(user = user_id)
+    recipe_list = list()
+    for meal in meal_dict :
+        recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
+
+    totalCarb = 0
+    totalPro = 0
+    totalFat = 0
+    totalWat = 0
+    totalSod = 0
+    totalPho = 0
+    totalPot = 0
+
+    for recipe in recipe_list :
+        totalCarb += recipe.carbs
+        totalPro += recipe.protein
+        totalFat += recipe.fat
+        totalWat += recipe.water
+        totalSod += recipe.sodium
+        totalPho += recipe.phosphorus
+        totalPot += recipe.potassium
+
+    #here we need to put if statements for the alerts
+    #so for example if totalCarb > dailyValueDeterminante.protein for the user
+    #then "color" : rgb122 (whatever red is) and "message" = "You have exceeded the daily value for protein."
+    #We will NOT do this for carbs, calories, or fats as they do not have UL
+    #We will consider the values in the table provided by client as Upper Limits
+
+    context = {
+        'user' : user,
+        'fCarb': totalCarb,
+        'fPro' : totalPro,
+        'fFat' : totalFat,
+        'fWat' : totalWat,
+        'fSod' : totalSod,
+        'fPho' : totalPho,
+        'fPot' : totalPot,
+        'recipe_dict' : recipe_dict,
+        'ingredient_dict' : ingredient_dict,
+        'ingredient_id' : ingredient_id,
+        'measure_list' : measure_list,
+    }
     return dashboardPageView(request, user_id)
+
+def pieChart(request) : 
+    # user = User.objects.get(id = user_id)
+    # today = datetime.now().date()
+    # meal_dict = Meal.objects.filter(date = today, id= user_id)
+    
+    # recipe_list = list()
+    # for meal in meal_dict :
+    #     recipe_object = (Recipe.objects.get(id = meal.recipe.id))
+    #     recipe_name = recipe_object.name
+    #     recipe_list.append(recipe_name)
+    data = Recipe.objects.all()
+    data = ['Chicken', 'Egg', 'Milk']
+
+
+
+    context = {
+        'data' : data,
+    }
+
+    return render(request, 'health_app/piechart.html', context)
 
     
 
