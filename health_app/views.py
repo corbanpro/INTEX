@@ -59,27 +59,6 @@ def dashboardUserPageView(request):
         else : DB = False
         KDS = request.GET['comorb_kds']
         new_user.comorbidity = comorbidity.objects.get(highBloodPressure = HBP, diabetes = DB, kidneyDiseaseStage = KDS)
-
-        # if request.GET['cbHBP'] == 'HBP' and request.GET['cbDiabetes'] == 'Diabetes':
-        #     comorb = comorbidity()
-        #     comorb.KidneyDiseaseStage = request.GET['comorb_kds']
-        #     comorb.highBloodPressure = True
-        #     comorb.diabetes = True
-        #     ## append comorbidity object
-        #     comorb.append('High Blood Pressure')
-        # elif request.GET['cbDiabetes'] == 'Diabetes':
-        #     comorb = comorbidity()
-        #     comorb.KidneyDiseaseStage = request.GET['comorb_kds']
-        #     comorb.highBloodPressure = False
-        #     comorb.diabetes = True
-        # elif request.GET['cbHBP'] == 'HBP':
-        #     comorb = comorbidity()
-        #     comorb.KidneyDiseaseStage = request.GET['comorb_kds']
-        #     comorb.highBloodPressure = True
-        #     comorb.diabetes = False
-        
-        new_user.comorbidity = comorb
-
         new_user.save()
 
         dashboardPageView(request, 'health_app/dash.html')
