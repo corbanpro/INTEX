@@ -234,13 +234,16 @@
                                 {% csrf_token %}
                                 <label for="nutList">View Nutrient:</label>
                                 <select id="nutList" name="nutList" >
-                                    <option class="dropdown-item" value = 'Protein' >Protein</option>
-                                    <option class="dropdown-item" value = 'Fat' >Fat</option>
-                                    <option class="dropdown-item" value = 'Carbs' >Carbs</option>
-                                    <option class="dropdown-item" value = 'Calories' >Calories</option>
-                                    <option class="dropdown-item" value = 'Sodium' >Sodium</option>
-                                    <option class="dropdown-item" value = 'Phosphorus' >Phosphorus</option>
-                                    <option class="dropdown-item" value = 'Potassium' >Potassium</option>
+                                    <option value="none" selected disabled hidden>
+                                        {{nutrientSelect}}
+                                    </option>
+                                    <option class="dropdown-item" value = 'Protein' >Protein (g)</option>
+                                    <option class="dropdown-item" value = 'Fat' >Fat (g)</option>
+                                    <option class="dropdown-item" value = 'Carbs' >Carbs (g)</option>
+                                    <option class="dropdown-item" value = 'Calories' >Calories (kCal)</option>
+                                    <option class="dropdown-item" value = 'Sodium' >Sodium (mg)</option>
+                                    <option class="dropdown-item" value = 'Phosphorus' >Phosphorus (mg)</option>
+                                    <option class="dropdown-item" value = 'Potassium' >Potassium (mg)</option>
                                 </select>
                                 <div class="mt-4 mb-0">
                                     <div class="d-grid"><input type="submit"><a></a></input></div>
@@ -248,7 +251,9 @@
                             </form>
                             </div>
                             <div class = "col-md-12">
+                                <div class="justify-content-center text-center graphShortClass">
                                 <canvas id="myChartDoughnut" width="100%" height="40"></canvas>
+                                </div>
                                 <script>
                                     const ctx2 = document.getElementById('myChartDoughnut').getContext('2d');
                                     const myChartDoughnut = new Chart(ctx2, {
