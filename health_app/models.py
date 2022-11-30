@@ -2,24 +2,48 @@ from django.db import models
 from datetime import datetime
 import django
 
-class Comorbidity(models.Model) :
+
+class DailyValue(models.Model) :
+    description = models.CharField(null=True, max_length=50)
+    calories = models.FloatField()
+    fat = models.FloatField()
+    protein = models.FloatField()
+    carbs = models.FloatField()
+    potassium = models.FloatField()
+    phosphorus = models.FloatField()
+    sodium = models.FloatField()
+    water = models.FloatField(default= 20)
+
+    class Meta:
+        db_table = 'Daily Values'
+
+    def __str__(self):
+        return (self.description)
+        
+
+class DvDeterminate(models.Model) :
     kidneyDiseaseStage = models.IntegerField()
     highBloodPressure = models.BooleanField()
     diabetes = models.BooleanField()
+    sex = models.CharField(max_length=10, default= 'M')
+    daily_value = models.ForeignKey(DailyValue, default= 2, on_delete=models.DO_NOTHING)
 
+
+
+    def __str__(self):
+        return (f'sex: {self.sex}, KDS: {self.kidneyDiseaseStage}, HBP: {self.highBloodPressure}, DB: {self.diabetes}')
     class Meta:
-        db_table = 'Comorbidities'
+        db_table = 'Daily Value Determinates'
 
 class User(models.Model) :
     email = models.EmailField(max_length=254, unique=True)
     password = models.CharField(max_length=50)
     firstName = models.CharField(max_length=50)
     lastName = models.CharField(max_length=50)
-    sex = models.CharField(max_length=1)
     height = models.IntegerField()
     weight = models.IntegerField()
     birthDate = models.DateField(default= datetime.now, blank= True, max_length=5)
-    comorbidity = models.ForeignKey(Comorbidity, default= 1, blank= False, on_delete=models.DO_NOTHING)
+    dv_determinate = models.ForeignKey(DvDeterminate, default= 1, blank= False, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         fullName = self.lastName + ", " + self.firstName
@@ -59,20 +83,6 @@ class Meal(models.Model) :
         db_table = 'Meals'
 
 
-class DailyValue(models.Model) :
-    calories = models.FloatField()
-    fat = models.FloatField()
-    protein = models.FloatField()
-    carbs = models.FloatField()
-    potassium = models.FloatField()
-    phosphorus = models.FloatField()
-    sodium = models.FloatField()
-    comorbidity = models.OneToOneField(Comorbidity, default= 1, on_delete=models.CASCADE)
-  
-
-    class Meta:
-        db_table = 'Daily Values'
-        
 
 class Unit(models.Model) :
     nutrient = models.CharField(max_length=50)

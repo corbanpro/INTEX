@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .functions import searchRecipes, getRecipeInformation, searchIngredients, getIngredientInformation1, getIngredientInformation2
-from .models import User, Recipe, Meal, Comorbidity
+from .models import User, Recipe, Meal, DvDeterminate, DailyValue
 from datetime import datetime
 from django.http import HttpResponse
 
@@ -26,23 +26,55 @@ def dashboardUserPageView(request):
     new_user.lastName = request.POST.get('last_name')
     new_user.email = request.POST.get('inputEmail')
     new_user.password = request.POST.get('inputPassword')
-    new_user.sex = request.POST.get('listSex')
     feet_ht = int(request.POST.get('txtFtHeight'))
     in_ht = int(request.POST.get('txtInHeight'))
     tot_ht = (feet_ht * 12) + in_ht
     new_user.height = tot_ht
     new_user.weight = request.POST.get('txtWeight')
     new_user.birthDate = request.POST.get('birth_date')
+
+    user_sex = request.POST.get('listSex')
+
     if request.POST.get('cbHBP') == 'HBP' : 
         HBP = True
     else : 
         HBP = False
+
     if request.POST.get('cbDiabetes') == 'Diabetes' : 
-        DB = True
+        DB = False
     else :
         DB = False
+
     KDS = request.POST.get('comorb_kds')
-    new_user.comorbidity = Comorbidity.objects.get(highBloodPressure = HBP, diabetes = DB, kidneyDiseaseStage = KDS)
+
+    
+    # new_user.dv_determinate = DvDeterminate.objects.get(sex = user_sex, highBloodPressure = HBP, diabetes = DB, kidneyDiseaseStage = KDS)
+    try :
+        new_user.dv_determinate = DvDeterminate.objects.get(sex = user_sex, highBloodPressure = HBP, diabetes = DB, kidneyDiseaseStage = KDS)
+
+    except :
+        new_dv_determinate = DvDeterminate()
+        new_dv_determinate.sex = user_sex
+
+        if HBP :
+            new_dv_determinate.highBloodPressure = True
+        else :
+            new_dv_determinate.highBloodPressure = False
+
+        if DB :
+            new_dv_determinate.diabetes = True
+        else :
+            new_dv_determinate.diabetes = False 
+            
+        new_dv_determinate.kidneyDiseaseStage = KDS
+        if user_sex == 'Male' :
+            new_dv_determinate.daily_value = DailyValue.objects.get(id = 1)
+        else :
+            new_dv_determinate.daily_value = DailyValue.objects.get(id = 2)
+        new_dv_determinate.save()
+
+        new_user.dv_determinate = new_dv_determinate
+    
     new_user.save()
 
 
@@ -117,37 +149,56 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         phoList.append(recipe.phosphorus)
         potList.append(recipe.potassium)
 
+    daily_val = DailyValue.objects.get(id = user.dv_determinate.daily_value.id)
 
-
-    totalCarb = 0
-    totalPro = 0
-    totalFat = 0
-    totalWat = 0
-    totalSod = 0
-    totalPho = 0
-    totalPot = 0
+    tCarbs = 0
+    tPro = 0
+    tFat = 0
+    tWat = 0
+    tSod = 0
+    tPho = 0
+    tPot = 0
 
     for recipe in recipe_list :
-        totalCarb += recipe.carbs
-        totalPro += recipe.protein
-        totalFat += recipe.fat
-        totalWat += recipe.water
-        totalSod += recipe.sodium
-        totalPho += recipe.phosphorus
-        totalPot += recipe.potassium
+        tCarbs += recipe.carbs
+        tPro += recipe.protein
+        tFat += recipe.fat
+        tWat += recipe.water
+        tSod += recipe.sodium
+        tPho += recipe.phosphorus
+        tPot += recipe.potassium
+
+    dvCarbs = daily_val.carbs
+    dvPro = daily_val.protein
+    dvFat = daily_val.fat
+    dvWat = daily_val.water
+    dvSod = daily_val.sodium
+    dvPho = daily_val.phosphorus
+    dvPot = daily_val.potassium
+
+    pdvCarbs = tCarbs / dvCarbs
+    pdvPro = tPro / dvPro
+    pdvFat = tFat / dvFat
+    pdvWat = tWat / dvWat
+    pdvSod = tSod / dvSod
+    pdvPho = tPho / dvPho
+    pdvPot = tPot / dvPot
+
+
+
 
 
     
 
     context = {
         'user' : user,
-        'fCarb': totalCarb,
-        'fPro' : totalPro,
-        'fFat' : totalFat,
-        'fWat' : totalWat,
-        'fSod' : totalSod,
-        'fPho' : totalPho,
-        'fPot' : totalPot,
+        'fCarb': pdvCarbs,
+        'fPro' : pdvPro,
+        'fFat' : pdvFat,
+        'fWat' : pdvWat,
+        'fSod' : pdvSod,
+        'fPho' : pdvPho,
+        'fPot' : pdvPot,
         'recipe_dict' : recipe_dict,
         'ingredient_dict' : ingredient_dict,
         'ingredient_id' : ingredient_id,
@@ -309,7 +360,6 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         measure_list = getIngredientInformation1(ingredient_id)
     else :
         measure_list = list()
-
     user = User.objects.get(id = user_id)
 
     ### does this return an object or a return string
@@ -355,7 +405,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         'ingredient_id' : ingredient_id,
         'measure_list' : measure_list,
     }
-    return dashboardPageView(request, user_id)
+    return render(request, 'health_app/history.html', context)
 
 # def pieChart(request, user_id, ) : 
 #     # user = User.objects.get(id = user_id)
