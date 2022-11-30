@@ -151,20 +151,27 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         phoList.append(recipe.phosphorus)
         potList.append(recipe.potassium)
 
-    if selection == 'Potassium':
+    if selection == 'Potassium (mg)':
         nutrientList = potList
-    elif selection == 'Calories':
+        nutSelectOpt = 'Potassium (mg)'
+    elif selection == 'Calories (kCal)':
         nutrientList = calList
-    elif selection == 'Carbs':
+        nutSelectOpt = 'Calories '
+    elif selection == 'Carbs (g)':
         nutrientList = carbList
-    elif selection == 'Fat':
+        nutSelectOpt = 'Carbs (g)'
+    elif selection == 'Fat (g)':
         nutrientList = fatList
-    elif selection == 'Sodium':
+        nutSelectOpt = 'Fat (g)'
+    elif selection == 'Sodium (mg)':
         nutrientList = sodList
-    elif selection == 'Phosphorus':
+        nutSelectOpt = 'Sodium (mg)'
+    elif selection == 'Phosphorus (mg)':
         nutrientList = phoList
+        nutSelectOpt = 'Phosphorous (mg)'
     else :
         nutrientList = proteinList
+        nutSelectOpt = 'Protein (g)'
     
 
     daily_val = DailyValue.objects.get(id = user.dv_determinate.daily_value.id)
@@ -253,6 +260,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'measure_list' : measure_list,
         'foodList' : foodList,
         'nutrientList' : nutrientList,
+        'nutrientSelect': nutSelectOpt,
 
     }
 

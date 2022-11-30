@@ -11728,3 +11728,8 @@ button .register-acc-btn {
 td .history-table-row {
   text-align: center !important;
 }
+
+.graphShortClass {
+  height: 10px;
+  width: 50%;
+}
