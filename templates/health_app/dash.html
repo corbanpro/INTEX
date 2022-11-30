@@ -231,6 +231,7 @@
                                 Nutrient Details
                                 <br>
                                 <form name="pickNut" action="{% url 'pickNut'%}" method="Post">
+                                {% csrf_token %}
                                 <label for="nutList">View Nutrient:</label>
                                 <select id="nutList" name="nutList" >
                                     <option class="dropdown-item" value = 'Calories' >Calories</option>
