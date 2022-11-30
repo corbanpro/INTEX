@@ -176,7 +176,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-area me-1"></i>
-                                Nutrient Intake History
+                                Today's Nutrient Intake
                             </div>
                             <div class = "col-md-12">
                                 <canvas id="myChart" width="100%" height="40"></canvas>
@@ -187,8 +187,8 @@
                                         data: {
                                             labels: ['Carbs', 'Protien', 'Fat', 'Water', 'Sodium', 'Phosphorous', 'Potassium'],
                                             datasets: [{
-                                                label: '# of Votes',
-                                                data: [12, 19, 3, 5, 2, 3, 100],
+                                                label: '% Achieved of Recommended Daily Value',
+                                                data: [{{fCarb}}, {{fPro}}, {{fFat}}, {{fWat}}, {{fSod}}, {{fPho}}, {{fPot}}],
                                                 backgroundColor: [
                                                     'rgba(239, 90, 36, 0.8)',
                                                     'rgba(70, 70, 70, 0.8)',

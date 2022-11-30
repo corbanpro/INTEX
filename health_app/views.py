@@ -14,19 +14,27 @@ def indexPageView(request) :
 def dashboardPageView(request) :
     context = {
         'user' : user,
-        'userID' : 1
+        'userID' : 1,
+        'fCarb': 100,
+        'fPro' : 50,
+        'fFat' : 20,
+        'fWat' : 100,
+        'fSod' : 60,
+        'fPho' : 77,
+        'fPot' : 8
     }
 
     return render(request, 'health_app/dash.html', context)
 
 ## Create a new User
 def dashboardUserPageView(request):
+
     if request.method == 'Post':
         new_user = user()
         new_user.firstName = request.GET['first_name']
         new_user.lastName = request.GET['last_name']
-        new_user.email = request.GET['email']
-        new_user.password = request.GET['password']
+        new_user.email = request.GET['inputEmail']
+        new_user.password = request.GET['inputPassword']
         new_user.sex = request.GET['listSex']
         feet_ht = int(request.GET['txtFtHeight'])
         in_ht = int(request.GET['txtInHeight'])
@@ -34,18 +42,30 @@ def dashboardUserPageView(request):
         new_user.height = tot_ht
         new_user.weight = request.GET['txtWeight']
         new_user.birthDate = request.GET['birth_date']
-        comorb = []
-        if request.GET['cbHBP'] is True:
-            
+        comorb_list = []
+        if request.GET['cbHBP'] == 'HBP' and request.GET['cbDiabetes'] == 'Diabetes':
+            comorb = comorbidity()
+            comorb.KidneyDiseaseStage = request.GET['comorb_kds']
+            comorb.highBloodPressure = True
+            comorb.diabetes = True
             ## append comorbidity object
             comorb.append('High Blood Pressure')
-        if request.GET['cbDiabetes'] is True:
-            comorb.append('Diabetes')
+        elif request.GET['cbDiabetes'] == 'Diabetes':
+            comorb = comorbidity()
+            comorb.KidneyDiseaseStage = request.GET['comorb_kds']
+            comorb.highBloodPressure = False
+            comorb.diabetes = True
+        elif request.GET['cbHBP'] == 'HBP':
+            comorb = comorbidity()
+            comorb.KidneyDiseaseStage = request.GET['comorb_kds']
+            comorb.highBloodPressure = True
+            comorb.diabetes = False
+        
         new_user.comorbidity = comorb
 
         new_user.save()
 
-        dashboardPageView(request, new_user)
+        dashboardPageView(request, 'health_app/dash.html')
 
 
 def dashboardRecipePageView(request) :

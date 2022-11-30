@@ -11714,3 +11714,13 @@ body {
   background-position: center;
   background-size: cover;
 }
+
+button .register-acc-btn {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
