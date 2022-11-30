@@ -188,8 +188,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
 
 
 
-    
-
     context = {
         'user' : user,
         'fCarb': pdvCarbs,
@@ -203,14 +201,8 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'ingredient_dict' : ingredient_dict,
         'ingredient_id' : ingredient_id,
         'measure_list' : measure_list,
-        'foodList' : foodList,
-        'proteinList' : proteinList,
-        'carbList':carbList,
-        'fatList' :fatList,
-        'sodList' :sodList,
-        'phoList' :phoList,
-        'potList' :potList,
-        'calList' :calList,
+
+
     }
 
     return render(request, 'health_app/dash.html', context)
@@ -407,27 +399,26 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     }
     return render(request, 'health_app/history.html', context)
 
-# def pieChart(request, user_id, ) : 
-#     # user = User.objects.get(id = user_id)
-#     # today = datetime.now().date()
-#     # meal_dict = Meal.objects.filter(date = today, user = user_id)
+def pieChart(request) : 
+    # user = User.objects.get(id = user_id)
+    # today = datetime.now().date()
+    # meal_dict = Meal.objects.filter(date = today, id= user_id)
     
-#     # recipe_list = list()
-#     # for meal in meal_dict :
-#     #     recipe_object = (Recipe.objects.get(id = meal.recipe.id))
-#     #     recipe_name = recipe_object.name
-#     #     recipe_list.append(recipe_name)
-#     # foodList = ['Chicken', 'Fish', 'Poptart']
-#     # proteinList = [24,20, 1]
-    
+    # recipe_list = list()
+    # for meal in meal_dict :
+    #     recipe_object = (Recipe.objects.get(id = meal.recipe.id))
+    #     recipe_name = recipe_object.name
+    #     recipe_list.append(recipe_name)
+    data = Recipe.objects.all()
+    data = ['Chicken', 'Egg', 'Milk']
 
 
-#     # context = {
-#     #     'foodList' : foodList,
-#     #     'proteinList' : proteinList,
-#     # }
 
-#     return render(request, 'health_app/dash.html', context)
+    context = {
+        'data' : data,
+    }
+
+    return render(request, 'health_app/piechart.html', context)
 
     
 
