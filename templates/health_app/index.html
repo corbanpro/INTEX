@@ -2,8 +2,19 @@
 {% load static %}
 {% block title %} Landing {% endblock %}
 {% block content %}
+<style>
+    .index-background {
+    margin-top:90px;
+    background-image: url("{% static 'admin/img/bg_image.svg'%}");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    }
+</style>
 <body class="sb-nav-fixed sb-sidenav-toggled index-background">
-    <img src="{% static 'admin/bg_image.png' %}" alt="">
+    
+    
+    {% comment %} <img src="{% static 'admin/img/bg_image.svg' %}" alt="" > {% endcomment %}
 
     
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -29,7 +40,7 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Welcome to {our company}</h1>
+                    <h1 class="mt-4">Welcome to Whealth</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">We prioritize preventative medicine</li>
                     </ol>
@@ -38,13 +49,6 @@
                     <a class = 'btn btn-light' href = "{% url 'register' %}">signup</a>
                 </div>
             </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Down with Dialysis 2022</div>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
 {% endblock %}
