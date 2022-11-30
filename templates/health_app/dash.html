@@ -178,9 +178,9 @@
                             <div class="card-header">
                                 <i class="fas fa-chart-area me-1"></i>
                                 Today's Nutrient Intake
-                                <form name="register-form" action="{% url 'nutInfo'%}" method="Post">
-                                    <label for="listNut">Select Nutrient:</label>
-                                    <select id="listNut" name="listNut" >
+                                <form name="register-form" action="{% url 'pickNut'%}" method="Post">
+                                    <label for="nutList">Select Nutrient:</label>
+                                    <select id="nutList" name="nutList" >
                                         <option class="dropdown-item" value = 'Calories' >Calories</option>
                                         <option class="dropdown-item" value = 'Carbs' >Carbs</option>
                                         <option class="dropdown-item" value = 'Protein' >Protein</option>
