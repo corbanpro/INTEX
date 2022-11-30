@@ -52,11 +52,11 @@ def dashboardUserPageView(request):
     new_user.weight = request.POST.get('txtWeight')
     new_user.birthDate = request.POST.get('birth_date')
     if request.POST.get('cbHBP') == 'HBP' : 
-        HBP = True 
+        HBP = True
     else : 
         HBP = False
     if request.POST.get('cbDiabetes') == 'Diabetes' : 
-        DB = True 
+        DB = True
     else :
         DB = False
     KDS = request.POST.get('comorb_kds')
