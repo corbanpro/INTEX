@@ -90,17 +90,8 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     
     user = User.objects.get(id = user_id)
 
-    recipeToFind = 'Chicken Quesadilla'
-    fCarb = Recipe.objects.filter(name = recipeToFind).values('carbs')[0]['carbs']
-    fPro = Recipe.objects.filter(name = recipeToFind).values('protein')[0]['protein']
-    fFat = Recipe.objects.filter(name = recipeToFind).values('fat')[0]['fat']
-    fWat = Recipe.objects.filter(name = recipeToFind).values('water')[0]['water']
-    fSod = Recipe.objects.filter(name = recipeToFind).values('sodium')[0]['sodium']
-    fPho = Recipe.objects.filter(name = recipeToFind).values('phosphorus')[0]['phosphorus']
-    fPot = Recipe.objects.filter(name = recipeToFind).values('potassium')[0]['potassium']
-
     today = datetime.now().date()
-    meal_dict = Meal.objects.filter(date = today)
+    meal_dict = Meal.objects.filter(date = today, user = user_id)
 
     recipe_list = list()
     for meal in meal_dict :
@@ -273,12 +264,67 @@ def addWaterPageView(request, user_id) :
     return dashboardPageView(request, user_id)
 
 
-def historyPageView(request, user_id) :
+def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, ingredient_id=None) :
+    if recipe_name != None :
+        recipe_dict = searchRecipes(recipe_name)
+    else :
+        recipe_dict = dict()
+
+    if ingredient_name != None :
+        ingredient_dict = searchIngredients(ingredient_name)
+    else :
+        ingredient_dict = dict()
+
+    if ingredient_id != None :
+        measure_list = getIngredientInformation1(ingredient_id)
+    else :
+        measure_list = list()
+
     user = User.objects.get(id = user_id)
 
-    # context = {
-    #     'user' : user
-    # }
+    ### does this return an object or a return string
+    meal_dict = Meal.objects.filter(user = user_id)
+    recipe_list = list()
+    for meal in meal_dict :
+        recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
+
+    totalCarb = 0
+    totalPro = 0
+    totalFat = 0
+    totalWat = 0
+    totalSod = 0
+    totalPho = 0
+    totalPot = 0
+
+    for recipe in recipe_list :
+        totalCarb += recipe.carbs
+        totalPro += recipe.protein
+        totalFat += recipe.fat
+        totalWat += recipe.water
+        totalSod += recipe.sodium
+        totalPho += recipe.phosphorus
+        totalPot += recipe.potassium
+
+    #here we need to put if statements for the alerts
+    #so for example if totalCarb > dailyValueDeterminante.protein for the user
+    #then "color" : rgb122 (whatever red is) and "message" = "You have exceeded the daily value for protein."
+    #We will NOT do this for carbs, calories, or fats as they do not have UL
+    #We will consider the values in the table provided by client as Upper Limits
+
+    context = {
+        'user' : user,
+        'fCarb': totalCarb,
+        'fPro' : totalPro,
+        'fFat' : totalFat,
+        'fWat' : totalWat,
+        'fSod' : totalSod,
+        'fPho' : totalPho,
+        'fPot' : totalPot,
+        'recipe_dict' : recipe_dict,
+        'ingredient_dict' : ingredient_dict,
+        'ingredient_id' : ingredient_id,
+        'measure_list' : measure_list,
+    }
     return dashboardPageView(request, user_id)
 
 def pieChart(request) : 

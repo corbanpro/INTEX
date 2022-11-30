@@ -5,7 +5,7 @@
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-secondary">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+    <a class="navbar-brand ps-3" href="{% url 'dash' user_id=user.id %}">{Insert name of company here}</a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!" style="left: 425px;"><i class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
@@ -186,7 +186,7 @@
                                     const myChartBar = new Chart(ctx, {
                                         type: 'bar',
                                         data: {
-                                            labels: ['Carbs', 'Protien', 'Fat', 'Water', 'Sodium', 'phosphorus', 'Potassium'],
+                                            labels: ['Carbs', 'Protien', 'Fat', 'Water', 'Sodium', 'Phosphorus', 'Potassium'],
                                             datasets: [{
                                                 label: '% Achieved of Recommended Daily Value',
                                                 data: [{{fCarb}}, {{fPro}}, {{fFat}}, {{fWat}}, {{fSod}}, {{fPho}}, {{fPot}}],
@@ -294,7 +294,7 @@
                                     <th>Fat</th>
                                     <th>Water</th>
                                     <th>Sodium</th>
-                                    <th>phosphorus</th>
+                                    <th>Phosphorus</th>
                                     <th>Potassium</th>
                                 </tr>
                             </thead>
@@ -308,7 +308,7 @@
                                     <th>Fat</th>
                                     <th>Water</th>
                                     <th>Sodium</th>
-                                    <th>phosphorus</th>
+                                    <th>Phosphorus</th>
                                     <th>Potassium</th>
                                 </tr>
                             </tfoot>
@@ -779,18 +779,6 @@
                 </div>
             </div>
         </main>
-        <footer class="py-4 bg-light mt-auto">
-            <div class="container-fluid px-4">
-                <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                    <div>
-                        <a href="#">Privacy Policy</a>
-                        &middot;
-                        <a href="#">Terms &amp; Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 </div>
 <script>
