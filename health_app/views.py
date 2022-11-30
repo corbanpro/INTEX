@@ -18,7 +18,7 @@ def loginPageView(request) :
 def registerPageView(request) :
     return render(request, 'health_app/register.html')
 
-## Create a new User
+
 def dashboardUserPageView(request):
 
     new_user = User()
