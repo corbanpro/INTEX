@@ -215,11 +215,11 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     for pdv in pdvList :
 
         if pdv>= 100 :
-            colorVar.append('rgba(239, 90, 36, 0.8)')
+            colorVar.append('rgba(217, 30, 24, 0.8)')
         elif pdv >= 90 :
-            colorVar.append('rgba(70, 70, 70, 0.8)')
+            colorVar.append('rgba(46, 204, 113, 0.8)')
         else :
-            colorVar.append('rgba(25, 135, 84, 0.8)')
+            colorVar.append('rgba(228, 208, 10, 0.8)')
             
 
 
@@ -261,13 +261,13 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         suggested_recipe_list = list()
 
 
-    sodUnit = Unit.objects.get(nutrient = 'sodium')
-    phoUnit = Unit.objects.get(nutrient = 'phosphorus')
-    potUnit = Unit.objects.get(nutrient = 'phosphorus')
-    carUnit = Unit.objects.get(nutrient = 'phosphorus')
-    calUnit = Unit.objects.get(nutrient = 'phosphorus')
-    watUnit = Unit.objects.get(nutrient = 'phosphorus')
-    proUnit = Unit.objects.get(nutrient = 'phosphorus')
+    sodUnit = 0 #Unit.objects.get(nutrient = 'sodium')
+    phoUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
+    potUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
+    carUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
+    calUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
+    watUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
+    proUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
 
 
         
