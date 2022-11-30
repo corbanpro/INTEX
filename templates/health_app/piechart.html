@@ -172,56 +172,7 @@
                 <div class="row">
 
                 </div>
-                <div class="row">
-                    <div class="col-xl-15">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-area me-1"></i>
-                                Today's Nutrient Intake
-                            </div>
-                            <div class = "col-md-12">
-                                <canvas id="myChartBar" width="100%" height="40"></canvas>
-                                <script>
-                                    const ctx = document.getElementById('myChartBar').getContext('2d');
-                                    const myChartBar = new Chart(ctx, {
-                                        type: 'bar',
-                                        data: {
-                                            labels: ['Carbs', 'Protien', 'Fat', 'Water', 'Sodium', 'phosphorus', 'Potassium'],
-                                            datasets: [{
-                                                label: '% Achieved of Recommended Daily Value',
-                                                data: [{{fCarb}}, {{fPro}}, {{fFat}}, {{fWat}}, {{fSod}}, {{fPho}}, {{fPot}}],
-                                                backgroundColor: [
-                                                    'rgba(239, 90, 36, 0.8)',
-                                                    'rgba(70, 70, 70, 0.8)',
-                                                    'rgba(25, 135, 84, 0.8)',
-                                                    'rgba(185, 125, 192, 0.8)',
-                                                    'rgba(255, 217, 112, 0.8)',
-                                                    'rgba(224, 52, 0, 0.8)'
-                                                ],
-                                                borderColor: [
-                                                    'rgba(239, 90, 36, 1)',
-                                                    'rgba(70, 70, 70, 1)',
-                                                    'rgba(25, 135, 84, 1)',
-                                                    'rgba(185, 125, 192, 1)',
-                                                    'rgba(255, 217, 112, 1)',
-                                                    'rgba(224, 52, 0, 1)'
-                                                ],
-                                                borderWidth: 1
-                                            }]
-                                        },
-                                        options: {
-                                            scales: {
-                                                y: {
-                                                    beginAtZero: true
-                                                }
-                                            }
-                                        }
-                                    });
-                                </script>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="row">
                     <div class="col-xl-15">
@@ -235,7 +186,7 @@
                                 <script>
                                     const ctx2 = document.getElementById('myChartDoughnut').getContext('2d');
                                     const myChartDoughnut = new Chart(ctx2, {
-                                        type: 'doughnut',
+                                        type: 'doughtnut',
                                         data: {
                                             labels: [{% for data in data %} '{{data.name}}', {% endfor %}],
                                             datasets: [{

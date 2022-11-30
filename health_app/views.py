@@ -281,6 +281,27 @@ def historyPageView(request, user_id) :
     # }
     return dashboardPageView(request, user_id)
 
+def pieChart(request) : 
+    # user = User.objects.get(id = user_id)
+    # today = datetime.now().date()
+    # meal_dict = Meal.objects.filter(date = today, id= user_id)
+    
+    # recipe_list = list()
+    # for meal in meal_dict :
+    #     recipe_object = (Recipe.objects.get(id = meal.recipe.id))
+    #     recipe_name = recipe_object.name
+    #     recipe_list.append(recipe_name)
+    data = Recipe.objects.all()
+    data = ['Chicken', 'Egg', 'Milk']
+
+
+
+    context = {
+        'data' : data,
+    }
+
+    return render(request, 'health_app/piechart.html', context)
+
     
 
 
