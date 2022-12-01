@@ -679,5 +679,5 @@ def deleteRecipe(request, user_id, meal_id):
     recipe.delete()
     return historyPageView(request, user_id)
 
-def nutritionPageView(request, nutrient):
-    return render(request, 'health_app/nutrion.html')
+def nutritionPageView(request):
+    return render(request, 'health_app/nutrition.html')
