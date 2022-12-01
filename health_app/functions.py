@@ -134,6 +134,8 @@ def getIngredientInformation2(id, amount, unit):
     nutrientDict['calories'] = r['nutrition']['nutrients'][30]['amount']
     return nutrientDict
 
+def round(val):
+    return int(math.ceil(val))
 
 def searchRecipeByNutrient(maxProtein, maxPotassium, maxPhosphorus, maxSodium):
     import requests

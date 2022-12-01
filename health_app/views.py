@@ -304,7 +304,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     phoUnit = Unit.objects.get(nutrient = 'phosphorus')
     potUnit = Unit.objects.get(nutrient = 'phosphorus')
     carUnit = Unit.objects.get(nutrient = 'phosphorus')
-    calUnit = Unit.objects.get(nutrient = 'phosphorus')
+    calUnit = Unit.objects.get(nutrient = 'calories')
     watUnit = Unit.objects.get(nutrient = 'phosphorus')
     proUnit = Unit.objects.get(nutrient = 'phosphorus')
 
@@ -560,10 +560,10 @@ def updateRecipePageView(request, user_id, meal_id):
     return render(request, 'health_app/update_recipe.html', context)
 
 def editRecipe(request, user_id, meal_id):
-    meal = Meal.objects.filter(id = meal_id, user = user_id)
+    meal = Meal.objects.get(id = meal_id, user = user_id)
     meal.date = request.POST.get('meal_date')
 
-    recipe = Recipe.objects.filter(id = meal.recipe.id)
+    recipe = Recipe.objects.get(id = meal.recipe.id)
     recipe.name = request.POST.get('recipe_name')
     recipe.calories = request.POST.get('recipe_calories')
     recipe.carbs = request.POST.get('recipe_carbs')
@@ -580,8 +580,8 @@ def editRecipe(request, user_id, meal_id):
     return historyPageView(request, user_id)
 
 def deleteRecipe(request, user_id, meal_id):
-    meal = Meal.objects.filter(id = meal_id, user = user_id)
-    recipe = Recipe.objects.filter(id = meal.recipe.id)
+    meal = Meal.objects.get(id = meal_id, user = user_id)
+    recipe = Recipe.objects.get(id = meal.recipe.id)
     meal.delete()
     recipe.delete()
     return historyPageView(request, user_id)
