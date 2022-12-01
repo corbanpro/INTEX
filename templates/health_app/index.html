@@ -4,11 +4,11 @@
 {% block content %}
 <style>
     .index-background {
-    margin-top:90px;
     background-image: url("{% static 'admin/img/bg_image.svg'%}");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    top: 0;
     }
 </style>
 <body class="sb-nav-fixed sb-sidenav-toggled index-background">
@@ -16,37 +16,28 @@
     
     {% comment %} <img src="{% static 'admin/img/bg_image.svg' %}" alt="" > {% endcomment %}
 
-    
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href=""></a>
-        <!-- Navbar Search-->
-        
-        
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" >
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-                    <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
 
 
     <div id="layoutSidenav">
         <div id="layoutSidenav_content">
             <main>
-                <div class="container-fluid px-4">
-                    <h1 class="mt-4">Welcome to Whealth</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">We prioritize preventative medicine</li>
-                    </ol>
-                    {% comment %} <a class= 'btn btn-light' href= "{% url 'dash' %}">go to dash</a> {% endcomment %}
-                    <a class= "btn btn-primary" href = "{% url 'login' %}">login</a>
-                    <a class = 'btn btn-light' href = "{% url 'register' %}">signup</a>
+                <br><br>
+                <div class="row">
+                    <div class="container-fluid px-4 col-md-4">
+                        <h1 class="mt-4">Welcome to Whealth</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">We prioritize preventative medicine</li>
+                        </ol>
+                        {% comment %} <a class= 'btn btn-light' href= "{% url 'dash' %}">go to dash</a> {% endcomment %}
+                        <div class="row">
+                            <div class="justity-content-between">
+                        <a class= "btn btn-primary col-md-4" href = "{% url 'login' %}">login</a>
+                        
+                        <a class = 'btn btn-light col-md-4' href = "{% url 'register' %}">signup</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid px-4 col-md-4">
                 </div>
             </main>
         </div>

@@ -5,18 +5,22 @@
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-secondary">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="{% url 'dash' user_id=user.id %}">Whealth</a>
+    <a class="navbar-brand ms-5" href="{% url 'dash' user_id=user.id %}">Whealth</a>
     <!-- Sidebar Toggle-->
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!" style="left: 425px;"><i class="fas fa-bars"></i></button>
+    <button class="btn btn-link btn-sm order-0 order-lg-0 " id="sidebarToggle" href="#!" ><i class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
+    
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        {% comment %}
         <div class="input-group">
             <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
             <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
         </div>
+        {% endcomment %}
     </form>
+    
     <!-- Navbar-->
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+    <ul class="d-none d-md-inline-block navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -68,28 +72,36 @@
                     {% if recipe_dict %}
                     <form name='form' action="{% url 'addRecipe' user_id=user.id %}" method='Post'>
                         {% csrf_token %}
-                        <select name="selected_recipe" id="">
-                            {% for key, value in recipe_dict.items %}
-                                <option value="{{value}}" selected='selected'>
-                                    {{key}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit">Select</button>
+                        <div class="select-bar">
+                            <div class="select-input-dash">                                
+                            <select class="form-select w-50 mb-2 ms-4" aria-label="Default select example" name="selected_recipe" id="">
+                                {% for key, value in recipe_dict.items %}
+                                    <option value="{{value}}" selected='selected'>
+                                        {{key}}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="Select" class="btn btn-success btn-block ms-4"></input>
+                            </div>
+
+                        </div>
+
                     </form>
                     {% endif %}
 
                     {% if ingredient_dict and not measure_list%}
                     <form name='form' action="{% url 'ingredientUnit' user_id=user.id ingredient_name=ingredient_name %}" method='Get'>
                         {% csrf_token %}
-                        <select name="selected_ingredient" id="">
-                            {% for key, value in ingredient_dict.items %}
-                                <option value="{{value}}" selected='selected'>
-                                    {{key}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit">Select</button>
+                        
+                            <select class="form-select w-50 mb-2 ms-4" aria-label="Default select example" name="selected_ingredient" id="">
+                                {% for key, value in ingredient_dict.items %}
+                                    <option value="{{value}}" selected='selected'>
+                                        {{key}}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="Select" class="btn btn-success btn-block ms-4"></input>
+                        
                     </form>
                     {% endif %}
 
@@ -98,9 +110,9 @@
                     <form name='form' action="{% url 'addIngredient' ingredient_id=ingredient_id user_id=user.id ingredient_name=ingredient_name %}" method='Post'>
 
                         {% csrf_token %}
-                        <input type="text" class="form-control" name='selected_amount' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        <input type="text" class="form-control w-50 mb-2 ms-4" name='selected_amount' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
 
-                        <select name="selected_measure" id="">
+                        <select class="form-select w-50 mb-2 ms-4" aria-label="Default select example" name="selected_measure" id="">
                             {% for measure in measure_list %}
                                 <option value="{{measure}}" selected='selected'>
                                     {{measure}}
@@ -108,7 +120,7 @@
                             {% endfor %}
                         </select>
 
-                        <button type="submit">Select</button>
+                        <input type="submit" value="Select" class="btn btn-success btn-block ms-4"></input>
                     </form>
                     {% endif %}
 
@@ -215,13 +227,13 @@
                     <div class="col-xl-15">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-chart-area me-1"></i>
+                                <i class="fas fa-chart-area me-1 mb-2"></i>
                                 Nutrient Details
                                 <br>
                                 <form name="pickNut" action="{% url 'pickNut'%}" method="Post">
                                 {% csrf_token %}
-                                <label for="nutList">View Nutrient:</label>
-                                <select id="nutList" name="nutList" >
+                                <label class="mb-2" for="nutList">View Nutrient:</label>
+                                <select class="form-select w-50 mb-2" aria-label="Default select example" id="nutList" name="nutList" >
                                     <option value="none" selected disabled hidden>
                                         {{nutrientSelect}}
                                     </option>
@@ -233,8 +245,8 @@
                                     <option class="dropdown-item" value = 'Phosphorus' >Phosphorus (mg)</option>
                                     <option class="dropdown-item" value = 'Potassium' >Potassium (mg)</option>
                                 </select>
-                                <div class="mt-4 mb-0">
-                                    <div class="d-grid"><input type="submit"><a></a></input></div>
+                                <div class="mb-2 mb-0">
+                                    <div class="d-grid"><input type="submit" value="Update Recipe" class="btn btn-info btn-block opacity-75 w-25"></input></div>
                                 </div>
                             </form>
                             </div>

@@ -12,7 +12,7 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-7">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
+                                <div class="card-header"><h3 class="text-center font-weight-light my-2">Create Account</h3></div>
                                 <div class="card-body">
                                     <form name="register-form" action="{% url 'dashUser'%}" method="Post">
                                         {% csrf_token %}
@@ -40,7 +40,7 @@
                                         
                                             <div class="col-md-6">
                                                 <label for="listSex">Sex:</label>
-                                                <select id="listSex" name="listSex" >
+                                                <select class="form-select" aria-label="Default select example" id="listSex" name="listSex" >
                                                     <option class="dropdown-item" value = 'Male' >Male</option>
                                                     <option class="dropdown-item" value = 'Female' >Female</option>
                                                 </select>
@@ -80,7 +80,7 @@
                                             </div>       
                                             <div class="col-md-6">
                                                 <label for="comorb_kds">Kidney Disease Stage:</label>
-                                                <select id="comorb_kds" name="comorb_kds" >
+                                                <select class="form-select" aria-label="Default select example" id="comorb_kds" name="comorb_kds" >
                                                     <option class="dropdown-item" value = '1' >1</option>
                                                     <option class="dropdown-item" value = '2' >2</option>
                                                     <option class="dropdown-item" value = '3' >3</option>
@@ -108,8 +108,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="mt-4 mb-0">
-                                            <div class="d-grid"><input type="submit"><a class="btn btn-primary btn-block">Create Account</a></input></div>
+                                        <div class="mt-2 mb-0">
+                                            <div class="d-grid"><input type="submit" value="Create Account" class="btn btn-primary btn-block"></input></div>
                                         </div>
                                     </form>
                                 </div>
@@ -121,20 +121,6 @@
                     </div>
                 </div>
             </main>
-        </div>
-        <div id="layoutAuthentication_footer">
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
     <script>
