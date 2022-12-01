@@ -240,7 +240,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     for pdv in pdvList :
 
         #red if over 100
-        if pdv>= 100 :
+        if pdv> 101 :
             colorVar.append('rgba(217, 30, 24, 0.8)')
         #green if between 85 and 100
         elif pdv >= 85 :
