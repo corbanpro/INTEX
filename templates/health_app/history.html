@@ -175,6 +175,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            
                                             <th>Date &amp Time</th>
                                             <th>Recipe Name</th>
                                             <th>Calories</th>
@@ -185,12 +186,13 @@
                                             <th>Sodium</th>
                                             <th>phosphorus</th>
                                             <th>Potassium</th>
+                                            <th style="display:hidden;">ID</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         {% for meal in meal_dict %} 
                                         <tr>
-                                            <td style="display:hidden;">{{meal.id}}</td>
+                                            
                                             <td>{{meal.date}}</td>
                                             <td>{{meal.recipe.name}}</td>
                                             <td>{{meal.recipe.calories}}</td>
@@ -212,6 +214,7 @@
                                                     <button>Delete</button>
                                                 </form>
                                             </td>
+                                            <td style="display:hidden;">{{meal.id}}</td>
                                         </tr>
                                         {% endfor %} 
                                     </tbody>

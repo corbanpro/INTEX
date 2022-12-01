@@ -220,6 +220,45 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
             colorVar.append('rgba(46, 204, 113, 0.8)')
         else :
             colorVar.append('rgba(228, 208, 10, 0.8)')
+
+    
+    sMessage = ""
+
+    if pdvCarbs >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended carb intake.\n"
+    else:
+        pass
+
+    if pdvPro >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended protein intake.\n"
+    else:
+        pass
+
+    if pdvFat >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended fat intake.\n"
+    else:
+        pass
+
+    if pdvWat >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended water intake.\n"
+    else:
+        pass
+
+    if pdvSod >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended sodium intake.\n"
+    else:
+        pass
+
+    if pdvPho >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended phosphorous intake.\n"
+    else:
+        pass
+
+    if pdvPot >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended potassium intake.\n"
+    else:
+        pass
+
             
 
 
@@ -299,6 +338,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
 
 
         'colLst' : colorVar,
+        'sAlert' : sMessage,
 
     }
 
@@ -515,7 +555,7 @@ def pieChart(request) :
 
 def updateRecipePageView(request, user_id, meal_id):
     user = User.objects.get(id = user_id)
-    meal = Meal.objects.filter(id = meal_id, user = user_id)
+    meal = Meal.objects.get(id = meal_id, user = user_id)
     
     context = {
         'user' : user,
@@ -524,10 +564,10 @@ def updateRecipePageView(request, user_id, meal_id):
     return render(request, 'health_app/update_recipe.html', context)
 
 def editRecipe(request, user_id, meal_id):
-    meal = Meal.objects.filter(id = meal_id, user = user_id)
+    meal = Meal.objects.get(id = meal_id, user = user_id)
     meal.date = request.POST.get('meal_date')
 
-    recipe = Recipe.objects.filter(id = meal.recipe.id)
+    recipe = Recipe.objects.get(id = meal.recipe.id)
     recipe.name = request.POST.get('recipe_name')
     recipe.calories = request.POST.get('recipe_calories')
     recipe.carbs = request.POST.get('recipe_carbs')
@@ -544,8 +584,8 @@ def editRecipe(request, user_id, meal_id):
     return historyPageView(request, user_id)
 
 def deleteRecipe(request, user_id, meal_id):
-    meal = Meal.objects.filter(id = meal_id, user = user_id)
-    recipe = Recipe.objects.filter(id = meal.recipe.id)
+    meal = Meal.objects.get(id = meal_id, user = user_id)
+    recipe = Recipe.objects.get(id = meal.recipe.id)
     meal.delete()
     recipe.delete()
     return historyPageView(request, user_id)

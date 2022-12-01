@@ -35,7 +35,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4 bg-light">
-                <h1 class="mt-4 col-xl-10">This is your meal history, {{user.firstName}}!</h1><br>
+                
                 <ol class="breadcrumb mb-4">
                     <!--<li class="breadcrumb-item active">Dashboard</li>-->
                 </ol>
@@ -52,14 +52,14 @@
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                                <input class="form-control" required='True' name="recipe_name" id="recipe_name" type="text" placeholder="{Recipe.Name}" />
+                                                <input class="form-control" required='True' name="recipe_name" id="recipe_name" type="text" placeholder="{{meal.recipe.name}}" value="{{meal.recipe.name}}"/>
                                                 <label for="recipe_name">{{meal.recipe.name}}</label>
                                             </div>
                                         </div>
-
+                                        
                                         <div class="col-md-4">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" required='True' name="meal_date" id="meal_date" type="date" placeholder="{{meal.date}}" />
+                                                <input class="form-control" required='True' name="meal_date" id="meal_date" type="date" placeholder="{{meal.date}}" value="{{meal.date}}"/>
                                                 <label for="meal_date">Date</label>
                                             </div>
                                         </div>
@@ -89,7 +89,7 @@
 
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="recipe_fat" id="recipe_fat" name="txtWeight" value="{{meal.recipe.fat}}">
+                                                <input class="form-control" type="number" required='True' name="recipe_fat" id="recipe_fat" value="{{meal.recipe.fat}}">
                                                 <label for="recipe_fat">Fat</label>   
                                             </div>
                                         </div>
@@ -99,32 +99,32 @@
 
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="recipe_sodium" id="recipe_sodium" name="txtWeight" value="{{meal.recipe.sodium}}">
+                                                <input class="form-control" type="number" required='True' name="recipe_sodium" id="recipe_sodium" value="{{meal.recipe.sodium}}">
                                                 <label for="recipe_sodium">Sodium</label>   
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="recipe_phosphorus" id="recipe_phosphorus" name="txtWeight" value="{{meal.recipe.phosphorus}}">
+                                                <input class="form-control" type="number" required='True' name="recipe_phosphorus" id="recipe_phosphorus" value="{{meal.recipe.phosphorus}}">
                                                 <label for="recipe_phosphorus">Phosphorus</label>   
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="recipe_potassium" id="recipe_potassium" name="txtWeight" value="{{meal.recipe.potassium}}">
+                                                <input class="form-control" type="number" required='True' name="recipe_potassium" id="recipe_potassium" value="{{meal.recipe.potassium}}">
                                                 <label for="recipe_potassium">Potassium</label>   
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="recipe_water" id="recipe_water" name="txtWeight" value="{{meal.recipe.calories}} (in cups)">
+                                                <input class="form-control" type="number" name="recipe_water" id="recipe_water" value="{{meal.recipe.water}}">
                                                 <label for="recipe_water">Water</label>   
                                             </div>
                                         </div>
                                     <div class="mt-4 mb-0">
-                                        <div class="d-grid"><input type="submit" value="Update Recipe" class="btn btn-primary btn-block"><a >Update Recipe</a></input></div>
+                                        <div class="d-grid"><input type="submit" value="Update Recipe" class="btn btn-primary btn-block"></input></div>
                                     </div>
                                 </form>
                             </div>
