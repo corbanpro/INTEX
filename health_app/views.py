@@ -690,6 +690,7 @@ def updateRecipePageView(request, user_id, meal_id):
 
 #this allows people to edit their meals using on an edit page and then saves the changes
 def editRecipe(request, user_id, meal_id):
+
     meal = Meal.objects.get(id = meal_id, user = user_id)
     meal.date = request.POST.get('meal_date')
 
@@ -717,5 +718,10 @@ def deleteRecipe(request, user_id, meal_id):
     recipe.delete()
     return historyPageView(request, user_id)
 
-def nutritionPageView(request):
-    return render(request, 'health_app/nutrition.html')
+def nutritionPageView(request, user_id):
+    user = User.objects.get(id = user_id)
+
+    context = {
+        'user' : user
+    }
+    return render(request, 'health_app/nutrition.html', context)

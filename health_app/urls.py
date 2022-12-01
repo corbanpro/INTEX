@@ -19,7 +19,7 @@ urlpatterns = [
     path('update/<int:user_id>/<int:meal_id>', updateRecipePageView, name='update_recipe'),
     path('edit/<int:user_id>/<int:meal_id>', editRecipe, name="edit_recipe"),
     path('delete/<int:user_id>/<int:meal_id>', deleteRecipe, name="delete_recipe"),
-    path('nutrition/', nutritionPageView, name="nutrition")
+    path('nutrition/<int:user_id>', nutritionPageView, name="nutrition")
     # path('dashPie/', pieChart, name='pieChart' )
 
 ]                  
