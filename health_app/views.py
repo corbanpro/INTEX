@@ -88,8 +88,8 @@ def dashboardUserPageView(request):
 
 #this is the path to dash if a user logged in (as opposed to registering)
 def dashboardLoginPageView(request) :
-    useremail = request.GET.get('email')
-    userpassword = request.GET.get('password')
+    useremail = request.POST.get('email')
+    userpassword = request.POST.get('password')
 
     #checks if the useremail and password match
     try :
@@ -557,10 +557,10 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     #this is copy and pasted from the dashboard view function
     #this will create sums of each nutrient eaten each day
     for list_date in pastWeekDates:
-        meal_dict = Meal.objects.filter(date = list_date, user = user_id)
+        viz_meal_dict = Meal.objects.filter(date = list_date, user = user_id)
 
         recipe_list = list()
-        for meal in meal_dict :
+        for meal in viz_meal_dict :
             recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
 
         totalCarb = 0
@@ -625,9 +625,17 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         actList = proActList
         nutSelectOpt = 'Protein (g)'
 
+    
+    actListToPass = actList
+    recListToPass = nutrientList
+
+
+    history_meal_dict = Meal.objects.filter(user = user_id)
+
+
     context = {
         'user' : user,
-        'meal_dict' : meal_dict,
+        'history_meal_dict' : history_meal_dict,
         'fCarb': totalCarb,
         'fPro' : totalPro,
         'fFat' : totalFat,
@@ -669,6 +677,7 @@ def pieChart(request) :
 
     return render(request, 'health_app/piechart.html', context)
 
+#after hitting an edit button, this sends the user to a page to edit a record 
 def updateRecipePageView(request, user_id, meal_id):
     user = User.objects.get(id = user_id)
     meal = Meal.objects.get(id = meal_id, user = user_id)
@@ -679,6 +688,7 @@ def updateRecipePageView(request, user_id, meal_id):
     }
     return render(request, 'health_app/update_recipe.html', context)
 
+#this allows people to edit their meals using on an edit page and then saves the changes
 def editRecipe(request, user_id, meal_id):
     meal = Meal.objects.get(id = meal_id, user = user_id)
     meal.date = request.POST.get('meal_date')
@@ -699,6 +709,7 @@ def editRecipe(request, user_id, meal_id):
 
     return historyPageView(request, user_id)
 
+#this allows a user to delete a food or recipe they recorded
 def deleteRecipe(request, user_id, meal_id):
     meal = Meal.objects.get(id = meal_id, user = user_id)
     recipe = Recipe.objects.get(id = meal.recipe.id)

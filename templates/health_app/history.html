@@ -121,65 +121,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-sm-center align-items-md-center">
-                    <div class="col-xl-10 justify-content-sm-center">
-                        <div class="card mb-4">
-                            <div class="accordion accordion-flush" id="accordionFlushExample">
-                                <div class="accordion-item">
-                                  <h2 class="accordion-header" id="flush-headingOne">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                      This is going to be an accordion
-                                    </button>
-                                  </h2>
-                                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class = "col-md-12">
-                                            <canvas id="third_Chart" width="20%" height="20%"></canvas>
-                                            <script>
-                                                const third_ctx = document.getElementById('third_Chart').getContext('2d');
-                                                const third_Chart = new Chart(third_ctx, {
-                                                    type: 'doughnut',
-                                                    data: {
-                                                        labels: ['Carbs', 'Protien', 'Fat', 'Water', 'Sodium', 'Phosphorus', 'Potassium'],
-                                                        datasets: [{
-                                                            label: '# of Votes',
-                                                            data: [{{fCarb}}, {{fPro}}, {{fFat}}, {{fWat}}, {{fSod}}, {{fPho}}, {{fPot}}],
-                                                            backgroundColor: [
-                                                            'rgba(239, 90, 36, 0.8)',
-                                                            'rgba(70, 70, 70, 0.8)',
-                                                            'rgba(25, 135, 84, 0.8)',
-                                                            'rgba(185, 125, 192, 0.8)',
-                                                            'rgba(255, 217, 112, 0.8)',
-                                                            'rgba(224, 52, 0, 0.8)'
-                                                            ],
-                                                            borderColor: [
-                                                                'rgba(239, 90, 36, 1)',
-                                                                'rgba(70, 70, 70, 1)',
-                                                                'rgba(25, 135, 84, 1)',
-                                                                'rgba(185, 125, 192, 1)',
-                                                                'rgba(255, 217, 112, 1)',
-                                                                'rgba(224, 52, 0, 1)'
-                                                            ],
-                                                            borderWidth: 1
-                                                        }]
-                                                    },
-                                                    options: {
-                                                        scales: {
-                                                            y: {
-                                                                beginAtZero: true
-                                                            }
-                                                        }
-                                                    }
-                                                });
-                                            </script>
-                                        </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="row justify-content-sm-center align-items-md-center">
                     <div class="col-xl-10">
                         <div class="card mb-4">
@@ -222,7 +164,7 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        {% for meal in meal_dict %} 
+                                        {% for meal in history_meal_dict %} 
                                         <tr>
                                             
                                             <td>{{meal.date}}</td>
