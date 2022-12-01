@@ -88,8 +88,8 @@ def dashboardUserPageView(request):
 
 #this is the path to dash if a user logged in (as opposed to registering)
 def dashboardLoginPageView(request) :
-    useremail = request.GET.get('email')
-    userpassword = request.GET.get('password')
+    useremail = request.POST.get('email')
+    userpassword = request.POST.get('password')
 
     #checks if the useremail and password match
     try :
@@ -557,10 +557,10 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     #this is copy and pasted from the dashboard view function
     #this will create sums of each nutrient eaten each day
     for list_date in pastWeekDates:
-        meal_dict = Meal.objects.filter(date = list_date, user = user_id)
+        viz_meal_dict = Meal.objects.filter(date = list_date, user = user_id)
 
         recipe_list = list()
-        for meal in meal_dict :
+        for meal in viz_meal_dict :
             recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
 
         totalCarb = 0
@@ -625,9 +625,17 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         actList = proActList
         nutSelectOpt = 'Protein (g)'
 
+    
+    actListToPass = actList
+    recListToPass = nutrientList
+
+
+    history_meal_dict = Meal.objects.filter(user = user_id)
+
+
     context = {
         'user' : user,
-        'meal_dict' : meal_dict,
+        'history_meal_dict' : history_meal_dict,
         'fCarb': totalCarb,
         'fPro' : totalPro,
         'fFat' : totalFat,

@@ -3521,7 +3521,7 @@ textarea.form-control-lg {
 }
 
 .collapse:not(.show) {
-  display: none;
+  display: None;
 }
 
 .collapsing {
