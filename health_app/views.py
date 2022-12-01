@@ -669,6 +669,7 @@ def pieChart(request) :
 
     return render(request, 'health_app/piechart.html', context)
 
+#after hitting an edit button, this sends the user to a page to edit a record 
 def updateRecipePageView(request, user_id, meal_id):
     user = User.objects.get(id = user_id)
     meal = Meal.objects.get(id = meal_id, user = user_id)
@@ -679,6 +680,7 @@ def updateRecipePageView(request, user_id, meal_id):
     }
     return render(request, 'health_app/update_recipe.html', context)
 
+#this allows people to edit their meals using on an edit page and then saves the changes
 def editRecipe(request, user_id, meal_id):
     meal = Meal.objects.get(id = meal_id, user = user_id)
     meal.date = request.POST.get('meal_date')
@@ -699,6 +701,7 @@ def editRecipe(request, user_id, meal_id):
 
     return historyPageView(request, user_id)
 
+#this allows a user to delete a food or recipe they recorded
 def deleteRecipe(request, user_id, meal_id):
     meal = Meal.objects.get(id = meal_id, user = user_id)
     recipe = Recipe.objects.get(id = meal.recipe.id)
