@@ -125,40 +125,12 @@
                     {% endif %}
 
 
-                    <div class="sb-sidenav-menu-heading text-light">Record Activity</div>
 
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/sun.svg'%}" class="svg-filter-light"></div>
-                        <span class="text-light">Input Activity</span>
-                        
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
-                    </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                <span class="text-light">Exercise</span>
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Description</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="number" class="form-control" aria-label="Text input with dropdown button">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="exercise-dropdown" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="#" onclick="replaceDropdown('exercise-dropdown', 'Minutes')">Minutes</a></li>
-                                        <li><a class="dropdown-item" href="#" onclick="replaceDropdown('exercise-dropdown', 'Hours')">Hours</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                <span class="text-light">Other</span>
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
-                            </a>
-                        </nav>
-                    </div>
+
+                    <div class="sb-sidenav-menu-heading text-light">Learn More</div>
+                    <a class="nav-link collapsed" href="{% url 'nutrition' %}" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/feed-person.svg'%}" class="svg-filter-light"></div>
+                        <span class="text-light">Nutritional Info</span></a>
 
                     <div class="sb-sidenav-menu-heading text-light">View Profile History</div>
                     <a class="nav-link collapsed" href="{% url 'history' user_id=user.id%}" aria-expanded="false" aria-controls="collapseLayouts">
