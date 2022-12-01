@@ -379,10 +379,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
 def dashboardRecipePageView(request, user_id) :
     user = User.objects.get(id = user_id)
     recipe_name = request.GET['recipe_name']
-    # context = {
-    #     'recipe_dict' : searchRecipes(recipe_name),
-    #     'user' : user
-    # }
 
     return dashboardPageView(request, user_id, recipe_name=recipe_name)
 
