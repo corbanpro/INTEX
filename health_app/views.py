@@ -232,10 +232,9 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     #we add these precentages to a list, this will help us display data later
     pdvList = [pdvCarbs, pdvPro, pdvFat, pdvWat, pdvSod, pdvPho, pdvPot]
 
-    #create two empty lists regarding colors and exceeded nutrients- these lists will correlate to pdvList
+    #create empty list regarding colors -the list will correlate to pdvList
     colorVar = []
-    exceededList = []
-
+    
     #iterate through pdvList, determine how high the percentage is using if statements to determine the 
     #color of the bar in the bar chart
     for pdv in pdvList :
@@ -255,8 +254,10 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
 
     #only drop into this for loop if something has been exeeded
     if pdvCarbs >= 100 or pdvPro >= 100 or pdvFat >= 100 or pdvWat >= 100 or pdvSod >= 100 or pdvPho >= 100 or pdvPot >= 100 :
+        exceededList = []
         sMessage = "You have exceeded the daily recommended intake for the following: "
 
+        #these if statements determine which nutrients exceed 100% and append their names to the exceededList
         if pdvCarbs >= 100 :
             exceededList.append("carbs")
         else:
@@ -291,11 +292,8 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
             exceededList.append("potassium")
         else:
             pass
-        
-    else :
-        pass
 
-
+        #now we cylce through the exceeded list to add the names of the exceeded nutrients to the alert
         for exceeded in exceededList:
             length = len(exceededList)
             if exceededList.index(exceeded) == length - 1:
@@ -305,12 +303,19 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
                 sMessage += exceeded
                 sMessage += ', '
 
+    #if there are no exceeded nutrients pass this whole step
+    else:
+        pass
 
+    #this determines how much more g/mg of a nutrients are allowed for a user
+    #these variables will be used to determine what recipes are safe to recommend to a person
     maxProtein = (dvPro - tPro) * 100
     maxSodium = (dvSod - tSod) * 100
     maxPhosphorus = (dvPho - tPho) * 100
     maxPotassium = (dvPot - tPot) * 100
 
+    #if the negatives are erroring, try this instead
+    #this will make anything that is a negtaive value equal to 0 instead
     try :
 
         maxProtein = (dvPro - tPro) * 100
@@ -327,7 +332,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         if maxPotassium < 0 :
             maxPotassium = 0
 
-
         suggested_recipeid_dict = searchRecipeByNutrient(maxProtein, maxPotassium, maxPhosphorus, maxSodium)
 
         suggested_recipeid_list = list()
@@ -343,6 +347,8 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     except :
         suggested_recipe_list = list()
 
+    #through one of the above methods, a list of recipes will be created 
+    #this list will be displayed as recommended recipes on the dash page
 
 
     context = {
