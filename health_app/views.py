@@ -308,16 +308,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         suggested_recipe_list = list()
 
 
-    sodUnit = Unit.objects.get(nutrient = 'sodium')
-    phoUnit = Unit.objects.get(nutrient = 'phosphorus')
-    potUnit = Unit.objects.get(nutrient = 'potassium')
-    carUnit = Unit.objects.get(nutrient = 'carbs')
-    calUnit = Unit.objects.get(nutrient = 'calories')
-    watUnit = Unit.objects.get(nutrient = 'water')
-    proUnit = Unit.objects.get(nutrient = 'protein')
-    fatUnit = Unit.objects.get(nutrient = 'fat')
-
-    
 
     context = {
         'user' : user,
@@ -337,14 +327,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'foodList' : foodList,
         'nutrientList' : nutrientList,
         'nutrientSelect': nutSelectOpt,
-        'sodUnit' : sodUnit.unit,
-        'phoUnit' : phoUnit.unit,
-        'potUnit' : potUnit.unit,
-        'carUnit' : carUnit.unit,
-        'calUnit' : calUnit.unit,
-        'watUnit' : watUnit.unit,
-        'proUnit' : proUnit.unit,
-        'fatUnit' : fatUnit.unit,
         'colLst' : colorVar,
         'sAlert' : sMessage,
 
