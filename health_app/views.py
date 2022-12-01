@@ -10,14 +10,11 @@ def indexPageView(request) :
     }
     return render(request, 'health_app/index.html', context)
 
-
 def loginPageView(request) :
     return render(request, 'health_app/login.html')
 
-
 def registerPageView(request) :
     return render(request, 'health_app/register.html')
-
 
 def dashboardUserPageView(request):
 
@@ -84,7 +81,6 @@ def dashboardUserPageView(request):
 
     return dashboardPageView(request, new_user.id)
 
-
 def dashboardLoginPageView(request) :
     useremail = request.GET.get('email')
     userpassword = request.GET.get('password')
@@ -101,7 +97,6 @@ def dashboardLoginPageView(request) :
     # }
 
     return dashboardPageView(request, user.id)
-
 
 def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None, ingredient_id=None, selection = 'protein') :
 
@@ -344,7 +339,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
 
     return render(request, 'health_app/dash.html', context)
 
-
 def dashboardRecipePageView(request, user_id) :
     user = User.objects.get(id = user_id)
     recipe_name = request.GET['recipe_name']
@@ -354,7 +348,6 @@ def dashboardRecipePageView(request, user_id) :
     # }
 
     return dashboardPageView(request, user_id, recipe_name=recipe_name)
-
 
 def addRecipePageView(request, user_id) :
     user = User.objects.get(id = user_id)
@@ -388,7 +381,6 @@ def addRecipePageView(request, user_id) :
 
     return dashboardPageView(request, user_id)
 
-
 def dashboardIngredientPageView(request, user_id) :
     user = User.objects.get(id = user_id)
 
@@ -401,7 +393,6 @@ def dashboardIngredientPageView(request, user_id) :
     # }
 
     return dashboardPageView(request, user_id, ingredient_name=ingredient_name)
-
 
 def dashboardIngredientUnitPageView(request, user_id, ingredient_name) :
     user = User.objects.get(id = user_id)
@@ -416,7 +407,6 @@ def dashboardIngredientUnitPageView(request, user_id, ingredient_name) :
     # }
 
     return dashboardPageView(request, user_id, ingredient_id=ingredient_id, ingredient_name=ingredient_name)
-
 
 def addIngredientPageView(request, ingredient_id, user_id, ingredient_name) :
     user = User.objects.get(id = user_id)
@@ -450,14 +440,13 @@ def addIngredientPageView(request, ingredient_id, user_id, ingredient_name) :
 
     return dashboardPageView(request, user_id)
 
-
 def addWaterPageView(request, user_id) :
     user = User.objects.get(id = user_id)
 
     amount = request.GET['water_added']
 
     water = Recipe()
-    water.name = 'water'
+    water.name = 'Water'
     water.water = amount
     water.save()
 
@@ -472,7 +461,6 @@ def addWaterPageView(request, user_id) :
     # }
 
     return dashboardPageView(request, user_id)
-
 
 def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, ingredient_id=None) :
     if recipe_name != None :

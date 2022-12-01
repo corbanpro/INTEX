@@ -52,22 +52,22 @@
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                                <input class="form-control" required='True' name="recipe_name" id="recipe_name" type="text" placeholder="{{meal.recipe.name}}" value="{{meal.recipe.name}}"/>
-                                                <label for="recipe_name">{{meal.recipe.name}}</label>
+                                                <input class="form-control" required name="recipe_name" id="recipe_name" type="text" placeholder="{{meal.recipe.name}}" value="{{meal.recipe.name}}">
+                                                <label for="recipe_name">Recipe Name</label>
                                             </div>
                                         </div>
                                         
                                         <div class="col-md-4">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" required='True' name="meal_date" id="meal_date" type="date" placeholder="{{meal.date}}" value="{{meal.date}}"/>
-                                                <label for="meal_date">Date</label>
+                                                <input class="form-control" required name="meal_date" id="meal_date" type="date" placeholder="{{meal.date}}" value="{{meal.date.year}}-{{meal.date.month}}-{{meal.date.day}}">
+                                                <label for="meal_date">Meal Date</label>
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                            <input class="form-control" required='True' name="recipe_calories" id="recipe_calories" type="number" placeholder="Enter your date of birth" value="{{meal.recipe.calories}}"/>
-                                            <label for="recipe_calories">Calories</label>
+                                            <input class="form-control" required name="recipe_calories" id="recipe_calories" type="number" value="{{meal.recipe.calories}}" step="any">
+                                            <label for="recipe_calories">Calories (g)</label>
                                             </div>
                                         </div>
 
@@ -75,22 +75,22 @@
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="recipe_carbs" id="recipe_carbs" value="{{meal.recipe.carbs}}">
-                                                <label for="recipe_carbs">Carbs</label>                                        
+                                                <input class="form-control" type="number" required name="recipe_carbs" id="recipe_carbs" value="{{meal.recipe.carbs}}" step="any">
+                                                <label for="recipe_carbs">Carbs (g)</label>                                        
                                             </div>
                                         </div>  
 
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="recipe_protein" id="recipe_protein" value="{{meal.recipe.protein}}">
-                                                <label for="recipe_protein">Protein</label>
+                                                <input class="form-control" type="number" required name="recipe_protein" id="recipe_protein" value="{{meal.recipe.protein}}" step="any" >
+                                                <label for="recipe_protein">Protein (g)</label>
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="recipe_fat" id="recipe_fat" value="{{meal.recipe.fat}}">
-                                                <label for="recipe_fat">Fat</label>   
+                                                <input class="form-control" type="number" required name="recipe_fat" id="recipe_fat" value="{{meal.recipe.fat}}" step="any">
+                                                <label for="recipe_fat">Fat (g)</label>   
                                             </div>
                                         </div>
                                     </div>
@@ -99,28 +99,28 @@
 
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="recipe_sodium" id="recipe_sodium" value="{{meal.recipe.sodium}}">
-                                                <label for="recipe_sodium">Sodium</label>   
+                                                <input class="form-control" type="number" required name="recipe_sodium" id="recipe_sodium" value="{{meal.recipe.sodium}}" step="any">
+                                                <label for="recipe_sodium">Sodium (mg)</label>   
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="recipe_phosphorus" id="recipe_phosphorus" value="{{meal.recipe.phosphorus}}">
-                                                <label for="recipe_phosphorus">Phosphorus</label>   
+                                                <input class="form-control" type="number" required name="recipe_phosphorus" id="recipe_phosphorus" value="{{meal.recipe.phosphorus}}" step="any" >
+                                                <label for="recipe_phosphorus">Phosphorus (mg)</label>   
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="recipe_potassium" id="recipe_potassium" value="{{meal.recipe.potassium}}">
-                                                <label for="recipe_potassium">Potassium</label>   
+                                                <input class="form-control" type="number" required name="recipe_potassium" id="recipe_potassium" value="{{meal.recipe.potassium}}" step="any">
+                                                <label for="recipe_potassium">Potassium (mg)</label>   
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" name="recipe_water" id="recipe_water" value="{{meal.recipe.water}}">
-                                                <label for="recipe_water">Water</label>   
+                                                <input class="form-control" type="number" required name="recipe_water" id="recipe_water" value="{{meal.recipe.water}}" step="any">
+                                                <label for="recipe_water">Water (cups)</label>   
                                             </div>
                                         </div>
                                     <div class="mt-4 mb-0">
