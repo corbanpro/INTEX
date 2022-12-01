@@ -86,10 +86,12 @@ def dashboardUserPageView(request):
 
     return dashboardPageView(request, new_user.id)
 
+#this is the path to dash if a user logged in (as opposed to registering)
 def dashboardLoginPageView(request) :
     useremail = request.GET.get('email')
     userpassword = request.GET.get('password')
 
+    #checks if the useremail and password match
     try :
         user = User.objects.get(email = useremail, password = userpassword)
 
@@ -99,23 +101,28 @@ def dashboardLoginPageView(request) :
 
     return dashboardPageView(request, user.id)
 
+#this dash page view renders more specifics about the graphs on the users age 
 def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None, ingredient_id=None, selection = 'protein') :
 
+    #search recipes
     if recipe_name != None :
         recipe_dict = searchRecipes(recipe_name)
     else :
         recipe_dict = dict()
 
+    #search ingredients
     if ingredient_name != None :
         ingredient_dict = searchIngredients(ingredient_name)
     else :
         ingredient_dict = dict()
 
+    #enter measurement for ingredients
     if ingredient_id != None :
         measure_list = getIngredientInformation1(ingredient_id)
     else :
         measure_list = list()
     
+    #find user and day and add the ingredient or recipe to their recorded meals for the day 
     user = User.objects.get(id = user_id)
 
     today = datetime.now().date()
@@ -126,10 +133,11 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
 
     #########################
-    ### this is pickNutView function
+    ### this is pickNut function to select which nutrient to view and display it on the doughnut chart
     #########################
     selection = request.POST.get('nutList')
 
+    #create empty lists for each possible ingredient
     foodList = []
     proteinList = []
     carbList = []
@@ -139,6 +147,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     potList = []
     calList = []
 
+    #iterate through the recipe list and append each of the nutrient levels to the corresponding nutrient list
     for recipe in recipe_list:
         foodList.append(recipe.name)
         proteinList.append(recipe.protein)
@@ -149,6 +158,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         phoList.append(recipe.phosphorus)
         potList.append(recipe.potassium)
 
+    #based on what nutrient the user selected to view, show that data and selection string
     if selection == 'Potassium':
         nutrientList = potList
         nutSelectOpt = 'Potassium (mg)'
@@ -172,8 +182,10 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         nutSelectOpt = 'Protein (g)'
     
 
+    #this determines the daily value of the user and assigns it to a variable
     daily_val = DailyValue.objects.get(id = user.dv_determinate.daily_value.id)
 
+    #initialize total nutrient levels of the day at zero
     tCarbs = 0
     tPro = 0
     tFat = 0
@@ -182,6 +194,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     tPho = 0
     tPot = 0
 
+    #now add the nutrients to that variable to create a sum of the nutrients a user has had in a day
     for recipe in recipe_list :
         tCarbs += recipe.carbs
         tPro += recipe.protein
@@ -191,11 +204,14 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         tPho += recipe.phosphorus
         tPot += recipe.potassium
 
+    #this code would be used by future developers to determine nutrient needs based on BMI
+    #for the scope of our week long project, we did not incooperate this ourselves, but wanted to show a possible idea
     # avgBmi = 21.7
     # bmi = (user.weight / user.height**2) * 703
     # bmiCoef = bmi / avgBmi # maybe add some other random coefficient here to make the effect stronger or weaker. idk
 
-    # some of these might be multiplied, others divided. I don't know anything about nutrition
+    # this creates variables to hold the recommended amount of each nutrient for a person
+    #you COULD do math according to BMI here but we will not
     dvCarbs = daily_val.carbs    # * bmiCoef
     dvPro = daily_val.protein * user.weight / 2.2    # * bmiCoef
     dvFat = daily_val.fat        # * bmiCoef
@@ -204,6 +220,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     dvPho = daily_val.phosphorus # * bmiCoef
     dvPot = daily_val.potassium  # * bmiCoef
 
+    #now we deivde the sum amount a person has consumed of a nutrient by the recommended amount to find a percentage consumed
     pdvCarbs = (tCarbs / dvCarbs) * 100
     pdvPro = (tPro / dvPro) * 100
     pdvFat = (tFat / dvFat) * 100
