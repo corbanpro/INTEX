@@ -261,14 +261,13 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         suggested_recipe_list = list()
 
 
-    sodUnit = 0 #Unit.objects.get(nutrient = 'sodium')
-    phoUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
-    potUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
-    carUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
-    calUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
-    watUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
-    proUnit = 0 #Unit.objects.get(nutrient = 'phosphorus')
-
+    sodUnit = Unit.objects.get(nutrient = 'sodium')
+    phoUnit = Unit.objects.get(nutrient = 'phosphorus')
+    potUnit = Unit.objects.get(nutrient = 'phosphorus')
+    carUnit = Unit.objects.get(nutrient = 'phosphorus')
+    calUnit = Unit.objects.get(nutrient = 'phosphorus')
+    watUnit = Unit.objects.get(nutrient = 'phosphorus')
+    proUnit = Unit.objects.get(nutrient = 'phosphorus')
 
     context = {
         'user' : user,
@@ -471,12 +470,6 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         totalSod += recipe.sodium
         totalPho += recipe.phosphorus
         totalPot += recipe.potassium
-
-    #here we need to put if statements for the alerts
-    #so for example if totalCarb > dailyValueDeterminante.protein for the user
-    #then "color" : rgb122 (whatever red is) and "message" = "You have exceeded the daily value for protein."
-    #We will NOT do this for carbs, calories, or fats as they do not have UL
-    #We will consider the values in the table provided by client as Upper Limits
 
     context = {
         'user' : user,

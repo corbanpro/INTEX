@@ -325,7 +325,11 @@
                                             <td>{{meal.recipe.sodium}}</td>
                                             <td>{{meal.recipe.phosphorus}}</td>
                                             <td>{{meal.recipe.potassium}}</td>
-                                            <td class="history-table-row" style="text-align: center;"><button>Edit</button>   <button>Delete</button></td>
+                                            <td class="history-table-row" style="text-align: center;">
+                                                <form name="form" action="{% url 'update_recipe' meal_id=meal.id user_id=user.id %}" method="Post"><button>Edit</button></form>
+                                                <p>   </p>
+                                                <form><button>Delete</button></form>
+                                            </td>
                                         </tr>
                                         {% endfor %} 
                                     </tbody>

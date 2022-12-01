@@ -17,7 +17,7 @@ urlpatterns = [
     path('addWater/<int:user_id>', addWaterPageView, name= 'addWater'),
     path('dashLogin/', dashboardLoginPageView, name= 'dashLogin'),
     path('dashPickNut/', dashboardPageView, name= 'pickNut'),
-    path('update/', updateRecipe, name='update_recipe'),
+    path('update/<int:user_id><int:meal_id>', updateRecipe, name='update_recipe'),
     # path('dashPie/', pieChart, name='pieChart' )
 
 ]                  
