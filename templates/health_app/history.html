@@ -207,7 +207,10 @@
                                                     <button>Edit</button>
                                                 </form>
                                                 <p>   </p>
-                                                <form><button>Delete</button></form>
+                                                <form name="form" action="{% url 'delete_recipe' user_id=user.id meal_id=meal.id %}" method="Post">
+                                                    {% csrf_token %}
+                                                    <button>Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                         {% endfor %} 
