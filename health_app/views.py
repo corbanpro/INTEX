@@ -531,10 +531,10 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
 
 
     for list_date in pastWeekDates:
-        meal_dict = Meal.objects.filter(date = list_date, user = user_id)
+        viz_meal_dict = Meal.objects.filter(date = list_date, user = user_id)
 
         recipe_list = list()
-        for meal in meal_dict :
+        for meal in viz_meal_dict :
             recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
 
         totalCarb = 0
@@ -599,9 +599,13 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     actListToPass = actList
     recListToPass = nutrientList
 
+
+    history_meal_dict = Meal.objects.filter(user = user_id)
+
+
     context = {
         'user' : user,
-        'meal_dict' : meal_dict,
+        'history_meal_dict' : history_meal_dict,
         'fCarb': totalCarb,
         'fPro' : totalPro,
         'fFat' : totalFat,
