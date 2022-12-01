@@ -457,7 +457,7 @@ def addWaterPageView(request, user_id) :
 
     return dashboardPageView(request, user_id)
 
-def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, ingredient_id=None) :
+def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, ingredient_id=None, selection = 'protein') :
     if recipe_name != None :
         recipe_dict = searchRecipes(recipe_name)
     else :
@@ -563,9 +563,39 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
 
     #dummy stuff
     #add selection ability
+    selection = request.POST.get('nutList')
+    actList = []
+    nutrientList = []
 
-    actListToPass = proActList
-    recListToPass = proRecList
+    if selection == 'Potassium':
+        nutrientList = potRecList
+        actList = potActList
+        nutSelectOpt = 'Potassium (mg)'
+
+    elif selection == 'Carbs':
+        nutrientList = carbsRecList
+        actList = carbsActList
+        nutSelectOpt = 'Carbs (g)'
+    elif selection == 'Fat':
+        nutrientList = fatRecList
+        actList = fatActList
+        nutSelectOpt = 'Fat (g)'
+    elif selection == 'Sodium':
+        nutrientList = sodRecList
+        actList = sodActList
+        nutSelectOpt = 'Sodium (mg)'
+    elif selection == 'Phosphorus':
+        nutrientList = phoRecList
+        actList = phoActList
+        nutSelectOpt = 'Phosphorous (mg)'
+    else :
+        nutrientList = proRecList
+        actList = proActList
+        nutSelectOpt = 'Protein (g)'
+
+    
+    actListToPass = actList
+    recListToPass = nutrientList
 
     context = {
         'user' : user,

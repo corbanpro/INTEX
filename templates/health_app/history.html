@@ -49,7 +49,26 @@
                             <div class="card-header">
                                 <i class="fas fa-chart-area me-1"></i>
                                 Nutrient Intake History
+                                <form name="pickNut" action="{% url 'pickNut'%}" method="Post">
+                                    {% csrf_token %}
+                                        <select class="form-select w-50 mb-2" aria-label="Default select example" id="nutList" name="nutList" >
+                                            <option value="none" selected disabled hidden>
+                                                {{nutrientSelect}}
+                                            </option>
+                                            <option class="dropdown-item" value='Protein'>Protein (g)</option>
+                                            <option class="dropdown-item" value='Fat'>Fat (g)</option>
+                                            <option class="dropdown-item" value='Carbs'>Carbs (g)</option>
+                                            <option class="dropdown-item" value='Calories'>Calories (kCal)</option>
+                                            <option class="dropdown-item" value='Sodium'>Sodium (mg)</option>
+                                            <option class="dropdown-item" value='Phosphorus'>Phosphorus (mg)</option>
+                                            <option class="dropdown-item" value='Potassium'>Potassium (mg)</option>
+                                        </select>
+                                        <div class="mb-2 mb-0">
+                                            <div class="d-grid"><input type="submit" value="Update View" class="btn btn-info btn-block opacity-75 w-25"></input></div>
+                                        </div>
+                                    </form>
                             </div>
+                            
                             <div class = "col-md-12">
                                 <canvas id="another_Chart" width="100%" height="40"></canvas>
                                 <script>
