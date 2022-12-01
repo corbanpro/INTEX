@@ -456,6 +456,7 @@ def addIngredientPageView(request, ingredient_id, user_id, ingredient_name) :
 
     return dashboardPageView(request, user_id)
 
+# this allows a user to add water to their record
 def addWaterPageView(request, user_id) :
     user = User.objects.get(id = user_id)
 
@@ -472,12 +473,10 @@ def addWaterPageView(request, user_id) :
     new_meal.user = user
     new_meal.save()
 
-    # context = {
-    #     'user' : user
-    # }
 
     return dashboardPageView(request, user_id)
 
+# this is the page view to see history (journal and nutrient intake history chart)
 def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, ingredient_id=None, selection = 'protein') :
     if recipe_name != None :
         recipe_dict = searchRecipes(recipe_name)
@@ -497,8 +496,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     user = User.objects.get(id = user_id)
     
 
-    #get list of dates from today backward
-    
+    #get list of dates of the week, starting today going backward
     pastWeekDates = []
     from datetime import datetime, timedelta
     today = datetime.now().date()
@@ -510,6 +508,8 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         pastWeekDates.append(dateToAdd)
 
     pastWeekDates.reverse()
+    
+    #according to dailyvalue table, determine the daily value of each nutrient
     daily_val = DailyValue.objects.get(id = user.dv_determinate.daily_value.id)
     dvCarbs = daily_val.carbs    # * bmiCoef
     dvPro = daily_val.protein * user.weight / 2.2   # * bmiCoef
@@ -520,6 +520,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     dvPot = daily_val.potassium  # * bmiCoef
     dvCal = daily_val.calories # *bmiCoef
 
+    #initialize lists of recommended amounts of nutrients
     proRecList = []
     carbsRecList = []
     fatRecList = []
@@ -529,6 +530,8 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     potRecList = []
     calRecList = []
 
+    #loop through these 7 times (to match one week) to add the recommended daily value of 
+    #the nutrients (this will create a base line on chart to compare consumed nutrients to)
     count = 0 
     while count < 8:
         proRecList.append(dvPro)
@@ -541,7 +544,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         calRecList.append(dvCal)
         count += 1
 
-    
+    #initialize empty lists that will contain the sum of what people actually ate in each day
     proActList = []   #sum of protein that person ate in one day
     carbsActList = []
     fatActList = []
@@ -551,7 +554,8 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     potActList = []
     calActList = []
 
-
+    #this is copy and pasted from the dashboard view function
+    #this will create sums of each nutrient eaten each day
     for list_date in pastWeekDates:
         meal_dict = Meal.objects.filter(date = list_date, user = user_id)
 
@@ -578,6 +582,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
             totalPot += recipe.potassium
             totalCal += recipe.calories
         
+        #append the total to the actual lists (7 times to match the 7 days)
         proActList.append(totalPro)
         carbsActList.append(totalCarb)
         fatActList.append(totalFat)
@@ -588,17 +593,17 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         calActList.append(totalCal)
         
 
-    #dummy stuff
-    #add selection ability
+    #add selection ability using lists to send data
     selection = request.POST.get('nutList')
     actList = []
     nutrientList = []
 
+    #if a user selects potassium, the lists pertaining to potassium will be sent as well as the 
+    #variable of string showing what the user selected in the select box
     if selection == 'Potassium':
         nutrientList = potRecList
         actList = potActList
         nutSelectOpt = 'Potassium (mg)'
-
     elif selection == 'Carbs':
         nutrientList = carbsRecList
         actList = carbsActList
@@ -620,10 +625,6 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         actList = proActList
         nutSelectOpt = 'Protein (g)'
 
-    
-    actListToPass = actList
-    recListToPass = nutrientList
-
     context = {
         'user' : user,
         'meal_dict' : meal_dict,
@@ -639,13 +640,14 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         'ingredient_id' : ingredient_id,
         'measure_list' : measure_list,
         'pastWeekDates' : pastWeekDates,
-        'actList' : actListToPass,
-        'recList' : recListToPass,
+        'actList' : actList,
+        'recList' : nutrientList,
         'nutrientSelect' : nutSelectOpt
 
     }
     return render(request, 'health_app/history.html', context)
 
+#this function is pertaining to the doughnut chart on the dash page
 def pieChart(request) : 
     # user = User.objects.get(id = user_id)
     # today = datetime.now().date()
