@@ -188,13 +188,18 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         tPho += recipe.phosphorus
         tPot += recipe.potassium
 
-    dvCarbs = daily_val.carbs
-    dvPro = user.weight * .08 / 2.2
-    dvFat = daily_val.fat
-    dvWat = daily_val.water
-    dvSod = daily_val.sodium
-    dvPho = daily_val.phosphorus
-    dvPot = daily_val.potassium
+    avgBmi = 21.7
+    bmi = (user.weight / user.height**2) * 703
+    bmiCoef = bmi / avgBmi # maybe add some other random coefficient here to make the effect stronger or weaker. idk
+
+    # some of these might be multiplied, others divided. I don't know anything about nutrition
+    dvCarbs = daily_val.carbs    * bmiCoef
+    dvPro = daily_val.protein    * bmiCoef
+    dvFat = daily_val.fat        * bmiCoef
+    dvWat = daily_val.water      * bmiCoef
+    dvSod = daily_val.sodium     * bmiCoef
+    dvPho = daily_val.phosphorus * bmiCoef
+    dvPot = daily_val.potassium  * bmiCoef
 
     pdvCarbs = (tCarbs / dvCarbs) * 100
     pdvPro = (tPro / dvPro) * 100
