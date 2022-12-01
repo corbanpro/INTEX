@@ -146,22 +146,22 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         phoList.append(recipe.phosphorus)
         potList.append(recipe.potassium)
 
-    if selection == 'Potassium (mg)':
+    if selection == 'Potassium':
         nutrientList = potList
         nutSelectOpt = 'Potassium (mg)'
-    elif selection == 'Calories (kCal)':
+    elif selection == 'Calories':
         nutrientList = calList
         nutSelectOpt = 'Calories '
-    elif selection == 'Carbs (g)':
+    elif selection == 'Carbs':
         nutrientList = carbList
         nutSelectOpt = 'Carbs (g)'
-    elif selection == 'Fat (g)':
+    elif selection == 'Fat':
         nutrientList = fatList
         nutSelectOpt = 'Fat (g)'
-    elif selection == 'Sodium (mg)':
+    elif selection == 'Sodium':
         nutrientList = sodList
         nutSelectOpt = 'Sodium (mg)'
-    elif selection == 'Phosphorus (mg)':
+    elif selection == 'Phosphorus':
         nutrientList = phoList
         nutSelectOpt = 'Phosphorous (mg)'
     else :
@@ -211,6 +211,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
 
     pdvList = [pdvCarbs, pdvPro, pdvFat, pdvWat, pdvSod, pdvPho, pdvPot]
     colorVar = []
+    exceededList = []
 
     for pdv in pdvList :
 
@@ -224,42 +225,53 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     
     sMessage = ""
 
+    if pdvCarbs >= 100 or pdvPro >= 100 or pdvFat >= 100 or pdvWat >= 100 or pdvSod >= 100 or pdvPho >= 100 or pdvPot >= 100 :
+        sMessage = "You have exceeded the daily recommended intake for the following: "
+
     if pdvCarbs >= 100 :
-        sMessage = sMessage + "You have exceeded your daily recommended carb intake.\n"
+        exceededList.append("carbs")
     else:
         pass
 
     if pdvPro >= 100 :
-        sMessage = sMessage + "You have exceeded your daily recommended protein intake.\n"
+        exceededList.append("protein")
     else:
         pass
 
     if pdvFat >= 100 :
-        sMessage = sMessage + "You have exceeded your daily recommended fat intake.\n"
+        exceededList.append("fat")
     else:
         pass
 
     if pdvWat >= 100 :
-        sMessage = sMessage + "You have exceeded your daily recommended water intake.\n"
+        exceededList.append("water")
     else:
         pass
 
     if pdvSod >= 100 :
-        sMessage = sMessage + "You have exceeded your daily recommended sodium intake.\n"
+        exceededList.append("sodium")
     else:
         pass
 
     if pdvPho >= 100 :
-        sMessage = sMessage + "You have exceeded your daily recommended phosphorous intake.\n"
+        exceededList.append("phosphorous")
     else:
         pass
 
     if pdvPot >= 100 :
-        sMessage = sMessage + "You have exceeded your daily recommended potassium intake.\n"
+        exceededList.append("potassium")
     else:
         pass
 
-            
+
+    for exceeded in exceededList:
+        length = len(exceededList)
+        if exceededList.index(exceeded) == length - 1:
+            sMessage += exceeded
+            sMessage += '.'
+        else:
+            sMessage += exceeded
+            sMessage += ', '
 
 
     maxProtein = (dvPro - tPro) * 100
