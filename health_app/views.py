@@ -190,7 +190,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
 
     # some of these might be multiplied, others divided. I don't know anything about nutrition
     dvCarbs = daily_val.carbs    # * bmiCoef
-    dvPro = daily_val.protein    # * bmiCoef
+    dvPro = daily_val.protein * user.weight / 2.2    # * bmiCoef
     dvFat = daily_val.fat        # * bmiCoef
     dvWat = daily_val.water      # * bmiCoef
     dvSod = daily_val.sodium     # * bmiCoef
@@ -492,7 +492,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     pastWeekDates.reverse()
     daily_val = DailyValue.objects.get(id = user.dv_determinate.daily_value.id)
     dvCarbs = daily_val.carbs    # * bmiCoef
-    dvPro = daily_val.protein    # * bmiCoef
+    dvPro = daily_val.protein * user.weight / 2.2   # * bmiCoef
     dvFat = daily_val.fat        # * bmiCoef
     dvWat = daily_val.water      # * bmiCoef
     dvSod = daily_val.sodium     # * bmiCoef
@@ -613,7 +613,8 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         'measure_list' : measure_list,
         'pastWeekDates' : pastWeekDates,
         'actList' : actListToPass,
-        'recList' : recListToPass
+        'recList' : recListToPass,
+        'nutrientSelect' : nutSelectOpt
 
     }
     return render(request, 'health_app/history.html', context)

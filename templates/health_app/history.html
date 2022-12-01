@@ -49,9 +49,9 @@
                             <div class="card-header">
                                 <i class="fas fa-chart-area me-1"></i>
                                 Nutrient Intake History
-                                <form name="pickNut" action="{% url 'pickNut'%}" method="Post">
+                                <form name="pickNut" action="{% url 'history' user_id=user.id%}" method="Post">
                                     {% csrf_token %}
-                                        <select class="form-select w-50 mb-2" aria-label="Default select example" id="nutList" name="nutList" >
+                                        <select class="form-select w-50 mb-2" aria-label="Default select example" id="nutList" name="nutList" value="Protein">
                                             <option value="none" selected disabled hidden>
                                                 {{nutrientSelect}}
                                             </option>
