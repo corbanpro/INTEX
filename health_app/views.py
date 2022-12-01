@@ -146,22 +146,22 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         phoList.append(recipe.phosphorus)
         potList.append(recipe.potassium)
 
-    if selection == 'Potassium (mg)':
+    if selection == 'Potassium':
         nutrientList = potList
         nutSelectOpt = 'Potassium (mg)'
-    elif selection == 'Calories (kCal)':
+    elif selection == 'Calories':
         nutrientList = calList
         nutSelectOpt = 'Calories '
-    elif selection == 'Carbs (g)':
+    elif selection == 'Carbs':
         nutrientList = carbList
         nutSelectOpt = 'Carbs (g)'
-    elif selection == 'Fat (g)':
+    elif selection == 'Fat':
         nutrientList = fatList
         nutSelectOpt = 'Fat (g)'
-    elif selection == 'Sodium (mg)':
+    elif selection == 'Sodium':
         nutrientList = sodList
         nutSelectOpt = 'Sodium (mg)'
-    elif selection == 'Phosphorus (mg)':
+    elif selection == 'Phosphorus':
         nutrientList = phoList
         nutSelectOpt = 'Phosphorous (mg)'
     else :
