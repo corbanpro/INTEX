@@ -376,12 +376,14 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
 
     return render(request, 'health_app/dash.html', context)
 
+#this allows a user to view recipes (search)
 def dashboardRecipePageView(request, user_id) :
     user = User.objects.get(id = user_id)
     recipe_name = request.GET['recipe_name']
 
     return dashboardPageView(request, user_id, recipe_name=recipe_name)
 
+#this allows a user to add recipes to their record
 def addRecipePageView(request, user_id) :
     user = User.objects.get(id = user_id)
 
@@ -407,40 +409,25 @@ def addRecipePageView(request, user_id) :
     new_meal.save()
 
 
-    # context = {
-    #     'user' : user
-
-    # }
-
     return dashboardPageView(request, user_id)
 
+#allows user to search through foods (like bananas)
 def dashboardIngredientPageView(request, user_id) :
     user = User.objects.get(id = user_id)
 
     ingredient_name = request.GET['ingredient_name']
 
-    # context = {
-    #     'ingredient_dict' : searchIngredients(ingredient_name),
-    #     'user' : user
-
-    # }
-
     return dashboardPageView(request, user_id, ingredient_name=ingredient_name)
 
+#allows user to see and select the unit and amount of food they consumed
 def dashboardIngredientUnitPageView(request, user_id, ingredient_name) :
     user = User.objects.get(id = user_id)
 
     ingredient_id = request.GET['selected_ingredient']
 
-    # context = {
-    #     'measure_list' : getIngredientInformation1(ingredient_id),
-    #     'ingredient_id' : ingredient_id,        
-    #     'user' : user,
-
-    # }
-
     return dashboardPageView(request, user_id, ingredient_id=ingredient_id, ingredient_name=ingredient_name)
 
+#allows user to add food (like banana) to their record
 def addIngredientPageView(request, ingredient_id, user_id, ingredient_name) :
     user = User.objects.get(id = user_id)
 
@@ -466,10 +453,6 @@ def addIngredientPageView(request, ingredient_id, user_id, ingredient_name) :
     new_meal.user = user
     new_meal.save()
 
-
-    # context = {
-    #     'user' : user
-    # }
 
     return dashboardPageView(request, user_id)
 
