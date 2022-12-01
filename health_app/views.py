@@ -480,7 +480,6 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
 
     #get list of dates from today backward
     
-
     pastWeekDates = []
     from datetime import datetime, timedelta
     today = datetime.now().date()
@@ -531,6 +530,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     sodActList = []
     phoActList = []
     potActList = []
+    calActList = []
 
 
     for list_date in pastWeekDates:
@@ -547,6 +547,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         totalSod = 0
         totalPho = 0
         totalPot = 0
+        totalCal = 0
 
         for recipe in recipe_list :
             totalCarb += recipe.carbs
@@ -565,6 +566,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         sodActList.append(totalSod)
         phoActList.append(totalPho)
         potActList.append(totalPot)
+        calActList.append(totalCal)
         
 
     #dummy stuff
