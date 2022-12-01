@@ -320,38 +320,38 @@
                             <thead>
                                 <tr>
                                     <th>Recipe Name</th>
-                                    <th>Calories</th>
-                                    <th>Carbs</th>
-                                    <th>Protein</th>
-                                    <th>Fat</th>
-                                    <th>Sodium</th>
-                                    <th>Phosphorus</th>
-                                    <th>Potassium</th>
+                                    <th>Calories (kCal)</th>
+                                    <th>Carbs (g)</th>
+                                    <th>Protein (g)</th>
+                                    <th>Fat (g)</th>
+                                    <th>Sodium (mg)</th>
+                                    <th>Phosphorus (mg)</th>
+                                    <th>Potassium (mg)</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>Recipe Name</th>
-                                    <th>Calories</th>
-                                    <th>Carbs</th>
-                                    <th>Protein</th>
-                                    <th>Fat</th>
-                                    <th>Sodium</th>
-                                    <th>Phosphorus</th>
-                                    <th>Potassium</th>
+                                    <th>Calories (kCal)</th>
+                                    <th>Carbs (g)</th>
+                                    <th>Protein (g)</th>
+                                    <th>Fat (g)</th>
+                                    <th>Sodium (mg)</th>
+                                    <th>Phosphorus (mg)</th>
+                                    <th>Potassium (mg)</th>
                                 </tr>
                             </tfoot>
                             <tbody>
                                 {% for suggested_recipe in suggested_recipe_list %}
                                 <tr>
                                     <td>{{suggested_recipe.title}} </td>
-                                    <td>{{suggested_recipe.calories }} {{calUnit}}</td>
-                                    <td>{{suggested_recipe.carbs}} {{carUnit}}</td>
-                                    <td>{{suggested_recipe.protein}} {{proUnit}}</td>
-                                    <td>{{suggested_recipe.fat}} {{fatUnit}}</td>
-                                    <td>{{suggested_recipe.sodium}} {{sodUnit}}</td>
-                                    <td>{{suggested_recipe.phosphorus}} {{phoUnit}}</td>
-                                    <td>{{suggested_recipe.potassium}} {{potUnit}}</td>
+                                    <td>{{suggested_recipe.calories }}</td>
+                                    <td>{{suggested_recipe.carbs}}</td>
+                                    <td>{{suggested_recipe.protein}}</td>
+                                    <td>{{suggested_recipe.fat}}</td>
+                                    <td>{{suggested_recipe.sodium}}</td>
+                                    <td>{{suggested_recipe.phosphorus}}</td>
+                                    <td>{{suggested_recipe.potassium}}</td>
                                 </tr>
                                 {% endfor %}
 

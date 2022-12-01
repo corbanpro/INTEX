@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .functions import searchRecipes, getRecipeInformation, searchIngredients, getIngredientInformation1, getIngredientInformation2, searchRecipeByNutrient
-from .models import User, Recipe, Meal, DvDeterminate, DailyValue, Unit
+from .models import User, Recipe, Meal, DvDeterminate, DailyValue
 from datetime import datetime
 from django.http import HttpResponse
 
@@ -188,18 +188,18 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         tPho += recipe.phosphorus
         tPot += recipe.potassium
 
-    avgBmi = 21.7
-    bmi = (user.weight / user.height**2) * 703
-    bmiCoef = bmi / avgBmi # maybe add some other random coefficient here to make the effect stronger or weaker. idk
+    # avgBmi = 21.7
+    # bmi = (user.weight / user.height**2) * 703
+    # bmiCoef = bmi / avgBmi # maybe add some other random coefficient here to make the effect stronger or weaker. idk
 
     # some of these might be multiplied, others divided. I don't know anything about nutrition
-    dvCarbs = daily_val.carbs    * bmiCoef
-    dvPro = daily_val.protein    * bmiCoef
-    dvFat = daily_val.fat        * bmiCoef
-    dvWat = daily_val.water      * bmiCoef
-    dvSod = daily_val.sodium     * bmiCoef
-    dvPho = daily_val.phosphorus * bmiCoef
-    dvPot = daily_val.potassium  * bmiCoef
+    dvCarbs = daily_val.carbs    # * bmiCoef
+    dvPro = daily_val.protein    # * bmiCoef
+    dvFat = daily_val.fat        # * bmiCoef
+    dvWat = daily_val.water      # * bmiCoef
+    dvSod = daily_val.sodium     # * bmiCoef
+    dvPho = daily_val.phosphorus # * bmiCoef
+    dvPot = daily_val.potassium  # * bmiCoef
 
     pdvCarbs = (tCarbs / dvCarbs) * 100
     pdvPro = (tPro / dvPro) * 100
@@ -312,6 +312,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         suggested_recipe_list = list()
 
 
+<<<<<<< HEAD
     sodUnit = Unit.objects.get(nutrient = 'sodium')
     phoUnit = Unit.objects.get(nutrient = 'phosphorus')
     potUnit = Unit.objects.get(nutrient = 'potassium')
@@ -323,6 +324,8 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
 
     
 
+=======
+>>>>>>> eea91183563491d0e613edd923dc26199e6ad532
     context = {
         'user' : user,
         'fCarb': pdvCarbs,
@@ -341,6 +344,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'foodList' : foodList,
         'nutrientList' : nutrientList,
         'nutrientSelect': nutSelectOpt,
+<<<<<<< HEAD
         'sodUnit' : sodUnit.unit,
         'phoUnit' : phoUnit.unit,
         'potUnit' : potUnit.unit,
@@ -349,6 +353,10 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'watUnit' : watUnit.unit,
         'proUnit' : proUnit.unit,
         'fatUnit' : fatUnit.unit,
+=======
+
+
+>>>>>>> eea91183563491d0e613edd923dc26199e6ad532
         'colLst' : colorVar,
         'sAlert' : sMessage,
 
@@ -496,6 +504,22 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         measure_list = list()
 
     user = User.objects.get(id = user_id)
+    
+
+    #get list of dates from today backward
+    
+
+    pastWeekDates = []
+    from datetime import datetime, timedelta
+    today = datetime.now().date()
+    count = 0 
+    while count < 8:
+        dateToAdd = today - timedelta(days=count)
+        count += 1
+        pastWeekDates.append(dateToAdd)
+
+    pastWeekDates.reverse()
+
 
     ### does this return an object or a return string
     meal_dict = Meal.objects.filter(user = user_id)
