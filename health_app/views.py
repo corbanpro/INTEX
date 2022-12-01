@@ -120,7 +120,9 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     for meal in meal_dict :
         recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
 
-
+    #########################
+    ### this is pickNutView function
+    #########################
     selection = request.POST.get('nutList')
 
     foodList = []
