@@ -490,34 +490,87 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     count = 0 
     while count < 8:
         dateToAdd = today - timedelta(days=count)
+        dateToAdd = str(dateToAdd)
         count += 1
         pastWeekDates.append(dateToAdd)
 
     pastWeekDates.reverse()
+    daily_val = DailyValue.objects.get(id = user.dv_determinate.daily_value.id)
+    dvCarbs = daily_val.carbs    # * bmiCoef
+    dvPro = daily_val.protein    # * bmiCoef
+    dvFat = daily_val.fat        # * bmiCoef
+    dvWat = daily_val.water      # * bmiCoef
+    dvSod = daily_val.sodium     # * bmiCoef
+    dvPho = daily_val.phosphorus # * bmiCoef
+    dvPot = daily_val.potassium  # * bmiCoef
+
+    proRecList = []
+    carbsRecList = []
+    fatRecList = []
+    watRecList = []
+    sodRecList = []
+    phoRecList = []
+    potRecList = []
+
+    count = 0 
+    while count < 8:
+        proRecList.append(dvPro)
+        carbsRecList.append(dvCarbs)
+        fatRecList.append(dvFat)
+        watRecList.append(dvWat)
+        sodRecList.append(dvSod)
+        phoRecList.append(dvPho)
+        potRecList.append(dvPot)
+        count += 1
+
+    
+    proActList = []   #sum of protein that person ate in one day
+    carbsActList = []
+    fatActList = []
+    watActList = []
+    sodActList = []
+    phoActList = []
+    potActList = []
 
 
-    ### does this return an object or a return string
-    meal_dict = Meal.objects.filter(user = user_id)
-    recipe_list = list()
-    for meal in meal_dict :
-        recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
+    for list_date in pastWeekDates:
+        meal_dict = Meal.objects.filter(date = list_date, user = user_id)
 
-    totalCarb = 0
-    totalPro = 0
-    totalFat = 0
-    totalWat = 0
-    totalSod = 0
-    totalPho = 0
-    totalPot = 0
+        recipe_list = list()
+        for meal in meal_dict :
+            recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
 
-    for recipe in recipe_list :
-        totalCarb += recipe.carbs
-        totalPro += recipe.protein
-        totalFat += recipe.fat
-        totalWat += recipe.water
-        totalSod += recipe.sodium
-        totalPho += recipe.phosphorus
-        totalPot += recipe.potassium
+        totalCarb = 0
+        totalPro = 0
+        totalFat = 0
+        totalWat = 0
+        totalSod = 0
+        totalPho = 0
+        totalPot = 0
+
+        for recipe in recipe_list :
+            totalCarb += recipe.carbs
+            totalPro += recipe.protein
+            totalFat += recipe.fat
+            totalWat += recipe.water
+            totalSod += recipe.sodium
+            totalPho += recipe.phosphorus
+            totalPot += recipe.potassium
+        
+        proActList.append(totalPro)
+        carbsActList.append(totalCarb)
+        fatActList.append(totalFat)
+        watActList.append(totalWat)
+        sodActList.append(totalSod)
+        phoActList.append(totalPho)
+        potActList.append(totalPot)
+
+
+    #dummy stuff
+    #add selection ability
+
+    actListToPass = proActList
+    recListToPass = proRecList
 
     context = {
         'user' : user,
@@ -533,6 +586,10 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         'ingredient_dict' : ingredient_dict,
         'ingredient_id' : ingredient_id,
         'measure_list' : measure_list,
+        'pastWeekDates' : pastWeekDates,
+        'actList' : actListToPass,
+        'recList' : recListToPass
+
     }
     return render(request, 'health_app/history.html', context)
 
