@@ -88,8 +88,8 @@ def dashboardUserPageView(request):
 
 #this is the path to dash if a user logged in (as opposed to registering)
 def dashboardLoginPageView(request) :
-    useremail = request.GET.get('email')
-    userpassword = request.GET.get('password')
+    useremail = request.POST.get('email')
+    userpassword = request.POST.get('password')
 
     #checks if the useremail and password match
     try :
