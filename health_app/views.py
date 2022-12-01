@@ -500,6 +500,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     dvSod = daily_val.sodium     # * bmiCoef
     dvPho = daily_val.phosphorus # * bmiCoef
     dvPot = daily_val.potassium  # * bmiCoef
+    dvCal = daily_val.calories # *bmiCoef
 
     proRecList = []
     carbsRecList = []
@@ -508,6 +509,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     sodRecList = []
     phoRecList = []
     potRecList = []
+    calRecList = []
 
     count = 0 
     while count < 8:
@@ -518,6 +520,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         sodRecList.append(dvSod)
         phoRecList.append(dvPho)
         potRecList.append(dvPot)
+        calRecList.append(dvCal)
         count += 1
 
     
@@ -553,6 +556,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
             totalSod += recipe.sodium
             totalPho += recipe.phosphorus
             totalPot += recipe.potassium
+            totalCal += recipe.calories
         
         proActList.append(totalPro)
         carbsActList.append(totalCarb)
@@ -561,7 +565,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         sodActList.append(totalSod)
         phoActList.append(totalPho)
         potActList.append(totalPot)
-
+        
 
     #dummy stuff
     #add selection ability
