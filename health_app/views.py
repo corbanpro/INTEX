@@ -4,7 +4,6 @@ from .models import User, Recipe, Meal, DvDeterminate, DailyValue
 from datetime import datetime
 from django.http import HttpResponse
 
-
 def indexPageView(request) :
     context = {
     }
@@ -16,8 +15,10 @@ def loginPageView(request) :
 def registerPageView(request) :
     return render(request, 'health_app/register.html')
 
+#dashboardUserPageView is the path to dashboard THROUGH register that creates a user and opens dash
 def dashboardUserPageView(request):
 
+    #this generates a new user obeject using the information received through registering
     new_user = User()
     new_user.firstName = request.POST.get('first_name')
     new_user.lastName = request.POST.get('last_name')
@@ -30,18 +31,22 @@ def dashboardUserPageView(request):
     new_user.weight = request.POST.get('txtWeight')
     new_user.birthDate = request.POST.get('birth_date')
 
+    #this capaitalizes the sex correctly
     user_sex = request.POST.get('listSex')
 
+    #this enters in if they have high blood pressure
     if request.POST.get('cbHBP') == 'HBP' : 
         HBP = True
     else : 
         HBP = False
 
+    #this enters in if they have diabetes
     if request.POST.get('cbDiabetes') == 'Diabetes' : 
         DB = False
     else :
         DB = False
 
+    #this enters in the stage of kidney disease they have 
     KDS = request.POST.get('comorb_kds')
 
     
