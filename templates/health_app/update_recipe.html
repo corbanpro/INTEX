@@ -58,10 +58,9 @@
                                                 <label for="recipe_name">Recipe Name</label>
                                             </div>
                                         </div>
-                                        
                                         <div class="col-md-4">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" required name="meal_date" id="meal_date" type="date" placeholder="{{meal.date}}" value="{{meal.date.year}}-{{meal.date.month}}-{{meal.date.day}}">
+                                                <input class="form-control" required name="meal_date" id="meal_date" type="date" placeholder="{{meal.date}}" value="{{meal.date.year}}-{% if meal.date.month < 10 %}0{% endif %}{{meal.date.month}}-{% if meal.date.day < 10 %}0{% endif %}{{meal.date.day}}">
                                                 <label for="meal_date">Meal Date</label>
                                             </div>
                                         </div>
