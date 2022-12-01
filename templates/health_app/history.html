@@ -164,9 +164,9 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        {% for meal in history_meal_dict %} 
+
                                         <tr>
-                                            
+                                            {% for meal in history_meal_dict %} 
                                             <td>{{meal.date}}</td>
                                             <td>{{meal.recipe.name}}</td>
                                             <td>{{meal.recipe.calories}}</td>
