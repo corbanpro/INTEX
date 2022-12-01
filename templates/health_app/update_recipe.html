@@ -1,11 +1,11 @@
 {% extends 'base.html'%}
 {% load static %}
-{% block title %} History {% endblock %}
+{% block title %} Update {% endblock %}
 {% block content %}
 <body class="sb-nav-fixed sb-sidenav-toggled">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-secondary">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="{% url 'dash' user_id=user.id %}">{Insert name of company here}</a>
+    <a class="navbar-brand ps-3" href="{% url 'dash' user_id=user.id %}">Whealth</a>
     <!-- Sidebar Toggle-->
     
     <!-- Navbar Search-->
@@ -30,132 +30,7 @@
 </nav>
 
 <div id="layoutSidenav">
-    
-    <div id="layoutSidenav_nav">
-        <nav class="sb-sidenav accordion bg-secondary" id="sidenavAccordion">
-            <div class="sb-sidenav-menu">
-                <div class="nav">
-                    <div class="sb-sidenav-menu-heading text-light">Input a Recipe</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/log.svg'%} " class="svg-filter-light"></div>
-                        <span class="text-light">Input a Recipe</span>
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Recipe Name</span>
-                                <form name="form" method="get" action="{% url 'dashRecipe' user_id=user.id %}">
-                                    <input type="text" class="form-control" name='recipe_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Enter a Recipe Name'>
-                                </form>
-                            </div>
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Ingredients</span>
-                                <form name="form" method="get" action="{% url 'dashIngredient' user_id=user.id %}">
-                                    <input type="text" class="form-control" name='ingredient_name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Enter an Ingredient Name'>
-                                </form>
-                            </div>
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Water</span>
-                                <form name="form" method="get" action="{% url 'addWater' user_id=user.id %}">
-                                    <input type="text" class="form-control" name='water_added' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder='Water in Cups'>
-                                </form>
-                            </div>
-                        </nav>
-                    </div>
 
-                    {% if recipe_dict %}
-                    <form name='form' action="{% url 'addRecipe' user_id=user.id %}" method='Post'>
-                        {% csrf_token %}
-                        <select name="selected_recipe" id="">
-                            {% for key, value in recipe_dict.items %}
-                                <option value="{{value}}" selected='selected'>
-                                    {{key}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit">Select</button>
-                    </form>
-                    {% endif %}
-
-                    {% if ingredient_dict %}
-                    <form name='form' action="{% url 'ingredientUnit' user_id=user.id %}" method='Get'>
-                        {% csrf_token %}
-                        <select name="selected_ingredient" id="">
-                            {% for key, value in ingredient_dict.items %}
-                                <option value="{{value}}" selected='selected'>
-                                    {{key}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit">Select</button>
-                    </form>
-                    {% endif %}
-
-
-                    {% if measure_list %}
-                    <form name='form' action="{% url 'addIngredient' ingredient_id=ingredient_id user_id=user.id %}" method='Post'>
-
-                        {% csrf_token %}
-                        <select name="selected_measure" id="">
-                            {% for measure in measure_list %}
-                                <option value="{{measure}}" selected='selected'>
-                                    {{measure}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <input type="text" class="form-control" name='selected_amount' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-
-                        <button type="submit">Select</button>
-                    </form>
-                    {% endif %}
-
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/sun.svg'%}" class="svg-filter-light"></div>
-                        <span class="text-light">Input Activity</span>
-                        
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
-                    </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                <span class="text-light">Exercise</span>
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Description</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="number" class="form-control" aria-label="Text input with dropdown button">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="exercise-dropdown" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="#" onclick="replaceDropdown('exercise-dropdown', 'Minutes')">Minutes</a></li>
-                                        <li><a class="dropdown-item" href="#" onclick="replaceDropdown('exercise-dropdown', 'Hours')">Hours</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                <span class="text-light">Other</span>
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-light"></i></div>
-                            </a>
-                        </nav>
-                    </div>
-
-                    <div class="sb-sidenav-menu-heading text-light">View My Dashboard</div>
-                    <a class="nav-link collapsed" href="{% url 'dash' user_id=user.id%}" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><img src="{% static 'admin/icons/feed-person.svg'%}" class="svg-filter-light"></div>
-                        <span class="text-light">View My Dashboard</span></a>
-                </div>
-            </div>
-            <div class="sb-sidenav-footer">
-                <div class="small">Logged in as: <span class="text-light">{{name}}</span></div>
-                
-                
-            </div>
-        </nav>
-    </div>
     
     <div id="layoutSidenav_content">
         <main>
@@ -169,28 +44,30 @@
                     <div class="col-xl-10 justify-content-sm-center">
                         <div class="card mb-4">
                             <div class="card-header">
-                                Update {Recipe.Title}
+                                Update {{meal.recipe.name}}
                             </div>
                             <div class="card-body">
-                                <form name="update-recipe-form" action="{% url 'update_recipe'%}" method="Post">
+                                <form name="update-recipe-form" action="{% url 'edit_recipe' user_id=user.id meal_id=meal.id %}" method="Post">
                                     {% csrf_token %}
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                                <input class="form-control" required='True' name="last_name" id="last_name" type="text" placeholder="{Recipe.Name}" />
-                                                <label for="last_name">{Recipe}Name</label>
+                                                <input class="form-control" required='True' name="recipe_name" id="recipe_name" type="text" placeholder="{Recipe.Name}" />
+                                                <label for="recipe_name">{{meal.recipe.name}}</label>
                                             </div>
                                         </div>
+
                                         <div class="col-md-4">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" required='True' name="first_name" id="first_name" type="date" placeholder="{Meal.date}" />
-                                                <label for="first_name">{Meal}Date</label>
+                                                <input class="form-control" required='True' name="meal_date" id="meal_date" type="date" placeholder="{{meal.date}}" />
+                                                <label for="meal_date">Date</label>
                                             </div>
                                         </div>
+
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                            <input class="form-control" required='True' name="birth_date" id="birth_date" type="number" placeholder="Enter your date of birth" value="0"/>
-                                            <label for="birth_date">{Recipe}Calories</label>
+                                            <input class="form-control" required='True' name="recipe_calories" id="recipe_calories" type="number" placeholder="Enter your date of birth" value="{{meal.recipe.calories}}"/>
+                                            <label for="recipe_calories">Calories</label>
                                             </div>
                                         </div>
 
@@ -198,22 +75,22 @@
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' id="txtFtHeight" name="txtFtHeight" value="0">
-                                                <label for="txtFtHeight">{Recipe} Carbs</label>                                        
+                                                <input class="form-control" type="number" required='True' name="recipe_carbs" id="recipe_carbs" value="{{meal.recipe.carbs}}">
+                                                <label for="recipe_carbs">Carbs</label>                                        
                                             </div>
                                         </div>  
 
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="txtInHeight" id="txtInHeight" name="txtInHeight" value="0">
-                                                <label for="txtInHeight">{Recipe} Protein</label>
+                                                <input class="form-control" type="number" required='True' name="recipe_protein" id="recipe_protein" value="{{meal.recipe.protein}}">
+                                                <label for="recipe_protein">Protein</label>
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="txtWeight" id="txtWeight" name="txtWeight" value="0">
-                                                <label for="txtWeight">{Recipe} Fat</label>   
+                                                <input class="form-control" type="number" required='True' name="recipe_fat" id="recipe_fat" name="txtWeight" value="{{meal.recipe.fat}}">
+                                                <label for="recipe_fat">Fat</label>   
                                             </div>
                                         </div>
                                     </div>
@@ -222,32 +99,32 @@
 
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="txtWeight" id="txtWeight" name="txtWeight" value="0">
-                                                <label for="txtWeight">{Recipe} Sodium</label>   
+                                                <input class="form-control" type="number" required='True' name="recipe_sodium" id="recipe_sodium" name="txtWeight" value="{{meal.recipe.sodium}}">
+                                                <label for="recipe_sodium">Sodium</label>   
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="txtWeight" id="txtWeight" name="txtWeight" value="0">
-                                                <label for="txtWeight">{Recipe} Phosphorus</label>   
+                                                <input class="form-control" type="number" required='True' name="recipe_phosphorus" id="recipe_phosphorus" name="txtWeight" value="{{meal.recipe.phosphorus}}">
+                                                <label for="recipe_phosphorus">Phosphorus</label>   
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="txtWeight" id="txtWeight" name="txtWeight" value="0">
-                                                <label for="txtWeight">{Recipe} Potassium</label>   
+                                                <input class="form-control" type="number" required='True' name="recipe_potassium" id="recipe_potassium" name="txtWeight" value="{{meal.recipe.potassium}}">
+                                                <label for="recipe_potassium">Potassium</label>   
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" type="number" required='True' name="txtWeight" id="txtWeight" name="txtWeight" value="0">
-                                                <label for="txtWeight">{Recipe} Water</label>   
+                                                <input class="form-control" type="number" required='True' name="recipe_water" id="recipe_water" name="txtWeight" value="{{meal.recipe.calories}} (in cups)">
+                                                <label for="recipe_water">Water</label>   
                                             </div>
                                         </div>
                                     <div class="mt-4 mb-0">
-                                        <div class="d-grid"><input type="submit"><a class="btn btn-primary btn-block">Create Account</a></input></div>
+                                        <div class="d-grid"><input type="submit" value="Update Recipe" class="btn btn-primary btn-block"><a >Update Recipe</a></input></div>
                                     </div>
                                 </form>
                             </div>

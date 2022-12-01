@@ -446,6 +446,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         measure_list = getIngredientInformation1(ingredient_id)
     else :
         measure_list = list()
+
     user = User.objects.get(id = user_id)
 
     ### does this return an object or a return string
@@ -473,6 +474,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
 
     context = {
         'user' : user,
+        'meal_dict' : meal_dict,
         'fCarb': totalCarb,
         'fPro' : totalPro,
         'fFat' : totalFat,
@@ -508,14 +510,39 @@ def pieChart(request) :
 
     return render(request, 'health_app/piechart.html', context)
 
-def updateRecipe(request, data=None):
+def updateRecipePageView(request, user_id, meal_id):
+    user = User.objects.get(id = user_id)
+    meal = Meal.objects.filter(id = meal_id, user = user_id)
+    
     context = {
-        'data' : data
+        'user' : user,
+        'meal' : meal
     }
     return render(request, 'health_app/update_recipe.html', context)
 
-    
+def editRecipe(request, user_id, meal_id):
+    meal = Meal.objects.filter(id = meal_id, user = user_id)
+    meal.date = request.POST.get('meal_date')
 
+    recipe = Recipe.objects.filter(id = meal.recipe.id)
+    recipe.name = request.POST.get('recipe_name')
+    recipe.calories = request.POST.get('recipe_calories')
+    recipe.carbs = request.POST.get('recipe_carbs')
+    recipe.protein = request.POST.get('recipe_protein')
+    recipe.fat = request.POST.get('recipe_fat')
+    recipe.sodium = request.POST.get('recipe_sodium')
+    recipe.phosphorus = request.POST.get('recipe_phosphorus')
+    recipe.potassium = request.POST.get('recipe_potassium')
+    recipe.water = request.POST.get('recipe_water')
 
+    meal.save()
+    recipe.save()
 
+    return historyPageView(request, user_id)
 
+def deleteRecipe(request, user_id, meal_id):
+    meal = Meal.objects.filter(id = meal_id, user = user_id)
+    recipe = Recipe.objects.filter(id = meal.recipe.id)
+    meal.delete()
+    recipe.delete()
+    return historyPageView(request, user_id)
