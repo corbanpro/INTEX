@@ -224,7 +224,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xl-15">
+                    <div class="col-xl-12">
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-area me-1 mb-2"></i>
@@ -237,62 +237,75 @@
                                     <option value="none" selected disabled hidden>
                                         {{nutrientSelect}}
                                     </option>
-                                    <option class="dropdown-item" value = 'Protein' >Protein (g)</option>
-                                    <option class="dropdown-item" value = 'Fat' >Fat (g)</option>
-                                    <option class="dropdown-item" value = 'Carbs' >Carbs (g)</option>
-                                    <option class="dropdown-item" value = 'Calories' >Calories (kCal)</option>
-                                    <option class="dropdown-item" value = 'Sodium' >Sodium (mg)</option>
-                                    <option class="dropdown-item" value = 'Phosphorus' >Phosphorus (mg)</option>
-                                    <option class="dropdown-item" value = 'Potassium' >Potassium (mg)</option>
+                                    <option class="dropdown-item" value='Protein'>Protein (g)</option>
+                                    <option class="dropdown-item" value='Fat'>Fat (g)</option>
+                                    <option class="dropdown-item" value='Carbs'>Carbs (g)</option>
+                                    <option class="dropdown-item" value='Calories'>Calories (kCal)</option>
+                                    <option class="dropdown-item" value='Sodium'>Sodium (mg)</option>
+                                    <option class="dropdown-item" value='Phosphorus'>Phosphorus (mg)</option>
+                                    <option class="dropdown-item" value='Potassium'>Potassium (mg)</option>
                                 </select>
                                 <div class="mb-2 mb-0">
-                                    <div class="d-grid"><input type="submit" value="Update Recipe" class="btn btn-info btn-block opacity-75 w-25"></input></div>
+                                    <div class="d-grid"><input type="submit" value="Update View" class="btn btn-info btn-block opacity-75 w-25"></input></div>
                                 </div>
                             </form>
                             </div>
-                            <div class = "col-md-12">
-                                <div class="justify-content-center text-center graphShortClass">
-                                <canvas id="myChartDoughnut" width="100%" height="40"></canvas>
+                        </div>
+                        <div class = "col-xl-12">
+                            <div class="d-flex justify-content-around align-items-center">
+                                <div class="text-center">
+                            <canvas id="myChartDoughnut" class="w-75 h-75 p-sm-5"></canvas>
                                 </div>
-                                <script>
-                                    const ctx2 = document.getElementById('myChartDoughnut').getContext('2d');
-                                    const myChartDoughnut = new Chart(ctx2, {
-                                        type: 'doughnut',
-                                        data: {
-                                            labels: {{ foodList|safe }},
-                                            datasets: [{
-                                                label: 'Nutrient Details',
-                                                data: {{ nutrientList|safe }},
-                                                backgroundColor: [
-                                                    'rgba(239, 90, 36, 0.8)',
-                                                    'rgba(70, 70, 70, 0.8)',
-                                                    'rgba(25, 135, 84, 0.8)',
-                                                    'rgba(185, 125, 192, 0.8)',
-                                                    'rgba(255, 217, 112, 0.8)',
-                                                    'rgba(224, 52, 0, 0.8)'
-                                                ],
-                                                borderColor: [
-                                                    'rgba(239, 90, 36, 1)',
-                                                    'rgba(70, 70, 70, 1)',
-                                                    'rgba(25, 135, 84, 1)',
-                                                    'rgba(185, 125, 192, 1)',
-                                                    'rgba(255, 217, 112, 1)',
-                                                    'rgba(224, 52, 0, 1)'
-                                                ],
-                                                borderWidth: 1
-                                            }]
+                            </div>
+                            <script>
+                                const ctx2 = document.getElementById('myChartDoughnut').getContext('2d');
+                                const myChartDoughnut = new Chart(ctx2, {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: {{ foodList|safe }},
+                                        datasets: [{
+                                            label: 'Nutrient Details',
+                                            data: {{ nutrientList|safe }},
+                                            backgroundColor: [
+                                                'rgba(239, 90, 36, 0.8)',
+                                                'rgba(70, 70, 70, 0.8)',
+                                                'rgba(25, 135, 84, 0.8)',
+                                                'rgba(185, 125, 192, 0.8)',
+                                                'rgba(255, 217, 112, 0.8)',
+                                                'rgba(224, 52, 0, 0.8)'
+                                            ],
+                                            borderColor: [
+                                                'rgba(239, 90, 36, 1)',
+                                                'rgba(70, 70, 70, 1)',
+                                                'rgba(25, 135, 84, 1)',
+                                                'rgba(185, 125, 192, 1)',
+                                                'rgba(255, 217, 112, 1)',
+                                                'rgba(224, 52, 0, 1)'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
                                         },
-                                        options: {
-                                            scales: {
-                                                y: {
-                                                    beginAtZero: true
+                                        plugins: {
+                                            legend: {
+                                                display: true,
+                                                labels: {
+                                                    font: {
+                                                        size:24
+                                                    }
                                                 }
                                             }
                                         }
-                                    });
-                                </script>
-                            </div>
+                                    }
+                                });
+                            </script>
                         </div>
+                        
                     </div>
                 </div>
 
