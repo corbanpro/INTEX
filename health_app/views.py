@@ -321,6 +321,8 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     proUnit = Unit.objects.get(nutrient = 'protein')
     fatUnit = Unit.objects.get(nutrient = 'fat')
 
+    
+
     context = {
         'user' : user,
         'fCarb': pdvCarbs,
@@ -347,8 +349,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'watUnit' : watUnit.unit,
         'proUnit' : proUnit.unit,
         'fatUnit' : fatUnit.unit,
-
-
         'colLst' : colorVar,
         'sAlert' : sMessage,
 
