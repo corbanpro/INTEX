@@ -228,70 +228,82 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     pdvSod = (tSod / dvSod) * 100
     pdvPho = (tPho / dvPho) * 100
     pdvPot = (tPot / dvPot) * 100
-
+    
+    #we add these precentages to a list, this will help us display data later
     pdvList = [pdvCarbs, pdvPro, pdvFat, pdvWat, pdvSod, pdvPho, pdvPot]
+
+    #create two empty lists regarding colors and exceeded nutrients- these lists will correlate to pdvList
     colorVar = []
     exceededList = []
 
+    #iterate through pdvList, determine how high the percentage is using if statements to determine the 
+    #color of the bar in the bar chart
     for pdv in pdvList :
 
+        #red if over 100
         if pdv>= 100 :
             colorVar.append('rgba(217, 30, 24, 0.8)')
-        elif pdv >= 90 :
+        #green if between 85 and 100
+        elif pdv >= 85 :
             colorVar.append('rgba(46, 204, 113, 0.8)')
+        #yellow if below 85
         else :
             colorVar.append('rgba(228, 208, 10, 0.8)')
 
-    
+    #initialize sMessage as empty string
     sMessage = ""
 
+    #only drop into this for loop if something has been exeeded
     if pdvCarbs >= 100 or pdvPro >= 100 or pdvFat >= 100 or pdvWat >= 100 or pdvSod >= 100 or pdvPho >= 100 or pdvPot >= 100 :
         sMessage = "You have exceeded the daily recommended intake for the following: "
 
-    if pdvCarbs >= 100 :
-        exceededList.append("carbs")
-    else:
-        pass
-
-    if pdvPro >= 100 :
-        exceededList.append("protein")
-    else:
-        pass
-
-    if pdvFat >= 100 :
-        exceededList.append("fat")
-    else:
-        pass
-
-    if pdvWat >= 100 :
-        exceededList.append("water")
-    else:
-        pass
-
-    if pdvSod >= 100 :
-        exceededList.append("sodium")
-    else:
-        pass
-
-    if pdvPho >= 100 :
-        exceededList.append("phosphorous")
-    else:
-        pass
-
-    if pdvPot >= 100 :
-        exceededList.append("potassium")
-    else:
-        pass
-
-
-    for exceeded in exceededList:
-        length = len(exceededList)
-        if exceededList.index(exceeded) == length - 1:
-            sMessage += exceeded
-            sMessage += '.'
+        if pdvCarbs >= 100 :
+            exceededList.append("carbs")
         else:
-            sMessage += exceeded
-            sMessage += ', '
+            pass
+
+        if pdvPro >= 100 :
+            exceededList.append("protein")
+        else:
+            pass
+
+        if pdvFat >= 100 :
+            exceededList.append("fat")
+        else:
+            pass
+
+        if pdvWat >= 100 :
+            exceededList.append("water")
+        else:
+            pass
+
+        if pdvSod >= 100 :
+            exceededList.append("sodium")
+        else:
+            pass
+
+        if pdvPho >= 100 :
+            exceededList.append("phosphorous")
+        else:
+            pass
+
+        if pdvPot >= 100 :
+            exceededList.append("potassium")
+        else:
+            pass
+        
+    else :
+        pass
+
+
+        for exceeded in exceededList:
+            length = len(exceededList)
+            if exceededList.index(exceeded) == length - 1:
+                sMessage += exceeded
+                sMessage += '.'
+            else:
+                sMessage += exceeded
+                sMessage += ', '
 
 
     maxProtein = (dvPro - tPro) * 100
