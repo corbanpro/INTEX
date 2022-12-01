@@ -496,6 +496,22 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         measure_list = list()
 
     user = User.objects.get(id = user_id)
+    
+
+    #get list of dates from today backward
+    
+
+    pastWeekDates = []
+    from datetime import datetime, timedelta
+    today = datetime.now().date()
+    count = 0 
+    while count < 8:
+        dateToAdd = today - timedelta(days=count)
+        count += 1
+        pastWeekDates.append(dateToAdd)
+
+    pastWeekDates.reverse()
+
 
     ### does this return an object or a return string
     meal_dict = Meal.objects.filter(user = user_id)
