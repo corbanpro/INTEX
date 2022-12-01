@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 {% load static %}
-{% block title %} Update {% endblock %}
+{% block title %} Nutrition Info {% endblock %}
 {% block content %}
 <body class="sb-nav-fixed sb-sidenav-toggled">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-secondary">
@@ -45,19 +45,29 @@
                 <div class="row justify-content-sm-center align-items-md-center">
                     <div class="col-xl-10 justify-content-sm-center">
                         <div class="card">
-                            <div class="text-center justify-content-center card-header"> 
-                                
-                                <h1 class='text-center'> Learn about what fuels your body! </h1>
+                            <div class="card-header">
+                            <div class="text-center justify-content-center"> 
+                                <br>
+                                <h1 class='text-center'> Learn about what fuels your body. </h1>
                             </div>
-                            <div class="card-body text-center   ">
-                                <h3><a href="#protein" style="text-decoration: none"> Protein &emsp;</a> <a href="#fat" style="text-decoration: none"> Fat &emsp;</a> <a href="#carbs" style="text-decoration: none"> Carbs &emsp;</a> <a href="#water" style="text-decoration: none"> Water &emsp;</a> <a href="#potassium" style="text-decoration: none"> Potassium &emsp;</a> <a href="#sodium" style="text-decoration: none"> Sodium &emsp;</a><a href="#phosphorus" style="text-decoration: none"> Phosphorus</a> </h3>
+                            <div class="text-right">
+                            <p><br>As the saying goes, "You are what you eat,". But what does that mean? Food is made up different molecules grouped into two 
+                                main groups: macronutrients and micronutrients. Macronutrients include fat, carbs, and protein. They are required in large amounts 
+                                to sustain health. Micronutrients include vitamins and minerals and are required in smaller doses. Both allow our bodies to function 
+                                properly. 
+                            </p>
                             </div>
+                            </div><br><br>
+                            <div class="text-center">
+                                <h2>Learn more about: </h2><br>
+                                <h5><a href="#protein" style="text-decoration: none"> Protein &emsp;</a> <a href="#fat" style="text-decoration: none"> Fat &emsp;</a> <a href="#carbs" style="text-decoration: none"> Carbs &emsp;</a> <a href="#water" style="text-decoration: none"> Water &emsp;</a> <a href="#potassium" style="text-decoration: none"> Potassium &emsp;</a> <a href="#sodium" style="text-decoration: none"> Sodium &emsp;</a><a href="#phosphorus" style="text-decoration: none"> Phosphorus</a> </h5>
+                            </div>
+                            <br><br><br>
                             <div id="protein" class="card-body">
-                                <h1 > Protein</h1>
-                                <p> Protein is one of a complex group of molecules that do all kinds of jobs in your body. They make up your hair, nails, bones, and muscles. Protein gives tissues and organs their shape and also helps them work the way they should. In short, protein is one of the building blocks that make you into who you are.
-
-
-                                    You need protein to keep up the size and shape of your muscles. As you lose weight, protein prevents you from losing muscle at the same time. If you lift weights for strength, protein is the key to building more muscle. 
+                                <h1><b>Protein</b></h1><br>
+                                <p> Protein is a complex group of molecules that performs many jobs in your body. Protein makes up your hair, nails, bones, and muscles. It gives tissues and organs their shape and also helps them work the way they should. In short, protein is one of the building blocks that make you into who you are.
+                                    <br><br>
+                                    You need protein to keep up the size and shape of your muscles. As you lose weight, protein prevents you from losing muscle at the same time. In physical activity, protein is the key to building more muscle. 
                                     </p>
                                     <br>
                                     <p>Foods High in Protein: </p>
@@ -79,7 +89,7 @@
                             <div id="fat" class="card-body">
                                 <h1> Fat</h1>
                                 <p> Fat helps the body absorb vitamin A, vitamin D and vitamin E. These vitamins are fat-soluble, which means they can only be absorbed with the help of fats. Any fat that's not used by your body's cells or turned into energy is converted into body fat.
-                                    Dietary fats are essential to give your body energy and to support cell function. They also help protect your organs and help keep your body warm. Fats help your body absorb some nutrients and produce important hormones. 
+                                    Dietary fats are essential in providing energy and supporting cell function. Fats also help protect your organs keep your body warm. Fats help your body absorb some nutrients and produce important hormones. 
                                     </p>
                                     <br>
                                     <p>Foods High in Healthy Fat: </p>
@@ -117,26 +127,23 @@
                                         <li>  Oranges</li>
 
                                     </ul>
-                                    <img src="{%static 'admin/img/carbs.jpeg' %}" alt="fat" width="500px" height="auto">
+                                    <img src="{%static 'admin/img/carbs.jpeg' %}" alt="carbs" width="500px" height="auto">
                             </div>
 
 
                             <br> <br> <br> <br> <br>
                             <div class="card-body" id="water">
                                 <h1>Water</h1>
-                                <p> Water helps your body to keep a normal temperature, lubricate and cushion joints, protect your spinal cord and other sensitive tissues, and get rid of wastes through urination, perspiration, and bowel movements.
-                                    
-                                     
+                                <p> Water helps your body regulate temperature, lubricate and cushion joints, protect your spinal cord and other sensitive tissues, and get rid of wastes through urination, perspiration, and bowel movements.
                                     </p>
 
-                                    <img src="{%static 'admin/img/water.jpeg' %}" alt="fat" width="500px" height="auto">
+                                    <img src="{%static 'admin/img/water.jpeg' %}" alt="water" width="500px" height="auto">
                             </div>
                             <br> <br> <br> <br> <br>
                             <div class="card-body" id="potassium">
                                 <h1>Potassium</h1>
-                                <p> Potassium is found naturally in many foods and as a supplement. Its main role in the body is to help maintain normal levels of fluid inside our cells. Sodium, its counterpart, maintains normal fluid levels outside of cells. Potassium also helps muscles to contract and supports normal blood pressure.
+                                <p> Potassium is found naturally in many foods, and is also available as a supplement. Its main role in the body is to help maintain normal levels of fluid inside our cells. Sodium, its counterpart, maintains normal fluid levels outside of cells. Potassium also helps muscles to contract and supports normal blood pressure.
 
-                                     
                                     </p>
                                     <br>
                                     <p>Foods High in Potassium: </p>
@@ -151,14 +158,12 @@
                                         <li>  Bananas</li>
 
                                     </ul>
-                                    <img src="{%static 'admin/img/potassium.jpeg' %}" alt="fat" width="500px" height="auto">
+                                    <img src="{%static 'admin/img/potassium.jpeg' %}" alt="potassium" width="500px" height="auto">
                             </div>
                             <br> <br> <br> <br> <br>
                             <div class="card-body" id="sodium">
                                 <h1>Sodium</h1>
-                                <p> The human body requires a small amount of sodium to conduct nerve impulses, contract and relax muscles, and maintain the proper balance of water and minerals. It is estimated that we need about 500 mg of sodium daily for these vital functions.
-
-
+                                <p> The human body requires a small amount of sodium to conduct nerve impulses, contract and relax muscles, and maintain the proper balance of water and minerals. 
                                      
                                     </p>
                                     <br>
@@ -174,13 +179,13 @@
                                         <li>  Processed Cheese</li>
 
                                     </ul>
-                                    <img src="{%static 'admin/img/sodium.jpeg' %}" alt="fat" width="500px" height="auto">
+                                    <img src="{%static 'admin/img/sodium.jpeg' %}" alt="sodium" width="500px" height="auto">
                             </div>
 
                             <br> <br> <br> <br> <br>
                             <div class="card-body" id="phosphorus">
                                 <h1>Phosphorus</h1>
-                                <p> Phosphorus is needed for the growth, maintenance, and repair of all tissues and cells, and for the production of the genetic building blocks, DNA and RNA. Phosphorus is also needed to help balance and use other vitamins and minerals, including vitamin D, iodine, magnesium, and zinc.
+                                <p> Phosphorus is needed for the growth, maintenance, and repair of all tissues and cells. It also is required for the production of our genetic building blocks, DNA and RNA. Additionally, phosphorus helps balance and utilize other vitamins and minerals, including vitamin D, iodine, magnesium, and zinc.
 
 
 
@@ -199,7 +204,7 @@
                                         <li>  Whole Grains</li>
 
                                     </ul>
-                                    <img src="{%static 'admin/img/phosphorous.jpeg' %}" alt="fat" width="500px" height="auto">
+                                    <img src="{%static 'admin/img/phosphorous.jpeg' %}" alt="phosphorus" width="500px" height="auto">
                             </div>
 
 
