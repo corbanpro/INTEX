@@ -188,7 +188,7 @@
                                             <th>Sodium</th>
                                             <th>phosphorus</th>
                                             <th>Potassium</th>
-                                            <th style="display:hidden;">ID</th>
+                                            
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -208,12 +208,12 @@
                                             <td class="history-table-row" style="text-align: center;">
                                                 <form name="form" action="{% url 'update_recipe' user_id=user.id meal_id=meal.id %}" method="Post">
                                                     {% csrf_token %}
-                                                    <button>Edit</button>
+                                                    <button class="btn btn-info">Edit</button>
                                                 </form>
                                                 <p>   </p>
                                                 <form name="form" action="{% url 'delete_recipe' user_id=user.id meal_id=meal.id %}" method="Post">
                                                     {% csrf_token %}
-                                                    <button>Delete</button>
+                                                    <button class="btn btn-info">Delete</button>
                                                 </form>
                                             </td>
                                             <td style="display:hidden;">{{meal.id}}</td>
