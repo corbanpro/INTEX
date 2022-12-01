@@ -220,6 +220,45 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
             colorVar.append('rgba(46, 204, 113, 0.8)')
         else :
             colorVar.append('rgba(228, 208, 10, 0.8)')
+
+    
+    sMessage = ""
+
+    if pdvCarbs >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended carb intake.\n"
+    else:
+        pass
+
+    if pdvPro >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended protein intake.\n"
+    else:
+        pass
+
+    if pdvFat >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended fat intake.\n"
+    else:
+        pass
+
+    if pdvWat >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended water intake.\n"
+    else:
+        pass
+
+    if pdvSod >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended sodium intake.\n"
+    else:
+        pass
+
+    if pdvPho >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended phosphorous intake.\n"
+    else:
+        pass
+
+    if pdvPot >= 100 :
+        sMessage = sMessage + "You have exceeded your daily recommended potassium intake.\n"
+    else:
+        pass
+
             
 
 
@@ -294,8 +333,8 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'calUnit' : calUnit,
         'watUnit' : watUnit,
         'proUnit' : proUnit,
-
         'colLst' : colorVar,
+        'sAlert' : sMessage,
 
     }
 
