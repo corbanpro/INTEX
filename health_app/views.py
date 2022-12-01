@@ -4,7 +4,6 @@ from .models import User, Recipe, Meal, DvDeterminate, DailyValue
 from datetime import datetime
 from django.http import HttpResponse
 
-
 def indexPageView(request) :
     context = {
     }
@@ -16,8 +15,10 @@ def loginPageView(request) :
 def registerPageView(request) :
     return render(request, 'health_app/register.html')
 
+#dashboardUserPageView is the path to dashboard THROUGH register that creates a user and opens dash
 def dashboardUserPageView(request):
 
+    #this generates a new user obeject using the information received through registering
     new_user = User()
     new_user.firstName = request.POST.get('first_name')
     new_user.lastName = request.POST.get('last_name')
@@ -30,18 +31,22 @@ def dashboardUserPageView(request):
     new_user.weight = request.POST.get('txtWeight')
     new_user.birthDate = request.POST.get('birth_date')
 
+    #this capaitalizes the sex correctly
     user_sex = request.POST.get('listSex')
 
+    #this enters in if they have high blood pressure
     if request.POST.get('cbHBP') == 'HBP' : 
         HBP = True
     else : 
         HBP = False
 
+    #this enters in if they have diabetes
     if request.POST.get('cbDiabetes') == 'Diabetes' : 
         DB = False
     else :
         DB = False
 
+    #this enters in the stage of kidney disease they have 
     KDS = request.POST.get('comorb_kds')
 
     
@@ -81,10 +86,12 @@ def dashboardUserPageView(request):
 
     return dashboardPageView(request, new_user.id)
 
+#this is the path to dash if a user logged in (as opposed to registering)
 def dashboardLoginPageView(request) :
     useremail = request.GET.get('email')
     userpassword = request.GET.get('password')
 
+    #checks if the useremail and password match
     try :
         user = User.objects.get(email = useremail, password = userpassword)
 
@@ -94,23 +101,28 @@ def dashboardLoginPageView(request) :
 
     return dashboardPageView(request, user.id)
 
+#this dash page view renders more specifics about the graphs on the users age 
 def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None, ingredient_id=None, selection = 'protein') :
 
+    #search recipes
     if recipe_name != None :
         recipe_dict = searchRecipes(recipe_name)
     else :
         recipe_dict = dict()
 
+    #search ingredients
     if ingredient_name != None :
         ingredient_dict = searchIngredients(ingredient_name)
     else :
         ingredient_dict = dict()
 
+    #enter measurement for ingredients
     if ingredient_id != None :
         measure_list = getIngredientInformation1(ingredient_id)
     else :
         measure_list = list()
     
+    #find user and day and add the ingredient or recipe to their recorded meals for the day 
     user = User.objects.get(id = user_id)
 
     today = datetime.now().date()
@@ -121,10 +133,11 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         recipe_list.append(Recipe.objects.get(id = meal.recipe.id))
 
     #########################
-    ### this is pickNutView function
+    ### this is pickNut function to select which nutrient to view and display it on the doughnut chart
     #########################
     selection = request.POST.get('nutList')
 
+    #create empty lists for each possible ingredient
     foodList = []
     proteinList = []
     carbList = []
@@ -134,6 +147,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     potList = []
     calList = []
 
+    #iterate through the recipe list and append each of the nutrient levels to the corresponding nutrient list
     for recipe in recipe_list:
         foodList.append(recipe.name)
         proteinList.append(recipe.protein)
@@ -144,6 +158,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         phoList.append(recipe.phosphorus)
         potList.append(recipe.potassium)
 
+    #based on what nutrient the user selected to view, show that data and selection string
     if selection == 'Potassium':
         nutrientList = potList
         nutSelectOpt = 'Potassium (mg)'
@@ -167,8 +182,10 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         nutSelectOpt = 'Protein (g)'
     
 
+    #this determines the daily value of the user and assigns it to a variable
     daily_val = DailyValue.objects.get(id = user.dv_determinate.daily_value.id)
 
+    #initialize total nutrient levels of the day at zero
     tCarbs = 0
     tPro = 0
     tFat = 0
@@ -177,6 +194,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     tPho = 0
     tPot = 0
 
+    #now add the nutrients to that variable to create a sum of the nutrients a user has had in a day
     for recipe in recipe_list :
         tCarbs += recipe.carbs
         tPro += recipe.protein
@@ -186,11 +204,14 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         tPho += recipe.phosphorus
         tPot += recipe.potassium
 
+    #this code would be used by future developers to determine nutrient needs based on BMI
+    #for the scope of our week long project, we did not incooperate this ourselves, but wanted to show a possible idea
     # avgBmi = 21.7
     # bmi = (user.weight / user.height**2) * 703
     # bmiCoef = bmi / avgBmi # maybe add some other random coefficient here to make the effect stronger or weaker. idk
 
-    # some of these might be multiplied, others divided. I don't know anything about nutrition
+    # this creates variables to hold the recommended amount of each nutrient for a person
+    #you COULD do math according to BMI here but we will not
     dvCarbs = daily_val.carbs    # * bmiCoef
     dvPro = daily_val.protein * user.weight / 2.2    # * bmiCoef
     dvFat = daily_val.fat        # * bmiCoef
@@ -199,6 +220,7 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     dvPho = daily_val.phosphorus # * bmiCoef
     dvPot = daily_val.potassium  # * bmiCoef
 
+    #now we deivde the sum amount a person has consumed of a nutrient by the recommended amount to find a percentage consumed
     pdvCarbs = (tCarbs / dvCarbs) * 100
     pdvPro = (tPro / dvPro) * 100
     pdvFat = (tFat / dvFat) * 100
@@ -206,77 +228,94 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     pdvSod = (tSod / dvSod) * 100
     pdvPho = (tPho / dvPho) * 100
     pdvPot = (tPot / dvPot) * 100
-
+    
+    #we add these precentages to a list, this will help us display data later
     pdvList = [pdvCarbs, pdvPro, pdvFat, pdvWat, pdvSod, pdvPho, pdvPot]
-    colorVar = []
-    exceededList = []
 
+    #create empty list regarding colors -the list will correlate to pdvList
+    colorVar = []
+    
+    #iterate through pdvList, determine how high the percentage is using if statements to determine the 
+    #color of the bar in the bar chart
     for pdv in pdvList :
 
+        #red if over 100
         if pdv>= 100 :
             colorVar.append('rgba(217, 30, 24, 0.8)')
-        elif pdv >= 90 :
+        #green if between 85 and 100
+        elif pdv >= 85 :
             colorVar.append('rgba(46, 204, 113, 0.8)')
+        #yellow if below 85
         else :
             colorVar.append('rgba(228, 208, 10, 0.8)')
 
-    
+    #initialize sMessage as empty string
     sMessage = ""
 
+    #only drop into this for loop if something has been exeeded
     if pdvCarbs >= 100 or pdvPro >= 100 or pdvFat >= 100 or pdvWat >= 100 or pdvSod >= 100 or pdvPho >= 100 or pdvPot >= 100 :
+        exceededList = []
         sMessage = "You have exceeded the daily recommended intake for the following: "
 
-    if pdvCarbs >= 100 :
-        exceededList.append("carbs")
-    else:
-        pass
-
-    if pdvPro >= 100 :
-        exceededList.append("protein")
-    else:
-        pass
-
-    if pdvFat >= 100 :
-        exceededList.append("fat")
-    else:
-        pass
-
-    if pdvWat >= 100 :
-        exceededList.append("water")
-    else:
-        pass
-
-    if pdvSod >= 100 :
-        exceededList.append("sodium")
-    else:
-        pass
-
-    if pdvPho >= 100 :
-        exceededList.append("phosphorous")
-    else:
-        pass
-
-    if pdvPot >= 100 :
-        exceededList.append("potassium")
-    else:
-        pass
-
-
-    for exceeded in exceededList:
-        length = len(exceededList)
-        if exceededList.index(exceeded) == length - 1:
-            sMessage += exceeded
-            sMessage += '.'
+        #these if statements determine which nutrients exceed 100% and append their names to the exceededList
+        if pdvCarbs >= 100 :
+            exceededList.append("carbs")
         else:
-            sMessage += exceeded
-            sMessage += ', '
+            pass
 
+        if pdvPro >= 100 :
+            exceededList.append("protein")
+        else:
+            pass
 
+        if pdvFat >= 100 :
+            exceededList.append("fat")
+        else:
+            pass
+
+        if pdvWat >= 100 :
+            exceededList.append("water")
+        else:
+            pass
+
+        if pdvSod >= 100 :
+            exceededList.append("sodium")
+        else:
+            pass
+
+        if pdvPho >= 100 :
+            exceededList.append("phosphorous")
+        else:
+            pass
+
+        if pdvPot >= 100 :
+            exceededList.append("potassium")
+        else:
+            pass
+
+        #now we cylce through the exceeded list to add the names of the exceeded nutrients to the alert
+        for exceeded in exceededList:
+            length = len(exceededList)
+            if exceededList.index(exceeded) == length - 1:
+                sMessage += exceeded
+                sMessage += '.'
+            else:
+                sMessage += exceeded
+                sMessage += ', '
+
+    #if there are no exceeded nutrients pass this whole step
+    else:
+        pass
+
+    #this determines how much more g/mg of a nutrients are allowed for a user
+    #these variables will be used to determine what recipes are safe to recommend to a person
     maxProtein = (dvPro - tPro) * 100
     maxSodium = (dvSod - tSod) * 100
     maxPhosphorus = (dvPho - tPho) * 100
     maxPotassium = (dvPot - tPot) * 100
 
+    #if the negatives are erroring, try this instead
+    #this will make anything that is a negtaive value equal to 0 instead
     try :
 
         maxProtein = (dvPro - tPro) * 100
@@ -293,7 +332,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         if maxPotassium < 0 :
             maxPotassium = 0
 
-
         suggested_recipeid_dict = searchRecipeByNutrient(maxProtein, maxPotassium, maxPhosphorus, maxSodium)
 
         suggested_recipeid_list = list()
@@ -309,6 +347,8 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
     except :
         suggested_recipe_list = list()
 
+    #through one of the above methods, a list of recipes will be created 
+    #this list will be displayed as recommended recipes on the dash page
 
 
     context = {
@@ -336,16 +376,14 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
 
     return render(request, 'health_app/dash.html', context)
 
+#this allows a user to view recipes (search)
 def dashboardRecipePageView(request, user_id) :
     user = User.objects.get(id = user_id)
     recipe_name = request.GET['recipe_name']
-    # context = {
-    #     'recipe_dict' : searchRecipes(recipe_name),
-    #     'user' : user
-    # }
 
     return dashboardPageView(request, user_id, recipe_name=recipe_name)
 
+#this allows a user to add recipes to their record
 def addRecipePageView(request, user_id) :
     user = User.objects.get(id = user_id)
 
@@ -371,40 +409,25 @@ def addRecipePageView(request, user_id) :
     new_meal.save()
 
 
-    # context = {
-    #     'user' : user
-
-    # }
-
     return dashboardPageView(request, user_id)
 
+#allows user to search through foods (like bananas)
 def dashboardIngredientPageView(request, user_id) :
     user = User.objects.get(id = user_id)
 
     ingredient_name = request.GET['ingredient_name']
 
-    # context = {
-    #     'ingredient_dict' : searchIngredients(ingredient_name),
-    #     'user' : user
-
-    # }
-
     return dashboardPageView(request, user_id, ingredient_name=ingredient_name)
 
+#allows user to see and select the unit and amount of food they consumed
 def dashboardIngredientUnitPageView(request, user_id, ingredient_name) :
     user = User.objects.get(id = user_id)
 
     ingredient_id = request.GET['selected_ingredient']
 
-    # context = {
-    #     'measure_list' : getIngredientInformation1(ingredient_id),
-    #     'ingredient_id' : ingredient_id,        
-    #     'user' : user,
-
-    # }
-
     return dashboardPageView(request, user_id, ingredient_id=ingredient_id, ingredient_name=ingredient_name)
 
+#allows user to add food (like banana) to their record
 def addIngredientPageView(request, ingredient_id, user_id, ingredient_name) :
     user = User.objects.get(id = user_id)
 
@@ -431,12 +454,9 @@ def addIngredientPageView(request, ingredient_id, user_id, ingredient_name) :
     new_meal.save()
 
 
-    # context = {
-    #     'user' : user
-    # }
-
     return dashboardPageView(request, user_id)
 
+# this allows a user to add water to their record
 def addWaterPageView(request, user_id) :
     user = User.objects.get(id = user_id)
 
@@ -453,12 +473,10 @@ def addWaterPageView(request, user_id) :
     new_meal.user = user
     new_meal.save()
 
-    # context = {
-    #     'user' : user
-    # }
 
     return dashboardPageView(request, user_id)
 
+# this is the page view to see history (journal and nutrient intake history chart)
 def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, ingredient_id=None, selection = 'protein') :
     if recipe_name != None :
         recipe_dict = searchRecipes(recipe_name)
@@ -478,9 +496,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     user = User.objects.get(id = user_id)
     
 
-    #get list of dates from today backward
-    
-
+    #get list of dates of the week, starting today going backward
     pastWeekDates = []
     from datetime import datetime, timedelta
     today = datetime.now().date()
@@ -492,6 +508,8 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         pastWeekDates.append(dateToAdd)
 
     pastWeekDates.reverse()
+    
+    #according to dailyvalue table, determine the daily value of each nutrient
     daily_val = DailyValue.objects.get(id = user.dv_determinate.daily_value.id)
     dvCarbs = daily_val.carbs    # * bmiCoef
     dvPro = daily_val.protein * user.weight / 2.2   # * bmiCoef
@@ -500,7 +518,9 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     dvSod = daily_val.sodium     # * bmiCoef
     dvPho = daily_val.phosphorus # * bmiCoef
     dvPot = daily_val.potassium  # * bmiCoef
+    dvCal = daily_val.calories # *bmiCoef
 
+    #initialize lists of recommended amounts of nutrients
     proRecList = []
     carbsRecList = []
     fatRecList = []
@@ -508,7 +528,10 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     sodRecList = []
     phoRecList = []
     potRecList = []
+    calRecList = []
 
+    #loop through these 7 times (to match one week) to add the recommended daily value of 
+    #the nutrients (this will create a base line on chart to compare consumed nutrients to)
     count = 0 
     while count < 8:
         proRecList.append(dvPro)
@@ -518,9 +541,10 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         sodRecList.append(dvSod)
         phoRecList.append(dvPho)
         potRecList.append(dvPot)
+        calRecList.append(dvCal)
         count += 1
 
-    
+    #initialize empty lists that will contain the sum of what people actually ate in each day
     proActList = []   #sum of protein that person ate in one day
     carbsActList = []
     fatActList = []
@@ -528,8 +552,10 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
     sodActList = []
     phoActList = []
     potActList = []
+    calActList = []
 
-
+    #this is copy and pasted from the dashboard view function
+    #this will create sums of each nutrient eaten each day
     for list_date in pastWeekDates:
         viz_meal_dict = Meal.objects.filter(date = list_date, user = user_id)
 
@@ -544,6 +570,7 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         totalSod = 0
         totalPho = 0
         totalPot = 0
+        totalCal = 0
 
         for recipe in recipe_list :
             totalCarb += recipe.carbs
@@ -553,7 +580,9 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
             totalSod += recipe.sodium
             totalPho += recipe.phosphorus
             totalPot += recipe.potassium
+            totalCal += recipe.calories
         
+        #append the total to the actual lists (7 times to match the 7 days)
         proActList.append(totalPro)
         carbsActList.append(totalCarb)
         fatActList.append(totalFat)
@@ -561,19 +590,20 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         sodActList.append(totalSod)
         phoActList.append(totalPho)
         potActList.append(totalPot)
+        calActList.append(totalCal)
+        
 
-
-    #dummy stuff
-    #add selection ability
+    #add selection ability using lists to send data
     selection = request.POST.get('nutList')
     actList = []
     nutrientList = []
 
+    #if a user selects potassium, the lists pertaining to potassium will be sent as well as the 
+    #variable of string showing what the user selected in the select box
     if selection == 'Potassium':
         nutrientList = potRecList
         actList = potActList
         nutSelectOpt = 'Potassium (mg)'
-
     elif selection == 'Carbs':
         nutrientList = carbsRecList
         actList = carbsActList
@@ -618,13 +648,14 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         'ingredient_id' : ingredient_id,
         'measure_list' : measure_list,
         'pastWeekDates' : pastWeekDates,
-        'actList' : actListToPass,
-        'recList' : recListToPass,
+        'actList' : actList,
+        'recList' : nutrientList,
         'nutrientSelect' : nutSelectOpt
 
     }
     return render(request, 'health_app/history.html', context)
 
+#this function is pertaining to the doughnut chart on the dash page
 def pieChart(request) : 
     # user = User.objects.get(id = user_id)
     # today = datetime.now().date()
@@ -646,6 +677,7 @@ def pieChart(request) :
 
     return render(request, 'health_app/piechart.html', context)
 
+#after hitting an edit button, this sends the user to a page to edit a record 
 def updateRecipePageView(request, user_id, meal_id):
     user = User.objects.get(id = user_id)
     meal = Meal.objects.get(id = meal_id, user = user_id)
@@ -656,6 +688,7 @@ def updateRecipePageView(request, user_id, meal_id):
     }
     return render(request, 'health_app/update_recipe.html', context)
 
+#this allows people to edit their meals using on an edit page and then saves the changes
 def editRecipe(request, user_id, meal_id):
     meal = Meal.objects.get(id = meal_id, user = user_id)
     meal.date = request.POST.get('meal_date')
@@ -676,6 +709,7 @@ def editRecipe(request, user_id, meal_id):
 
     return historyPageView(request, user_id)
 
+#this allows a user to delete a food or recipe they recorded
 def deleteRecipe(request, user_id, meal_id):
     meal = Meal.objects.get(id = meal_id, user = user_id)
     recipe = Recipe.objects.get(id = meal.recipe.id)
