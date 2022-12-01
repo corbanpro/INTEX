@@ -170,14 +170,14 @@
                                             <th>Fat</th>
                                             <th>Water</th>
                                             <th>Sodium</th>
-                                            <th>phosphorus</th>
+                                            <th>Posphorus</th>
                                             <th>Potassium</th>
-                                            <th>Update</th>
+                                            <th class="w-10">Edit</th>
+                                            <th class="w-10">Delete</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            
                                             <th>Date &amp Time</th>
                                             <th>Recipe Name</th>
                                             <th>Calories</th>
@@ -186,9 +186,10 @@
                                             <th>Fat</th>
                                             <th>Water</th>
                                             <th>Sodium</th>
-                                            <th>phosphorus</th>
+                                            <th>Phosphorus</th>
                                             <th>Potassium</th>
-                                            
+                                            <th class="w-10">Edit</th>
+                                            <th class="w-10">Delete</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -205,12 +206,13 @@
                                             <td>{{meal.recipe.sodium}}</td>
                                             <td>{{meal.recipe.phosphorus}}</td>
                                             <td>{{meal.recipe.potassium}}</td>
-                                            <td class="history-table-row" style="text-align: center;">
+                                            <td class="history-table-row" style="">
                                                 <form name="form" action="{% url 'update_recipe' user_id=user.id meal_id=meal.id %}" method="Post">
                                                     {% csrf_token %}
                                                     <button class="btn btn-info">Edit</button>
                                                 </form>
-                                                <p>   </p>
+                                            </td>
+                                            <td class="history-table-row" style="">
                                                 <form name="form" action="{% url 'delete_recipe' user_id=user.id meal_id=meal.id %}" method="Post">
                                                     {% csrf_token %}
                                                     <button class="btn btn-info">Delete</button>
