@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .functions import searchRecipes, getRecipeInformation, searchIngredients, getIngredientInformation1, getIngredientInformation2, searchRecipeByNutrient
-from .models import User, Recipe, Meal, DvDeterminate, DailyValue, Unit
+from .models import User, Recipe, Meal, DvDeterminate, DailyValue
 from datetime import datetime
 from django.http import HttpResponse
 
@@ -188,18 +188,18 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         tPho += recipe.phosphorus
         tPot += recipe.potassium
 
-    avgBmi = 21.7
-    bmi = (user.weight / user.height**2) * 703
-    bmiCoef = bmi / avgBmi # maybe add some other random coefficient here to make the effect stronger or weaker. idk
+    # avgBmi = 21.7
+    # bmi = (user.weight / user.height**2) * 703
+    # bmiCoef = bmi / avgBmi # maybe add some other random coefficient here to make the effect stronger or weaker. idk
 
     # some of these might be multiplied, others divided. I don't know anything about nutrition
-    dvCarbs = daily_val.carbs    * bmiCoef
-    dvPro = daily_val.protein    * bmiCoef
-    dvFat = daily_val.fat        * bmiCoef
-    dvWat = daily_val.water      * bmiCoef
-    dvSod = daily_val.sodium     * bmiCoef
-    dvPho = daily_val.phosphorus * bmiCoef
-    dvPot = daily_val.potassium  * bmiCoef
+    dvCarbs = daily_val.carbs    # * bmiCoef
+    dvPro = daily_val.protein    # * bmiCoef
+    dvFat = daily_val.fat        # * bmiCoef
+    dvWat = daily_val.water      # * bmiCoef
+    dvSod = daily_val.sodium     # * bmiCoef
+    dvPho = daily_val.phosphorus # * bmiCoef
+    dvPot = daily_val.potassium  # * bmiCoef
 
     pdvCarbs = (tCarbs / dvCarbs) * 100
     pdvPro = (tPro / dvPro) * 100
@@ -300,15 +300,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         suggested_recipe_list = list()
 
 
-    sodUnit = Unit.objects.get(nutrient = 'sodium')
-    phoUnit = Unit.objects.get(nutrient = 'phosphorus')
-    potUnit = Unit.objects.get(nutrient = 'potassium')
-    carUnit = Unit.objects.get(nutrient = 'carbs')
-    calUnit = Unit.objects.get(nutrient = 'calories')
-    watUnit = Unit.objects.get(nutrient = 'water')
-    proUnit = Unit.objects.get(nutrient = 'protein')
-    fatUnit = Unit.objects.get(nutrient = 'fat')
-
     context = {
         'user' : user,
         'fCarb': pdvCarbs,
@@ -327,14 +318,6 @@ def dashboardPageView(request, user_id=1, recipe_name=None, ingredient_name=None
         'foodList' : foodList,
         'nutrientList' : nutrientList,
         'nutrientSelect': nutSelectOpt,
-        'sodUnit' : sodUnit.unit,
-        'phoUnit' : phoUnit.unit,
-        'potUnit' : potUnit.unit,
-        'carUnit' : carUnit.unit,
-        'calUnit' : calUnit.unit,
-        'watUnit' : watUnit.unit,
-        'proUnit' : proUnit.unit,
-        'fatUnit' : fatUnit.unit,
 
 
         'colLst' : colorVar,
