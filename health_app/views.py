@@ -512,7 +512,7 @@ def pieChart(request) :
 
 def updateRecipePageView(request, user_id, meal_id):
     user = User.objects.get(id = user_id)
-    meal = Meal.objects.filter(id = meal_id, user = user_id)
+    meal = Meal.objects.get(id = meal_id, user = user_id)
     
     context = {
         'user' : user,
