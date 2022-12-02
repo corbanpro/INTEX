@@ -2,7 +2,7 @@ import math
 toph_api_key = 'ffcbb1d69amsh90230347f7931d3p1536aejsn25568159361e'
 mckenna_api_key = '33ea8e8ec5msh5b89e2129e49ef7p1ad746jsnc923290b266f'
 corban_api_key = '4280b68f46mshaf658c384f5e5a5p1b442bjsn0a6f338351ad'
-api_key = toph_api_key
+api_key = mckenna_api_key
 
 def searchRecipes(recipe):
     import requests

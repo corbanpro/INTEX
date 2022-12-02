@@ -2,7 +2,13 @@
 {% load static %}
 {% block title %} Nutrition Info {% endblock %}
 {% block content %}
-<body class="sb-nav-fixed sb-sidenav-toggled bg-primary">
+<style>
+.nutrition-body {
+    background-color: rgba(239, 90, 36, 0.65); 
+}
+</style>
+
+<body class="sb-nav-fixed sb-sidenav-toggled nutrition-body">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-secondary">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="{% url 'dash' user_id=user.id %}">Whealth</a>
@@ -135,7 +141,7 @@
                                 <div class="row justify-content-center">
                                     <div class="col-lg-6">
                                         <div  class="card-body" >
-                                            <img src="{% static 'admin/img/fat_img.jpeg' %}" alt="fat" width="450rem" height="auto" id="fat">
+                                            <img src="{% static 'admin/img/healthy_fats.jpeg' %}" alt="fat" width="450rem" height="auto" id="fat">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -401,7 +407,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div  class="card-body">
-                                            <img src="{%static 'admin/img/phosphorus.jpeg' %}" alt="phosphorus" width="450rem" height="auto">
+                                            <img src="{%static 'admin/img/healthy_phos.jpeg' %}" alt="phosphorus" width="450rem" height="auto">
                                         </div>
                                     </div>
 
