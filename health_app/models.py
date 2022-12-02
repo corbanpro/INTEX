@@ -54,7 +54,7 @@ class User(models.Model) :
 
 
 class Recipe(models.Model) :
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
     calories = models.IntegerField(default= 0)
     fat = models.IntegerField(default= 0)
     protein = models.IntegerField(default= 0)

@@ -322,6 +322,7 @@
                                     <th>Sodium (mg)</th>
                                     <th>Phosphorus (mg)</th>
                                     <th>Potassium (mg)</th>
+                                    <th class="w-10">Add</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -351,9 +352,9 @@
                                     <td>{{suggested_recipe.phosphorus}}</td>
                                     <td>{{suggested_recipe.potassium}}</td>
                                     <td class="history-table-row" style="">
-                                        <form name="selected_recipe" action="{% url 'addRecipe' user_id=user.id  %}" method="Post">
+                                        <form name="form" action="{% url 'add_suggested_recipe' user_id=user.id recipe_title=suggested_recipe.title %}" method="Post">
                                             {% csrf_token %}
-                                            <input class="btn btn-info" label="Add" name="selected_recipe" type="submit" value="{{suggested_recipe.id}}"></input>
+                                            <button class="btn btn-info">Add</button>
                                         </form>
                                     </td>
                                 </tr>

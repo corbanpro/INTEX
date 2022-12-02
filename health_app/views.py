@@ -410,6 +410,34 @@ def addRecipePageView(request, user_id) :
 
     return dashboardPageView(request, user_id)
 
+def addSuggestedRecipePageView(request, user_id, recipe_title) :
+    user = User.objects.get(id = user_id)
+    recipe_id = searchRecipes(recipe_title)
+
+    recipe_dict = getRecipeInformation(recipe_id[recipe_title])
+
+    new_recipe = Recipe()
+
+    new_recipe.name = recipe_dict['title']
+    new_recipe.fat = recipe_dict['fat']
+    new_recipe.protein = recipe_dict['protein']
+    new_recipe.carbs = recipe_dict['carbs']
+    new_recipe.potassium = recipe_dict['potassium']
+    new_recipe.phosphorus = recipe_dict['phosphorus']
+    new_recipe.sodium = recipe_dict['sodium']
+    new_recipe.calories = recipe_dict['calories'] 
+    new_recipe.save()
+
+    new_meal = Meal()
+    new_meal.date = datetime.now().date()
+    new_meal.recipe = new_recipe
+    new_meal.user = user
+    new_meal.save()
+
+
+    return dashboardPageView(request, user_id)
+
+
 #allows user to search through foods (like bananas)
 def dashboardIngredientPageView(request, user_id) :
     user = User.objects.get(id = user_id)
