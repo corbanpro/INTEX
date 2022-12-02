@@ -193,8 +193,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-sm-center align-items-md-center">
-                    <div class="col-xl-10 justify-content-sm-center">
+                <div class="row">
+                    <div class=" justify-content-sm-center">
                         <div class="card mb-4">
                             <div class="accordion accordion-flush" id="accordionFlushExample">
                                 <div class="accordion-item">
@@ -237,7 +237,7 @@
                                                 <div class = "col-xl-12">
                                                     <div class="d-flex justify-content-around align-items-center">
                                                         <div class="text-center">
-                                                            <canvas id="myChartDoughnut" class="w-75 h-75 p-sm-3" width="200%" height="200%"></canvas>
+                                                            <canvas id="myChartDoughnut" class="w-75 h-75 p-sm-3 doughnut-no-margin" display="flex"></canvas>
                                                         </div>
                                                     </div>
                                                     <script>
@@ -334,6 +334,9 @@
                                     <th>Sodium (mg)</th>
                                     <th>Phosphorus (mg)</th>
                                     <th>Potassium (mg)</th>
+                                    <th class="w-10">Add</th>
+
+
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -347,6 +350,12 @@
                                     <td>{{suggested_recipe.sodium}}</td>
                                     <td>{{suggested_recipe.phosphorus}}</td>
                                     <td>{{suggested_recipe.potassium}}</td>
+                                    <td class="history-table-row" style="">
+                                        <form name="selected_recipe" action="{% url 'addRecipe' user_id=user.id  %}" method="Post">
+                                            {% csrf_token %}
+                                            <input class="btn btn-info" label="Add" name="selected_recipe" type="submit" value="{{suggested_recipe.id}}"></input>
+                                        </form>
+                                    </td>
                                 </tr>
                                 {% endfor %}
 

@@ -49,8 +49,7 @@ def dashboardUserPageView(request):
     #this enters in the stage of kidney disease they have 
     KDS = request.POST.get('comorb_kds')
 
-    
-    # new_user.dv_determinate = DvDeterminate.objects.get(sex = user_sex, highBloodPressure = HBP, diabetes = DB, kidneyDiseaseStage = KDS)
+
     try :
         new_user.dv_determinate = DvDeterminate.objects.get(sex = user_sex, highBloodPressure = HBP, diabetes = DB, kidneyDiseaseStage = KDS)
 
@@ -620,6 +619,10 @@ def historyPageView(request, user_id, recipe_name=None, ingredient_name=None, in
         nutrientList = phoRecList
         actList = phoActList
         nutSelectOpt = 'Phosphorous (mg)'
+    elif selection == 'Calories':
+        nutrientList = calRecList
+        actList = calActList
+        nutSelectOpt = 'Calories (kCal)'
     else :
         nutrientList = proRecList
         actList = proActList

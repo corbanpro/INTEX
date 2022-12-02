@@ -11766,3 +11766,8 @@ td .history-table-row {
   text-align: center;
   display: inline;  
 }
+
+.doughnut-no-margin {
+  display: flex !important;
+
+}
