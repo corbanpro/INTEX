@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %} Nutrition Info {% endblock %}
 {% block content %}
-<body class="sb-nav-fixed sb-sidenav-toggled">
+<body class="sb-nav-fixed sb-sidenav-toggled bg-primary">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-secondary">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="{% url 'dash' user_id=user.id %}">Whealth</a>
@@ -42,6 +42,8 @@
                     <!--<li class="breadcrumb-item active">Dashboard</li>-->
                 </ol>
                 </div>
+
+
                 <div class="row justify-content-sm-center align-items-md-center">
                     <div class="col-xl-10 justify-content-sm-center">
                         <div class="card">
@@ -62,29 +64,99 @@
                                 <h2>Learn more about: </h2><br>
                                 <h5><a href="#protein" style="text-decoration: none"> Protein &emsp;</a> <a href="#fat" style="text-decoration: none"> Fat &emsp;</a> <a href="#carbs" style="text-decoration: none"> Carbs &emsp;</a> <a href="#water" style="text-decoration: none"> Water &emsp;</a> <a href="#potassium" style="text-decoration: none"> Potassium &emsp;</a> <a href="#sodium" style="text-decoration: none"> Sodium &emsp;</a><a href="#phosphorus" style="text-decoration: none"> Phosphorus</a> </h5>
                             </div>
-                            <br><br><br>
-                            <div id="protein" class="card-body">
-                                <h1><b>Protein</b></h1><br>
-                                <p> Protein is a complex group of molecules that performs many jobs in your body. Protein makes up your hair, nails, bones, and muscles. It gives tissues and organs their shape and also helps them work the way they should. In short, protein is one of the building blocks that make you into who you are.
-                                    <br><br>
-                                    You need protein to keep up the size and shape of your muscles. As you lose weight, protein prevents you from losing muscle at the same time. In physical activity, protein is the key to building more muscle. 
-                                    </p>
-                                    <br>
-                                    <p>Foods High in Protein: </p>
 
-                                    <ul>
-                                        <li>  Seafood</li>
-                                        <li>  White-Meat Poultry</li>
-                                        <li>  Milk, Cheese, and Yogurt</li>
-                                        <li>  Eggs</li>
-                                        <li>  Beans</li>
-                                        <li>  Soy</li>
-                                        <li>  Lean Beef</li>
+                            <br>
+                            <!-- right here -->
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6">
+                                        <div  class="card-body" id="protein">
+                                            <h1><b>Protein</b></h1>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div  class="card-body" id="protein">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6">
+                                        <div  class="card-body" id="protein">
+                                            <p> Protein is a complex group of molecules that performs many jobs in your body. Protein makes up your hair, nails, bones, and muscles. It gives tissues and organs their shape and also helps them work the way they should. In short, protein is one of the building blocks that make you into who you are.
+                                                <br><br>
+                                                You need protein to keep up the size and shape of your muscles. As you lose weight, protein prevents you from losing muscle at the same time. In physical activity, protein is the key to building more muscle. 
+                                                </p>
+                                                <br>
+                                                <p>Foods High in Protein: </p>
 
-                                    </ul>
-                                    <img src="{%static 'admin/img/proteinimg.jpg' %}" alt="protein" width="500px" height="auto">
+                                                <ul>
+                                                    <li>  Seafood</li>
+                                                    <li>  White-Meat Poultry</li>
+                                                    <li>  Milk, Cheese, and Yogurt</li>
+                                                    <li>  Eggs</li>
+                                                    <li>  Beans</li>
+                                                    <li>  Soy</li>
+                                                    <li>  Lean Beef</li>
 
+                                                </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div  class="card-body" id="protein">
+                                            <img src="{%static 'admin/img/proteinimg.jpg' %}" alt="protein" width="400rem" height="auto">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6">
+                                        <div  class="card-body">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div  class="card-body" id="fat">
+                                            <h1><b>Fat</b></h1>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6">
+                                        <div  class="card-body" id="protein">
+                                            <img src="{%static 'admin/img/proteinimg.jpg' %}" alt="protein" width="400rem" height="auto">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div  class="card-body" >
+                                            <p> Protein is a complex group of molecules that performs many jobs in your body. Protein makes up your hair, nails, bones, and muscles. It gives tissues and organs their shape and also helps them work the way they should. In short, protein is one of the building blocks that make you into who you are.
+                                                <br><br>
+                                                You need protein to keep up the size and shape of your muscles. As you lose weight, protein prevents you from losing muscle at the same time. In physical activity, protein is the key to building more muscle. 
+                                                </p>
+                                                <br>
+                                                <p>Foods High in Protein: </p>
+
+                                                <ul>
+                                                    <li>  Seafood</li>
+                                                    <li>  White-Meat Poultry</li>
+                                                    <li>  Milk, Cheese, and Yogurt</li>
+                                                    <li>  Eggs</li>
+                                                    <li>  Beans</li>
+                                                    <li>  Soy</li>
+                                                    <li>  Lean Beef</li>
+
+                                                </ul>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+
+
+
                             <br> <br> <br> <br> <br>
                             <div id="fat" class="card-body">
                                 <h1> Fat</h1>

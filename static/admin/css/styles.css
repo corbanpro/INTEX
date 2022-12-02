@@ -11771,3 +11771,14 @@ td .history-table-row {
   display: flex !important;
 
 }
+
+.nutrition-scroll {
+  scroll-padding-top: 100px;
+}
+
+.anchor {
+  display: block; 
+  position: relative; 
+  top: -250px;
+  visibility: hidden;
+}
