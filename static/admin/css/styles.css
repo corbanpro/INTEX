@@ -7832,10 +7832,12 @@ textarea.form-control-lg {
   --bs-text-opacity: 1;
 }
 
+
 .bg-primary {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
 }
+
 
 .bg-primary-op-75 {
   background-color: rgba(239, 90, 36, .75) !important;
@@ -7914,6 +7916,11 @@ textarea.form-control-lg {
 
 .bg-opacity-100 {
   --bs-bg-opacity: 1;
+}
+
+.bg-nutrition {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-gradient {
@@ -11772,9 +11779,6 @@ td .history-table-row {
 
 }
 
-.nutrition-scroll {
-  scroll-padding-top: 100px;
-}
 
 .anchor {
   display: block; 
@@ -11782,3 +11786,4 @@ td .history-table-row {
   top: -250px;
   visibility: hidden;
 }
+
